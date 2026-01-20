@@ -1,0 +1,14 @@
+/*
+Theme Name: Our Hero, Balthazar
+Theme URI: https://ourherobalthazar.com
+Author: Picturehouse
+Author URI: https://picturehouse.com
+Description: Custom minimalist theme for Our Hero, Balthazar film website
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: ourherobalthazar
+*/
+
+/* Import main styles */
+@import url('assets/css/styles.css');

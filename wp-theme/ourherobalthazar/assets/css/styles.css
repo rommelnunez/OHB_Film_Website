@@ -1,0 +1,378 @@
+/* ===================================
+   OHB FILM WEBSITE - CINEMATIC SPEC
+   =================================== */
+
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-bg: #000000;
+  --color-text: #ffffff;
+  --color-accent: #e63946;
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --letter-spacing-wide: 0.5em;
+  --letter-spacing-standard: 0.2em;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-bg);
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+/* ===================================
+   LAYOUT - FULL SCREEN HERO
+   =================================== */
+
+.cinematic-frame {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  background-color: var(--color-bg);
+  overflow: hidden;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url('../images/hero-official.jpg') center/cover no-repeat;
+  z-index: 1;
+}
+
+.nav-overlay {
+  position: absolute;
+  top: 4rem;
+  width: 100%;
+  z-index: 100;
+}
+
+/* ===================================
+   NAVIGATION
+   =================================== */
+
+nav.minimal-nav {
+  position: relative;
+  z-index: 200;
+}
+
+nav.minimal-nav ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  gap: 4rem;
+}
+
+nav.minimal-nav a {
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-standard);
+  text-transform: uppercase;
+  transition: opacity 0.3s ease;
+}
+
+nav.minimal-nav a:hover {
+  opacity: 0.7;
+}
+
+/* ===================================
+   HERO CONTENT
+   =================================== */
+
+.hero-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 90%;
+  z-index: 150;
+}
+
+.film-title {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 800;
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.cta-group {
+  margin-top: 3rem;
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.btn-minimal {
+  padding: 1rem 2rem;
+  border: 1px solid var(--color-text);
+  background: transparent;
+  color: var(--color-text);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-minimal:hover {
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+
+/* ===================================
+   SECTIONS
+   =================================== */
+
+.section {
+  padding: 8rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.section-title {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  margin-bottom: 4rem;
+  text-align: center;
+  color: var(--color-text);
+  opacity: 0.6;
+}
+
+/* Gallery */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1rem;
+}
+
+.gallery-item {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #111;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Quotes */
+.quote-container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.quote-text {
+  font-size: 1.5rem;
+  font-style: italic;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.quote-author {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+}
+
+/* Cast */
+.cast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 3rem;
+}
+
+.cast-card {
+  position: relative;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.cast-card:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-4px);
+}
+
+.cast-card h3 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.cast-role {
+  font-size: 0.85rem;
+  opacity: 0.6;
+  margin-bottom: 1rem;
+}
+
+.cast-bio {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.cast-card:hover .cast-bio {
+  opacity: 1;
+  max-height: 200px;
+  margin-top: 1rem;
+}
+
+/* Events / Q&As */
+.events-container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.event-card {
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.event-card:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.event-date {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  opacity: 0.5;
+  margin-bottom: 1rem;
+}
+
+.event-title {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.event-location {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+}
+
+.event-time {
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+/* Footer & Billing Block */
+footer {
+  padding: 6rem 0;
+  text-align: center;
+  background-color: var(--color-bg);
+}
+
+.billing-block-img {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 4rem;
+  opacity: 0.8;
+  display: block;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  list-style: none;
+}
+
+.footer-links a {
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+}
+
+.footer-links a:hover {
+  opacity: 1;
+}
+
+.copyright {
+  font-size: 0.65rem;
+  opacity: 0.4;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  nav.minimal-nav ul {
+    gap: 1.5rem;
+  }
+
+  nav.minimal-nav a {
+    font-size: 0.7rem;
+  }
+
+  .film-title {
+    font-size: 2.5rem;
+    letter-spacing: 0.3em;
+  }
+
+  .cta-group {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .btn-minimal {
+    width: 200px;
+  }
+
+  .section {
+    padding: 4rem 1.5rem;
+  }
+}
