@@ -138,9 +138,20 @@ nav.minimal-nav a:hover {
   z-index: 150;
 }
 
+@font-face {
+  font-family: 'Neue Haas Grotesk Display Black';
+  src: url('../fonts/NeueHaasDisplayBlack.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 .film-title {
+  font-family: 'Neue Haas Grotesk Display Black', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: clamp(2rem, 5vw, 4rem);
-  font-weight: 800;
+  font-weight: 900;
+  /* Matching the Black weight */
+  /* 75 Bold equivalent */
   letter-spacing: var(--letter-spacing-wide);
   text-transform: uppercase;
   margin-bottom: 2rem;
