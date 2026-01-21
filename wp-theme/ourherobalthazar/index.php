@@ -60,7 +60,7 @@ $synopsis = get_theme_mod('synopsis', '');
   <!-- Ticketing Section -->
   <section id="tickets" class="section">
     <h2 class="section-title">Initial Launch - NY & LA</h2>
-    <div class="gallery-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+    <div class="gallery-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
       <!-- New York -->
       <div class="gallery-item" style="display: flex; flex-direction: column; padding: 2rem; border: 1px solid rgba(255,255,255,0.1); justify-content: space-between; height: 300px;">
         <div>
