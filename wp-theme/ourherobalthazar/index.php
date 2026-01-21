@@ -14,7 +14,16 @@ $synopsis = get_theme_mod('synopsis', '');
 
   <!-- Full Screen Hero Section -->
   <div class="cinematic-frame" id="hero">
-    <div class="hero-background" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('<?php echo esc_url($hero_image); ?>') center/cover no-repeat;"></div>
+    <div class="hero-slideshow">
+      <div class="hero-slide active" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slideshow/OHB-BalthyHero.jpg');"></div>
+      <div class="hero-slide" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slideshow/OHB-BoysDriving.jpg');"></div>
+      <div class="hero-slide" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slideshow/OHB-BoysShooting-1.jpg');"></div>
+      <div class="hero-slide" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slideshow/OHB-BoysShooting-2.jpg');"></div>
+      <div class="hero-slide" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slideshow/OHB-BoysShooting-3.jpg');"></div>
+      <div class="hero-slide" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slideshow/OHB-BoysWalking.jpg');"></div>
+      <div class="hero-slide" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slideshow/OHB-SolomonHero.jpg');"></div>
+    </div>
+    <div class="hero-overlay-gradient"></div>
     
     <div class="nav-overlay">
       <nav class="minimal-nav">
