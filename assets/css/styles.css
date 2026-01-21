@@ -143,6 +143,7 @@ nav.minimal-nav a:hover {
   text-transform: uppercase;
   margin-bottom: 2rem;
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  color: var(--color-accent);
 }
 
 .cta-group {
