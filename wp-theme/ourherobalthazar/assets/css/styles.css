@@ -218,15 +218,11 @@ nav.minimal-nav a:hover {
 
 /* Adjust CTA group to sit above the bottom title */
 .cta-group {
-  position: absolute;
-  bottom: 25%;
-  /* Move up to not overlap 'balthazar' too much */
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top: 2rem;
   display: flex;
+  justify-content: center;
   gap: 1.5rem;
   z-index: 20;
-  /* Above title */
 }
 
 
