@@ -7,7 +7,7 @@
 get_header();
 
 // Get customizer values
-$hero_image = get_theme_mod('hero_image', get_template_directory_uri() . '/assets/images/hero-official.jpg');
+$hero_image = get_theme_mod('hero_image', get_template_directory_uri() . '/assets/images/hero-official.webp');
 $trailer_url = get_theme_mod('trailer_url', 'https://www.youtube.com/embed/dQw4w9WgXcQ');
 $synopsis = get_theme_mod('synopsis', '');
 ?>
@@ -15,13 +15,13 @@ $synopsis = get_theme_mod('synopsis', '');
   <!-- Full Screen Hero Section -->
   <div class="cinematic-frame" id="hero">
     <div class="hero-slideshow">
-      <div class="hero-slide active" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slideshow/OHB-BalthyHero.jpg');"></div>
-      <div class="hero-slide" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slideshow/OHB-BoysDriving.jpg');"></div>
-      <div class="hero-slide" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slideshow/OHB-BoysShooting-1.jpg');"></div>
-      <div class="hero-slide" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slideshow/OHB-BoysShooting-2.jpg');"></div>
-      <div class="hero-slide" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slideshow/OHB-BoysShooting-3.jpg');"></div>
-      <div class="hero-slide" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slideshow/OHB-BoysWalking.jpg');"></div>
-      <div class="hero-slide" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slideshow/OHB-SolomonHero.jpg');"></div>
+      <div class="hero-slide active" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slideshow/OHB-BalthyHero.webp');"></div>
+      <div class="hero-slide" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slideshow/OHB-BoysDriving.webp');"></div>
+      <div class="hero-slide" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slideshow/OHB-BoysShooting-1.webp');"></div>
+      <div class="hero-slide" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slideshow/OHB-BoysShooting-2.webp');"></div>
+      <div class="hero-slide" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slideshow/OHB-BoysShooting-3.webp');"></div>
+      <div class="hero-slide" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slideshow/OHB-BoysWalking.webp');"></div>
+      <div class="hero-slide" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/slideshow/OHB-SolomonHero.webp');"></div>
     </div>
     <div class="hero-overlay-gradient"></div>
     
