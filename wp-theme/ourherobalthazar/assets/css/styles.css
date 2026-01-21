@@ -155,7 +155,8 @@ nav.minimal-nav a:hover {
   left: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  /* Stack everything at top */
   padding: 8rem 5vw 4rem 5vw;
   /* Top padding clears nav, bottom clears bottom edge */
   pointer-events: none;
@@ -212,8 +213,9 @@ nav.minimal-nav a:hover {
   /* Very tight */
   filter: blur(0.5px);
   /* Reference "blurriness" */
-  margin-top: auto;
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  margin-top: 1rem;
+  /* Space between "our hero" and "balthazar" */
 }
 
 /* Adjust CTA group to sit above the bottom title */
@@ -223,6 +225,8 @@ nav.minimal-nav a:hover {
   justify-content: center;
   gap: 1.5rem;
   z-index: 20;
+  pointer-events: auto;
+  /* Enable clicking */
 }
 
 
