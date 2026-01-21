@@ -135,6 +135,25 @@ document.addEventListener('DOMContentLoaded', function () {
     setInterval(nextSlide, slideInterval);
   }
 
+  // ===================================
+  // MOBILE CAST BIOS (TAP TO REVEAL)
+  // ===================================
+
+  const castCards = document.querySelectorAll('.cast-card');
+  castCards.forEach(card => {
+    card.addEventListener('click', function () {
+      // Toggle active class on the clicked card
+      this.classList.toggle('active');
+
+      // Optional: Close other cards when one is opened
+      castCards.forEach(otherCard => {
+        if (otherCard !== this) {
+          otherCard.classList.remove('active');
+        }
+      });
+    });
+  });
+
   // Track trailer plays
   // TODO: Implement YouTube API event tracking for play/pause/complete
 
