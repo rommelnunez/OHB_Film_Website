@@ -36,10 +36,13 @@ $synopsis = get_theme_mod('synopsis', '');
     </div>
 
     <div class="hero-overlay">
-      <h1 class="film-title"><?php bloginfo('name'); ?></h1>
-      <div class="cta-group">
-        <a href="#about" class="btn-minimal">Watch Trailer</a>
-        <a href="#tickets" class="btn-minimal">Get Tickets</a>
+      <div class="hero-title-container">
+        <h1 class="title-part-bottom">balthazar</h1>
+        
+        <div class="cta-group">
+            <a href="#about" class="btn-minimal">Watch Trailer</a>
+            <a href="#tickets" class="btn-minimal">Get Tickets</a>
+        </div>
       </div>
     </div>
   </div>

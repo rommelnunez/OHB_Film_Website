@@ -150,18 +150,19 @@ nav.minimal-nav a:hover {
 .hero-title-container {
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: top;
   top: 0;
   left: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   /* Stack everything at top */
-  padding: 8rem 5vw 4rem 5vw;
+  padding: 0 5vw 4rem 5vw;
   /* Top padding clears nav, bottom clears bottom edge */
   pointer-events: none;
   /* Let clicks pass through to background if needed */
   z-index: 10;
+
 }
 
 .title-top-row {
@@ -169,11 +170,13 @@ nav.minimal-nav a:hover {
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
+  padding-bottom: 5rem;
+
 }
 
 .title-part-top {
   font-family: 'Neue Haas Grotesk Display Black', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(8rem, 8vw, 6rem);
   font-weight: 900;
   line-height: 0.85;
   color: var(--color-accent);
@@ -181,8 +184,10 @@ nav.minimal-nav a:hover {
   /* match reference "our hero," */
   text-align: left;
   letter-spacing: -0.02em;
+  filter: blur(1.5px);
   /* Tight spacing */
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  /*text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);*/
+  padding-bottom: 10rem;
 }
 
 .title-tagline {
@@ -193,9 +198,10 @@ nav.minimal-nav a:hover {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-top: 1rem;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  /*text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);*/
   text-align: right;
   max-width: 40%;
+  filter: blur(.5px);
 }
 
 .title-part-bottom {
@@ -207,14 +213,14 @@ nav.minimal-nav a:hover {
   text-transform: lowercase;
   /* match reference "balthazar" */
   text-align: center;
+
   width: 100%;
   line-height: 0.8;
   letter-spacing: -0.04em;
   /* Very tight */
-  filter: blur(0.5px);
+  filter: blur(1.5px);
   /* Reference "blurriness" */
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-  margin-top: 1rem;
+  /*text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);*/
   /* Space between "our hero" and "balthazar" */
 }
 
