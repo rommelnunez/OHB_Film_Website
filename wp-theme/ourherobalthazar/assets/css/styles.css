@@ -139,8 +139,10 @@ nav.minimal-nav a:hover {
 }
 
 .film-title {
+  font-family: 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: clamp(2rem, 5vw, 4rem);
-  font-weight: 800;
+  font-weight: 700;
+  /* 75 Bold equivalent */
   letter-spacing: var(--letter-spacing-wide);
   text-transform: uppercase;
   margin-bottom: 2rem;
