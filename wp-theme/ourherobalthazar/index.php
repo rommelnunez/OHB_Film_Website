@@ -9,7 +9,7 @@ get_header();
 // Get customizer values
 $hero_image = get_theme_mod('hero_image', get_template_directory_uri() . '/assets/images/hero-official.jpg');
 $trailer_url = get_theme_mod('trailer_url', 'https://www.youtube.com/embed/dQw4w9WgXcQ');
-$synopsis = get_theme_mod('synopsis', 'The website serves as the official, polished destination for Our Hero, Balthazar. Social is where we play. The site is where we convert.');
+$synopsis = get_theme_mod('synopsis', '');
 ?>
 
   <!-- Full Screen Hero Section -->
@@ -184,7 +184,6 @@ $synopsis = get_theme_mod('synopsis', 'The website serves as the official, polis
   <!-- Billing Block & Footer -->
   <footer>
     <div class="container">
-      <img src="<?php echo get_template_directory_uri(); ?>/assets/images/poster.png" alt="Billing Block" class="billing-block-img">
       
       <ul class="footer-links">
         <li><a href="https://www.instagram.com/ourherobalthazar/" target="_blank">Instagram</a></li>
