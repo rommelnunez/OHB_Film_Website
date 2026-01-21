@@ -176,8 +176,8 @@ nav.minimal-nav a:hover {
 
 .title-part-top {
   font-family: 'Neue Haas Grotesk Display Black', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: clamp(3rem, 8vw, 6rem);
-  /* Min 3rem on mobile, up to 6rem */
+  font-size: clamp(2rem, 10vw, 6rem);
+  /* Min 2rem allows scaling down on mobile */
   font-weight: 900;
   line-height: 0.85;
   color: var(--color-accent);
