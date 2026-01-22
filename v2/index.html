@@ -26,24 +26,14 @@
         </div>
     </header>
 
-    <!-- Hero Section (Full Screen) -->
+    <!-- Hero Section (Full Screen Video) -->
     <section class="v2-hero" id="hero">
-        <div class="hero-slideshow">
-            <div class="hero-slide active" style="background-image: url('../assets/images/slideshow/gallery-4.jpg');">
-            </div>
-            <div class="hero-slide"
-                style="background-image: url('../assets/images/slideshow/Balthy_1.110.4_crop.jpg');"></div>
-            <div class="hero-slide" style="background-image: url('../assets/images/slideshow/OHB-BalthyHero.jpg');">
-            </div>
-            <div class="hero-slide" style="background-image: url('../assets/images/slideshow/OHB-BoysDriving.jpg');">
-            </div>
-            <div class="hero-slide" style="background-image: url('../assets/images/slideshow/OHB-BoysShooting-3.jpg');">
-            </div>
-            <div class="hero-slide" style="background-image: url('../assets/images/slideshow/OHB-SolomonHero.jpg');">
-            </div>
+        <div class="video-facade hero-video-facade" data-video-id="dQw4w9WgXcQ"
+            style="background-image: url('../assets/images/teaser-preview.jpg'); position: absolute; top: 0; left: 0; height: 100%; width: 100%;">
+            <div class="play-button hero-play-btn"></div>
         </div>
 
-        <div class="v2-hero-content">
+        <div class="v2-hero-content" style="pointer-events: none;">
             <h1 class="v2-title">our hero,<br>balthazar</h1>
             <p class="v2-tagline">TAKE A SHOT AT FRIENDSHIP</p>
         </div>
@@ -56,13 +46,7 @@
         <div class="info-item">Coming Soon to Theaters</div>
     </div>
 
-    <!-- Teaser Section (Full Width) -->
-    <section id="teaser" class="v2-section v2-teaser">
-        <div class="video-facade" data-video-id="dQw4w9WgXcQ"
-            style="background-image: url('../assets/images/teaser-preview.jpg');">
-            <div class="play-button"></div>
-        </div>
-    </section>
+
 
     <!-- Ticketing Section -->
     <section id="tickets" class="v2-section v2-tickets">
@@ -195,21 +179,18 @@
         <img class="lightbox-image" src="" alt="Poster Full Screen">
     </div>
 
+    <!-- Video Lightbox -->
+    <div id="video-lightbox" class="lightbox-overlay">
+        <span class="lightbox-close video-lightbox-close">&times;</span>
+        <div class="video-lightbox-container"></div>
+    </div>
+
     <!-- Reusing main.js logic for slideshow/lightbox? Or minimal inline? -->
     <!-- We'll adapt main.js logic or create a v2.js if needed. For now let's reuse main.js if compatible, but paths might be issue. 
        Actually main.js assumes assets paths are relative to root. v2 is in subdir.
        Let's create a minimal script block here for v2 specific behavior to avoid path hell.
   -->
     <script>
-        // Minimal Slide Show
-        const slides = document.querySelectorAll('.hero-slide');
-        let currentSlide = 0;
-        setInterval(() => {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }, 3000);
-
         // Lightbox
         const posterTrigger = document.getElementById('poster-trigger');
         const lightbox = document.getElementById('lightbox');
@@ -243,26 +224,55 @@
         }
 
         // Video Facade
+        // Video Facade (Lightbox Version)
         const videoFacades = document.querySelectorAll('.video-facade');
-        videoFacades.forEach(facade => {
-            facade.addEventListener('click', function () {
-                const videoId = this.getAttribute('data-video-id');
-                if (videoId) {
-                    const iframe = document.createElement('iframe');
-                    iframe.setAttribute('width', '100%');
-                    iframe.setAttribute('height', '100%');
-                    iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1`);
-                    iframe.setAttribute('frameborder', '0');
-                    iframe.setAttribute('allowfullscreen', 'true');
-                    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        const videoLightbox = document.getElementById('video-lightbox');
+        const videoLightboxContainer = document.querySelector('.video-lightbox-container');
+        const videoLightboxClose = document.querySelector('.video-lightbox-close');
 
-                    this.innerHTML = '';
-                    this.appendChild(iframe);
-                    this.style.backgroundImage = 'none';
-                    this.style.cursor = 'default';
-                }
+        if (videoFacades.length > 0 && videoLightbox) {
+            videoFacades.forEach(facade => {
+                facade.addEventListener('click', function () {
+                    // Burst effect
+                    const playBtn = this.querySelector('.play-button') || this.querySelector('.hero-play-btn');
+                    if (playBtn) {
+                        playBtn.classList.add('clicked');
+                        setTimeout(() => { playBtn.classList.remove('clicked'); }, 600);
+                    }
+
+                    const videoId = this.getAttribute('data-video-id');
+                    if (videoId) {
+                        setTimeout(() => {
+                            videoLightbox.classList.add('active');
+
+                            const iframe = document.createElement('iframe');
+                            iframe.setAttribute('width', '100%');
+                            iframe.setAttribute('height', '100%');
+                            iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1`);
+                            iframe.setAttribute('frameborder', '0');
+                            iframe.setAttribute('allowfullscreen', 'true');
+                            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+
+                            videoLightboxContainer.innerHTML = '';
+                            videoLightboxContainer.appendChild(iframe);
+                            document.body.style.overflow = 'hidden';
+                        }, 300);
+                    }
+                });
             });
-        });
+
+            const closeVideoLightbox = () => {
+                videoLightbox.classList.remove('active');
+                videoLightbox.classList.remove('zoomed-mode');
+                videoLightboxContainer.innerHTML = '';
+                document.body.style.overflow = '';
+            };
+
+            if (videoLightboxClose) videoLightboxClose.addEventListener('click', closeVideoLightbox);
+            videoLightbox.addEventListener('click', (e) => {
+                if (e.target === videoLightbox) closeVideoLightbox();
+            });
+        }
     </script>
 </body>
 
