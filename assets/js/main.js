@@ -211,3 +211,29 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
+
+  // ===================================
+  // VIDEO FACADE (TEASER)
+  // ===================================
+  
+  const videoFacades = document.querySelectorAll('.video-facade');
+  
+  videoFacades.forEach(facade => {
+    facade.addEventListener('click', function() {
+      const videoId = this.getAttribute('data-video-id');
+      if (videoId) {
+        const iframe = document.createElement('iframe');
+        iframe.setAttribute('width', '100%');
+        iframe.setAttribute('height', '100%');
+        iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1`);
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('allowfullscreen', 'true');
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        
+        this.innerHTML = ''; // Clear facade
+        this.appendChild(iframe);
+        this.style.backgroundImage = 'none'; // Remove background
+        this.style.cursor = 'default';
+      }
+    });
+  });

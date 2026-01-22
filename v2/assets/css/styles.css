@@ -1,0 +1,439 @@
+/* V2 Styles - Marty Supreme Inspired */
+
+:root {
+    --font-main: 'Inter', sans-serif;
+    --color-bg: #000;
+    --color-text: #fff;
+    --color-accent: #ff3600;
+    --header-height: 60px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.4;
+    overflow-x: hidden;
+}
+
+/* Header */
+.v2-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    z-index: 100;
+    mix-blend-mode: difference;
+    /* A24 vibe */
+}
+
+.header-title {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.header-nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.header-nav a {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+}
+
+.btn-ticket {
+    border: 1px solid #fff;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+/* Hero */
+.v2-hero {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.hero-slideshow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.hero-slide.active {
+    opacity: 1;
+}
+
+.v2-hero-content {
+    position: absolute;
+    bottom: 10vh;
+    left: 4vw;
+    z-index: 10;
+}
+
+.v2-title {
+    font-size: 8vw;
+    line-height: 0.8;
+    text-transform: lowercase;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    color: var(--color-accent);
+}
+
+.v2-tagline {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-top: 2rem;
+    background: black;
+    display: inline-block;
+    padding: 0.5rem;
+}
+
+/* Info Strip */
+.v2-info-strip {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 4vw;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    position: sticky;
+    top: var(--header-height);
+    background: #000;
+    z-index: 90;
+}
+
+/* Sections */
+.v2-section {
+    padding: 6rem 4vw;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.v2-section-title {
+    font-size: 3rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 4rem;
+    line-height: 0.9;
+}
+
+/* Teaser */
+.v2-teaser {
+    padding: 0;
+}
+
+.video-container {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background-size: cover;
+    background-position: center;
+}
+
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+}
+
+/* Grid & Cards */
+.v2-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.v2-card {
+    background: #000;
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 300px;
+}
+
+.v2-card h3 {
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+
+.v2-card .venue {
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: auto;
+}
+
+.v2-card .status {
+    border: 1px solid #fff;
+    align-self: flex-start;
+    padding: 0.5rem 1rem;
+    margin-top: 2rem;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+/* Events List */
+.v2-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.v2-list-item {
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr;
+    padding: 2rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: opacity 0.3s;
+}
+
+.v2-list-item:hover {
+    opacity: 0.6;
+}
+
+.v2-list-item .date {
+    opacity: 0.5;
+}
+
+/* Press */
+.v2-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+}
+
+.press-item p {
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.3;
+    margin-bottom: 2rem;
+}
+
+.press-item cite {
+    font-style: normal;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    opacity: 0.6;
+    letter-spacing: 0.1em;
+}
+
+/* Cast */
+.v2-cast-list {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.cast-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1.2rem;
+}
+
+.cast-row .role {
+    opacity: 0.5;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+/* Poster */
+.v2-poster {
+    display: flex;
+    justify-content: center;
+    padding: 8rem 0;
+    background: #111;
+}
+
+.v2-poster img {
+    max-width: 400px;
+    cursor: pointer;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+}
+
+/* Footer */
+.v2-footer {
+    padding: 4rem 4vw;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.v2-footer a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 2rem;
+}
+
+/* Lightbox (Reused styles) */
+.lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.lightbox-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.lightbox-image {
+    max-width: 100%;
+    max-height: 100vh;
+    object-fit: contain;
+    cursor: zoom-in;
+    transition: transform 0.3s ease;
+}
+
+.lightbox-image.zoomed {
+    cursor: zoom-out;
+    max-height: none;
+    width: 100%;
+    height: auto;
+}
+
+.lightbox-overlay.active.zoomed-mode {
+    display: block;
+    overflow-y: auto;
+    padding: 0;
+    text-align: center;
+}
+
+.lightbox-close {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 40px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .v2-title {
+        font-size: 15vw;
+    }
+
+    .v2-grid,
+    .v2-grid-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .v2-list-item {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .v2-card {
+        padding: 2rem;
+    }
+
+    .header-nav {
+        display: none;
+    }
+}
+/* Refinements */
+.v2-tagline {
+  background: transparent; /* Remove black box */
+  padding: 0;
+}
+
+.header-nav a {
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+.header-nav a:hover {
+  color: var(--color-accent);
+}
+
+/* Video Facade */
+.video-facade {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+
+.play-button {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  position: relative;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.play-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: 15px 0 15px 25px;
+  border-color: transparent transparent transparent #fff;
+}
+
+.video-facade:hover .play-button {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1);
+}
