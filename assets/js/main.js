@@ -159,3 +159,55 @@ document.addEventListener('DOMContentLoaded', function () {
 
   console.log('Our Hero, Balthazar website initialized');
 });
+
+  // ===================================
+  // POSTER LIGHTBOX
+  // ===================================
+
+  const posterTrigger = document.getElementById('poster-trigger');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImage = document.querySelector('.lightbox-image');
+  const lightboxClose = document.querySelector('.lightbox-close');
+
+  if (posterTrigger && lightbox && lightboxImage) {
+    posterTrigger.addEventListener('click', function(e) {
+      e.preventDefault(); // Prevent default link behavior if any
+      lightbox.classList.add('active');
+      const src = this.getAttribute('src');
+      if (lightboxImage.src !== src) {
+        lightboxImage.src = src;
+      }
+      document.body.style.overflow = 'hidden'; // Disable body scroll
+    });
+
+    // Close lightbox
+    const closeLightbox = () => {
+      lightbox.classList.remove('active');
+      lightbox.classList.remove('zoomed-mode');
+      lightboxImage.classList.remove('zoomed');
+      document.body.style.overflow = ''; // Re-enable body scroll
+    };
+
+    lightboxClose.addEventListener('click', closeLightbox);
+
+    // Close on background click (but not on image)
+    lightbox.addEventListener('click', function(e) {
+      if (e.target === lightbox || e.target.classList.contains('lightbox-overlay')) {
+        closeLightbox();
+      }
+    });
+
+    // Toggle zoom on image click
+    lightboxImage.addEventListener('click', function(e) {
+      e.stopPropagation(); // Don't close lightbox
+      this.classList.toggle('zoomed');
+      lightbox.classList.toggle('zoomed-mode');
+    });
+
+    // Allow Escape key to close
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+        closeLightbox();
+      }
+    });
+  }
