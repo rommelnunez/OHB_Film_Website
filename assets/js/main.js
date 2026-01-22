@@ -139,20 +139,33 @@ document.addEventListener('DOMContentLoaded', function () {
   // MOBILE CAST BIOS (TAP TO REVEAL)
   // ===================================
 
-  const castCards = document.querySelectorAll('.cast-card');
-  castCards.forEach(card => {
-    card.addEventListener('click', function () {
-      // Toggle active class on the clicked card
-      this.classList.toggle('active');
+  // Mobile Cast Bios logic removed (consolidated below)
 
-      // Optional: Close other cards when one is opened
-      castCards.forEach(otherCard => {
-        if (otherCard !== this) {
-          otherCard.classList.remove('active');
+  // ===================================
+  // CAST BIOS (Expandable)
+  // ===================================
+  const castCards = document.querySelectorAll('.cast-card, .cast-row.cast-card');
+
+  if (castCards.length > 0) {
+    castCards.forEach(card => {
+      card.addEventListener('click', function (e) {
+        // Prevent double firing if clicking internal interactive elements (like links)
+        if (e.target.tagName === 'A') return;
+
+        console.log('Cast card clicked:', this);
+
+        // Accordion Logic: Close others
+        // If we are opening this card (it's not active), close others.
+        if (!this.classList.contains('active')) {
+          castCards.forEach(c => c.classList.remove('active'));
+          this.classList.add('active');
+        } else {
+          // If we are clicking an already active card, close it
+          this.classList.remove('active');
         }
       });
     });
-  });
+  }
 
   // Track trailer plays
   // TODO: Implement YouTube API event tracking for play/pause/complete
@@ -299,3 +312,5 @@ if (videoFacades.length > 0 && videoLightbox) {
     }
   });
 }
+
+// Logic moved to DOMContentLoaded block

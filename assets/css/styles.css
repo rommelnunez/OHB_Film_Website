@@ -793,3 +793,48 @@ footer {
   transform: scale(1.1);
   animation: energyFlow 1.5s infinite;
 }
+/* Expandable Cast Bios */
+.cast-details {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Springy */
+  margin-top: 0;
+}
+
+.cast-card.active .cast-details {
+  max-height: 500px; /* Arbitrary large height */
+  opacity: 1;
+  transform: translateY(0);
+  margin-top: 1.5rem;
+}
+
+.cast-headshot {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  border: 2px solid var(--color-accent);
+}
+
+.cast-bio-text {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Update Cast Card Interactions */
+.cast-card:hover {
+  /* Only glow, no scaling */
+  transform: none;
+  background: transparent;
+  border-color: rgba(255,255,255,0.1);
+  box-shadow: 0 0 20px rgba(255, 54, 0, 0.3); /* Glow */
+}
+.cast-card.active {
+   transform: none;
+   background: rgba(255, 255, 255, 0.05);
+   border-color: var(--color-accent);
+}
