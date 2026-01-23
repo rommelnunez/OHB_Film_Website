@@ -401,6 +401,10 @@ html {
     /* Red Role */
 }
 
+.cast-row:hover .name {
+    color: #ff3600;
+}
+
 /* Poster */
 .v2-poster {
     display: flex;
@@ -884,14 +888,7 @@ html {
     clear: both;
 }
 
-/* Hover Glow */
-.cast-card:hover {
-    box-shadow: 0 0 15px rgba(255, 54, 0, 0.5);
-    background: rgba(255, 255, 255, 0.05);
-    /* Slight highlight */
-    border-color: transparent;
-    /* Reset borders? or keep separator? V2 has border-bottom on row */
-}
+
 
 /* 3-Tile Grid (More Section) */
 .v2-more {
