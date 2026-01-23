@@ -476,7 +476,6 @@
                 if (lightboxImage) {
                     lightboxImage.style.display = 'none';
                     lightboxImage.src = '';
-                    lightboxImage.classList.remove('zoomed'); // Reset zoom
                 }
                 if (dualPosterContainer) dualPosterContainer.style.display = 'none';
             }
@@ -595,18 +594,11 @@
                 lightboxImage.style.display = 'block'; // Ensure visible for Stills
                 lightboxImage.style.opacity = 1;
                 lightboxImage.src = btsImages[currentImageIndex];
-                lightboxImage.classList.remove('zoomed'); // Reset zoom on change
             }
         }
 
-        // STILLS: Zoom Logic
-        if (lightboxImage) {
-            lightboxImage.addEventListener('click', (e) => {
-                e.stopPropagation();
-                lightboxImage.classList.toggle('zoomed');
-                lightbox.classList.toggle('zoomed-mode');
-            });
-        }
+        // STILLS: Zoom Logic REMOVED
+
 
         if (stillsTrigger) {
             stillsTrigger.addEventListener('click', () => {

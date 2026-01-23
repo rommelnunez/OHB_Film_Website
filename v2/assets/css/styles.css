@@ -550,7 +550,7 @@ html {
     max-width: 100%;
     max-height: 100vh;
     object-fit: contain;
-    cursor: zoom-in;
+    cursor: default;
     transition: transform 0.3s ease;
 }
 
@@ -1211,5 +1211,10 @@ html {
 
     .header-nav a {
         font-size: 1.5rem;
+    }
+
+    /* Disable Zoom Cursors */
+    .lightbox-image {
+        cursor: default !important;
     }
 }
