@@ -23,6 +23,12 @@ body {
     color: var(--color-text);
     line-height: 1.4;
     overflow-x: hidden;
+    width: 100%;
+}
+
+html {
+    overflow-x: hidden;
+    width: 100%;
 }
 
 /* Header */
@@ -953,11 +959,11 @@ body {
     }
 
     .more-grid {
-        grid-template-columns: 1fr;
-        height: auto;
         width: 100%;
         margin-left: 0;
         margin-right: 0;
+        grid-template-columns: 1fr;
+        height: auto;
     }
 
     .more-column {
