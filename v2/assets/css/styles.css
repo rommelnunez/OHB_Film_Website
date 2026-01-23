@@ -368,41 +368,110 @@ html {
 
 .v2-cast-list {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
 }
 
-.cast-row {
+.cast-member-card {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    background: #000;
+}
+
+.cast-headshot-square {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+}
+
+.cast-headshot-square img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.member-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.8) 100%);
     display: flex;
-    justify-content: space-between;
-    padding: 1.5rem;
-    /* Expanded padding for glow */
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    /* Black separator for white bg */
-    font-size: 1.2rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    /* Smooth hover transition */
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
-.cast-header-group {
-    display: flex;
-    gap: 0.5rem;
-    align-items: baseline;
+.cast-member-card:hover img {
+    transform: scale(1.05);
 }
 
-.cast-row .role {
+.cast-member-card:hover .member-overlay {
     opacity: 1;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    font-weight: 400;
-    /* Lighter weight */
-    color: #ff3600;
-    /* Red Role */
 }
 
-.cast-row:hover .name {
+.overlay-content {
+    color: #fff;
+    transform: translateY(10px);
+    transition: transform 0.4s ease;
+}
+
+.cast-member-card:hover .overlay-content {
+    transform: translateY(0);
+}
+
+.overlay-content .name {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.overlay-content .role {
+    display: block;
+    font-size: 0.9rem;
     color: #ff3600;
+    text-transform: uppercase;
+    margin-top: 0.2rem;
+    font-weight: 500;
+}
+
+.hidden-bio {
+    display: none;
+}
+
+/* Lightbox Bio Specifics */
+.bio-content {
+    max-width: 800px;
+    color: #fff;
+    padding: 2rem;
+}
+
+.bio-content h3 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.bio-content h4 {
+    font-size: 1.2rem;
+    color: #ff3600;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+}
+
+.bio-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 /* Poster */
