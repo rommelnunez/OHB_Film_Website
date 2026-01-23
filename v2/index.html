@@ -694,10 +694,12 @@
         // Mobile Nav Toggle
         const hamburger = document.querySelector('.hamburger');
         const nav = document.querySelector('.header-nav');
-        if (hamburger && nav) {
+        const header = document.querySelector('.v2-header');
+        if (hamburger && nav && header) {
             hamburger.addEventListener('click', () => {
                 hamburger.classList.toggle('active');
                 nav.classList.toggle('active');
+                header.classList.toggle('nav-active');
             });
 
             // Close nav when link clicked
@@ -705,6 +707,7 @@
                 link.addEventListener('click', () => {
                     hamburger.classList.remove('active');
                     nav.classList.remove('active');
+                    header.classList.remove('nav-active');
                 });
             });
         }
