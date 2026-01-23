@@ -14,7 +14,12 @@
     <!-- Sticky Header -->
     <header class="v2-header">
         <div class="header-left">
-            <span class="header-title">Our Hero, Balthazar</span>
+            <!-- Title removed as requested -->
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
         <nav class="header-nav">
             <a href="#hero">Teaser</a>
@@ -46,7 +51,7 @@
     <!-- Info Strip (Sticky or below hero) -->
     <div class="v2-info-strip">
         <div class="info-item">Directed by Oscar Boyson</div>
-        <div class="info-item">Written by Ricky Camilleri</div>
+        <div class="info-item">Written by Ricky Camilleri & Oscar Boyson</div>
         <div class="info-item">Coming Soon to Theaters</div>
     </div>
 
@@ -593,6 +598,24 @@
                         castCards.forEach(c => c.classList.remove('active'));
                     }
                     this.classList.toggle('active');
+                });
+            });
+        }
+
+        // Mobile Nav Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('.header-nav');
+        if (hamburger && nav) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                nav.classList.toggle('active');
+            });
+
+            // Close nav when link clicked
+            nav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    nav.classList.remove('active');
                 });
             });
         }
