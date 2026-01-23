@@ -1204,7 +1204,7 @@ html {
     .header-nav {
         position: fixed;
         top: 0;
-        right: -100%;
+        right: 0;
         width: 100%;
         height: 100vh;
         background: #000;
@@ -1214,7 +1214,7 @@ html {
         justify-content: center;
         align-items: center;
         gap: 3rem;
-        transition: right 0.4s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.3s ease, visibility 0.3s ease;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
         left: auto;
         transform: none;
         padding: 0;
@@ -1223,7 +1223,6 @@ html {
     }
 
     .header-nav.active {
-        right: 0;
         opacity: 1;
         visibility: visible;
     }
