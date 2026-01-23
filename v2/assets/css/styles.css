@@ -276,6 +276,9 @@ html {
 .v2-list {
     display: flex;
     flex-direction: column;
+    position: relative;
+    z-index: 10;
+    background: var(--color-bg);
 }
 
 .v2-list-item {
@@ -300,6 +303,11 @@ html {
 }
 
 /* Press */
+.v2-press {
+    background-color: #fff;
+    color: #000;
+}
+
 .v2-grid-3 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -311,20 +319,26 @@ html {
     font-weight: 600;
     line-height: 1.3;
     margin-bottom: 2rem;
+    color: #000;
 }
 
 .press-item cite {
     font-style: normal;
     text-transform: uppercase;
     font-size: 0.8rem;
-    opacity: 0.6;
+    opacity: 1;
+    /* Remove opacity for specific color */
     letter-spacing: 0.1em;
+    color: #ff3600;
+    /* Red Accent */
+    font-weight: 700;
 }
 
 /* Cast */
 .v2-cast-list {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
 }
 
 .cast-row {
@@ -362,7 +376,7 @@ html {
     padding: 4rem 4vw;
     display: flex;
     justify-content: space-between;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: none;
     font-size: 0.8rem;
     text-transform: uppercase;
     position: relative;
@@ -837,9 +851,13 @@ html {
 
 /* 3-Tile Grid (More Section) */
 .v2-more {
-    padding: 6rem 4vw 0 4vw;
-    /* Restore standard section padding but 0 bottom */
+    padding: 6rem 4vw;
+    /* Restore standard padding */
     border-bottom: none;
+    overflow: hidden;
+    /* Prevent spillover */
+    background: #000;
+    /* Match tiles to avoid gaps */
 }
 
 .more-grid {
