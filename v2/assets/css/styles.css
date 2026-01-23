@@ -990,9 +990,8 @@ html {
     border-bottom: none;
     overflow: hidden;
     /* Prevent spillover */
-    background: #000;
-    /* Match tiles to avoid gaps */
-    color: #fff;
+    background: #fff;
+    color: #000;
     /* Fix invisible header */
     position: relative;
     z-index: 10;
