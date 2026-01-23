@@ -234,16 +234,23 @@ html {
 }
 
 /* Grid & Cards */
+/* Tickets / In Theaters */
+.v2-tickets {
+    background-color: #fff;
+    color: #000;
+}
+
 .v2-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1px;
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    background: #000;
+    /* Border color */
+    border: 1px solid #000;
 }
 
 .v2-card {
-    background: var(--color-bg);
+    background: #fff;
     padding: 4rem;
     display: flex;
     flex-direction: column;
@@ -262,8 +269,17 @@ html {
     margin-top: auto;
 }
 
+.v2-card .date {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ff3600;
+    /* Red Accent */
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+}
+
 .v2-card .status {
-    border: 1px solid var(--color-text);
+    border: 1px solid #000;
     align-self: flex-start;
     padding: 0.5rem 1rem;
     margin-top: 2rem;
@@ -274,7 +290,8 @@ html {
 
 /* Events List */
 .v2-events {
-    background-color: #fff;
+    background-color: #ff3600;
+    /* Red Background */
     color: #000;
 }
 
@@ -304,14 +321,15 @@ html {
 
 .v2-list-item .date {
     opacity: 1;
-    color: #ff3600;
-    /* Red Accent */
+    color: #fff;
+    /* White Dates */
     font-weight: 700;
 }
 
 /* Press */
 .v2-press {
-    background-color: #fff;
+    background-color: #ff3600;
+    /* Red Background */
     color: #000;
 }
 
@@ -332,16 +350,22 @@ html {
 .press-item cite {
     font-style: normal;
     text-transform: uppercase;
-    font-size: 0.8rem;
+    font-size: 1.1rem;
+    /* Slightly larger */
     opacity: 1;
     /* Remove opacity for specific color */
     letter-spacing: 0.1em;
-    color: #ff3600;
-    /* Red Accent */
+    color: #fff;
+    /* White Accent */
     font-weight: 700;
 }
 
 /* Cast */
+.v2-cast {
+    background-color: #fff;
+    color: #000;
+}
+
 .v2-cast-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -351,17 +375,30 @@ html {
 .cast-row {
     display: flex;
     justify-content: space-between;
-    padding: 1.5rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    /* Expanded padding for glow */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    /* Black separator for white bg */
     font-size: 1.2rem;
     font-weight: 500;
+    transition: all 0.3s ease;
+    /* Smooth hover transition */
+}
+
+.cast-header-group {
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
 }
 
 .cast-row .role {
-    opacity: 0.7;
+    opacity: 1;
     text-transform: uppercase;
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: 400;
+    /* Lighter weight */
+    color: #ff3600;
+    /* Red Role */
 }
 
 /* Poster */
