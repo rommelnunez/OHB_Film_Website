@@ -88,6 +88,8 @@ html {
     height: 20px;
     cursor: pointer;
     z-index: 20002;
+    position: relative;
+    /* Ensure z-index works */
 }
 
 .hamburger span {
