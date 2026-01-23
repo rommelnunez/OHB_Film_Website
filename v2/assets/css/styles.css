@@ -273,20 +273,25 @@ html {
 }
 
 /* Events List */
+.v2-events {
+    background-color: #fff;
+    color: #000;
+}
+
 .v2-list {
     display: flex;
     flex-direction: column;
     position: relative;
     z-index: 10;
-    background: var(--color-bg);
+    background: transparent;
 }
 
 .v2-list-item {
     display: grid;
     grid-template-columns: 100px 1fr 1fr;
     padding: 2rem 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    color: var(--color-text);
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.2);
+    color: #000;
     text-decoration: none;
     font-size: 1.2rem;
     transition: opacity 0.3s;
@@ -298,8 +303,10 @@ html {
 }
 
 .v2-list-item .date {
-    opacity: 0.5;
-    color: var(--color-text);
+    opacity: 1;
+    color: #ff3600;
+    /* Red Accent */
+    font-weight: 700;
 }
 
 /* Press */
@@ -382,7 +389,7 @@ html {
     position: relative;
     z-index: 20;
     background-color: var(--color-bg);
-    margin-top: 2rem;
+    margin-top: 0;
 }
 
 .v2-footer a {
@@ -858,6 +865,14 @@ html {
     /* Prevent spillover */
     background: #000;
     /* Match tiles to avoid gaps */
+    color: #fff;
+    /* Fix invisible header */
+    position: relative;
+    z-index: 10;
+    /* New Layout Logic */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .more-grid {
@@ -865,9 +880,10 @@ html {
     grid-template-columns: 1fr 1fr;
     /* Two Equal Columns */
     gap: 0;
-    height: 90vh;
-    /* Fill screen height appropriately */
-    min-height: 600px;
+    /* Flex Logic */
+    flex: 1;
+    height: auto;
+    /* Remove fixed height */
     width: 100vw;
     /* Force full viewport width */
     margin-left: -4vw;
