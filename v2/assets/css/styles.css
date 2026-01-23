@@ -480,8 +480,37 @@ html {
 /* Lightbox Bio Specifics */
 .bio-content {
     max-width: 800px;
+    width: 90%;
     color: #fff;
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+}
+
+.bio-header {
+    flex-shrink: 0;
+}
+
+.bio-body {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 1rem;
+    /* Custom Scrollbar for better look */
+    scrollbar-width: thin;
+    scrollbar-color: #ff3600 transparent;
+}
+
+.bio-body::-webkit-scrollbar {
+    width: 4px;
+}
+
+.bio-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.bio-body::-webkit-scrollbar-thumb {
+    background-color: #ff3600;
 }
 
 .bio-content h3 {

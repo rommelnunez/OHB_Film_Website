@@ -674,8 +674,24 @@
                             bioContainer.className = 'bio-content';
                             lightbox.querySelector('.lightbox-content').appendChild(bioContainer);
                         }
-                        bioContainer.innerHTML = bioHTML;
-                        bioContainer.style.display = 'block';
+
+                        // Restructure Bio for Scrollability
+                        const hiddenBio = this.querySelector('.hidden-bio');
+                        const name = hiddenBio.querySelector('h3').innerText;
+                        const role = hiddenBio.querySelector('h4').innerText;
+                        const bioText = hiddenBio.querySelector('p').innerHTML;
+
+                        bioContainer.innerHTML = `
+                            <div class="bio-header">
+                                <h3>${name}</h3>
+                                <h4>${role}</h4>
+                            </div>
+                            <div class="bio-body">
+                                <p>${bioText}</p>
+                            </div>
+                        `;
+                        bioContainer.style.display = 'flex'; // Use flex for high-level structure
+                        bioContainer.style.flexDirection = 'column';
 
                         document.body.style.overflow = 'hidden';
                     }
