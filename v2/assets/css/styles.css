@@ -43,7 +43,15 @@ html {
     align-items: center;
     padding: 0 2rem;
     z-index: 10000;
-    transition: background 0.3s ease;
+    background: transparent;
+    mix-blend-mode: difference;
+    pointer-events: none;
+    /* Allow clicks through the header container */
+}
+
+/* Ensure children can receive clicks */
+.v2-header>* {
+    pointer-events: auto;
 }
 
 
