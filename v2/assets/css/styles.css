@@ -968,10 +968,11 @@ html {
     .v2-more {
         padding-left: 0;
         padding-right: 0;
+        padding-bottom: 0;
     }
 
     .more-grid {
-        width: 100%;
+        width: 100vw;
         margin-left: 0;
         margin-right: 0;
         grid-template-columns: 1fr;
@@ -984,10 +985,12 @@ html {
 
     .poster-tile {
         height: 60vh;
+        width: 100vw;
     }
 
     .more-column .more-tile {
         height: 40vh;
+        width: 100vw;
         /* Fixed height on mobile */
     }
 }
