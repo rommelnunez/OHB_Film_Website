@@ -966,15 +966,17 @@ html {
 
 @media (max-width: 768px) {
     .v2-more {
-        padding-left: 0;
-        padding-right: 0;
+        /* Restore padding so title aligns with others */
+        padding-left: 4vw;
+        padding-right: 4vw;
         padding-bottom: 0;
     }
 
     .more-grid {
         width: 100vw;
-        margin-left: 0;
-        margin-right: 0;
+        /* Pull grid back to edges to counteract parent padding */
+        margin-left: -4vw;
+        margin-right: -4vw;
         grid-template-columns: 1fr;
         height: auto;
     }
