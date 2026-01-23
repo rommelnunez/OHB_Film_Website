@@ -385,12 +385,30 @@ html {
     aspect-ratio: 1 / 1;
 }
 
+.cast-headshot-square::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 54, 0, 0.15);
+    /* Red tint */
+    mix-blend-mode: color;
+    z-index: 1;
+    transition: opacity 0.6s ease;
+}
+
+.cast-member-card:hover .cast-headshot-square::before {
+    opacity: 0;
+}
+
 .cast-headshot-square img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-    filter: grayscale(100%) contrast(1.1);
+    filter: grayscale(100%) contrast(1.1) brightness(0.9);
     transition: filter 0.6s ease, transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
