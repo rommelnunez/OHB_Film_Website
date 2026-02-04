@@ -1,3 +1,58 @@
+// DOM Elements
+const lightbox = document.getElementById('lightbox');
+const lightboxImage = document.querySelector('.lightbox-image');
+const videoLightbox = document.getElementById('video-lightbox');
+const videoLightboxContainer = document.querySelector('.video-lightbox-container');
+
+// ===================================
+// MASTER CLOSE FUNCTION
+// ===================================
+let closeAllLightboxes = () => {
+  // Main Lightbox
+  if (lightbox) {
+    lightbox.classList.remove('active');
+    lightbox.classList.remove('zoomed-mode');
+    if (lightboxImage) {
+      lightboxImage.style.display = 'none';
+      lightboxImage.src = '';
+    }
+  }
+  document.body.style.overflow = '';
+
+  // Video Lightbox
+  if (videoLightbox) videoLightbox.classList.remove('active');
+  if (videoLightboxContainer) videoLightboxContainer.innerHTML = '';
+};
+
+// ===================================
+// EVENT LISTENERS - LIGHTBOX CLOSE
+// ===================================
+
+// 1. Close Buttons (All instances)
+document.querySelectorAll('.lightbox-close').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeAllLightboxes();
+  });
+});
+
+// 2. Background Click Close
+if (lightbox) {
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox || e.target.classList.contains('lightbox-content')) closeAllLightboxes();
+  });
+}
+if (videoLightbox) {
+  videoLightbox.addEventListener('click', (e) => {
+    if (e.target === videoLightbox) closeAllLightboxes();
+  });
+}
+
+// 3. Nav Link Auto-Close
+document.querySelectorAll('.header-nav a').forEach(link => {
+  link.addEventListener('click', closeAllLightboxes);
+});
+
 // ===================================
 // SMOOTH SCROLL NAVIGATION
 // ===================================
@@ -9,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
       const target = document.querySelector(this.getAttribute('href'));
       if (target) {
-        const navHeight = document.querySelector('nav').offsetHeight;
+        const navHeight = document.querySelector('nav') ? document.querySelector('nav').offsetHeight : 0;
         const targetPosition = target.offsetTop - navHeight;
 
         window.scrollTo({
@@ -60,18 +115,20 @@ document.addEventListener('DOMContentLoaded', function () {
   let lastScroll = 0;
   const nav = document.querySelector('nav');
 
-  window.addEventListener('scroll', function () {
-    const currentScroll = window.pageYOffset;
+  if (nav) {
+    window.addEventListener('scroll', function () {
+      const currentScroll = window.pageYOffset;
 
-    // Add shadow on scroll
-    if (currentScroll > 10) {
-      nav.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.4)';
-    } else {
-      nav.style.boxShadow = 'none';
-    }
+      // Add shadow on scroll
+      if (currentScroll > 10) {
+        nav.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.4)';
+      } else {
+        nav.style.boxShadow = 'none';
+      }
 
-    lastScroll = currentScroll;
-  });
+      lastScroll = currentScroll;
+    });
+  }
 
   // ===================================
   // LAZY LOAD TRAILER
@@ -93,7 +150,8 @@ document.addEventListener('DOMContentLoaded', function () {
       threshold: 0.5
     });
 
-    observer.observe(document.querySelector('#hero'));
+    const heroSection = document.querySelector('#hero');
+    if (heroSection) observer.observe(heroSection);
   }
 
   // ===================================
@@ -136,10 +194,28 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ===================================
-  // MOBILE CAST BIOS (TAP TO REVEAL)
+  // HAMBURGER MENU TOGGLE
   // ===================================
+  const hamburger = document.querySelector('.hamburger');
+  const headerNav = document.querySelector('.header-nav');
+  const v2Header = document.querySelector('.v2-header');
 
-  // Mobile Cast Bios logic removed (consolidated below)
+  if (hamburger && headerNav && v2Header) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      headerNav.classList.toggle('active');
+      v2Header.classList.toggle('nav-active');
+    });
+
+    //  Close nav when link clicked
+    headerNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        headerNav.classList.remove('active');
+        v2Header.classList.remove('nav-active');
+      });
+    });
+  }
 
   // ===================================
   // CAST BIOS (Expandable)
@@ -174,143 +250,120 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // ===================================
+// BIO LIGHTBOX LOGIC
+// ===================================
+const castMemberCards = document.querySelectorAll('.cast-member-card');
+if (castMemberCards.length > 0) {
+  castMemberCards.forEach(card => {
+    card.addEventListener('click', function () {
+      const bioHTML = this.querySelector('.hidden-bio').innerHTML;
+
+      // Headshot Background Feature: Add active class and set background
+      const headshot = this.querySelector('.cast-headshot-square img');
+      if (headshot) {
+        // Toggle active class
+        this.classList.toggle('active');
+
+        // Set background image when active
+        if (this.classList.contains('active')) {
+          this.style.backgroundImage = `url('${headshot.src}')`;
+        } else {
+          this.style.backgroundImage = '';
+        }
+      }
+
+      if (lightbox) {
+        lightbox.classList.add('active');
+        // Hide other content
+        if (lightboxImage) lightboxImage.style.display = 'none';
+
+        // Create or reuse bio container
+        let bioContainer = lightbox.querySelector('.bio-content');
+        if (!bioContainer) {
+          bioContainer = document.createElement('div');
+          bioContainer.className = 'bio-content';
+          lightbox.querySelector('.lightbox-content').appendChild(bioContainer);
+        }
+
+        // Restructure Bio for Scrollability
+        const hiddenBio = this.querySelector('.hidden-bio');
+        const name = hiddenBio.querySelector('h3').innerText;
+        const role = hiddenBio.querySelector('h4').innerText;
+        const bioText = hiddenBio.querySelector('p').innerHTML;
+
+        bioContainer.innerHTML = `
+          <div class="bio-header">
+            <h3>${name}</h3>
+            <h4>${role}</h4>
+          </div>
+          <div class="bio-body">
+            <p>${bioText}</p>
+          </div>
+        `;
+        bioContainer.style.display = 'flex';
+        bioContainer.style.flexDirection = 'column';
+
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  });
+}
+
+// Close Bio on Lightbox Close
+const originalCloseAll = closeAllLightboxes;
+closeAllLightboxes = function () {
+  originalCloseAll();
+  const bioContainer = document.querySelector('.bio-content');
+  if (bioContainer) bioContainer.style.display = 'none';
+};
+
+// ===================================
 // POSTER LIGHTBOX
 // ===================================
-
 const posterTrigger = document.getElementById('poster-trigger');
-const lightbox = document.getElementById('lightbox');
-const lightboxImage = document.querySelector('.lightbox-image');
-const lightboxClose = document.querySelector('.lightbox-close');
 
 if (posterTrigger && lightbox && lightboxImage) {
   posterTrigger.addEventListener('click', function (e) {
-    e.preventDefault(); // Prevent default link behavior if any
+    e.preventDefault();
     lightbox.classList.add('active');
     const src = this.getAttribute('src');
     if (lightboxImage.src !== src) {
       lightboxImage.src = src;
+      lightboxImage.style.display = 'block';
     }
-    document.body.style.overflow = 'hidden'; // Disable body scroll
-  });
-
-  // Close lightbox
-  const closeLightbox = () => {
-    lightbox.classList.remove('active');
-    lightbox.classList.remove('zoomed-mode');
-    lightboxImage.classList.remove('zoomed');
-    document.body.style.overflow = ''; // Re-enable body scroll
-  };
-
-  lightboxClose.addEventListener('click', closeLightbox);
-
-  // Close on background click (but not on image)
-  lightbox.addEventListener('click', function (e) {
-    if (e.target === lightbox || e.target.classList.contains('lightbox-overlay')) {
-      closeLightbox();
-    }
-  });
-
-  // Toggle zoom on image click
-  lightboxImage.addEventListener('click', function (e) {
-    e.stopPropagation(); // Don't close lightbox
-    this.classList.toggle('zoomed');
-    lightbox.classList.toggle('zoomed-mode');
-  });
-
-  // Allow Escape key to close
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-      closeLightbox();
-    }
+    document.body.style.overflow = 'hidden';
   });
 }
 
 // ===================================
-// VIDEO FACADE (TEASER)
+// VIDEO FACADE & VIDEO LIGHTBOX
 // ===================================
-
 const videoFacades = document.querySelectorAll('.video-facade');
-
-videoFacades.forEach(facade => {
-  facade.addEventListener('click', function () {
-    const videoId = this.getAttribute('data-video-id');
-    if (videoId) {
-      const iframe = document.createElement('iframe');
-      iframe.setAttribute('width', '100%');
-      iframe.setAttribute('height', '100%');
-      iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1`);
-      iframe.setAttribute('frameborder', '0');
-      iframe.setAttribute('allowfullscreen', 'true');
-      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-
-      this.innerHTML = ''; // Clear facade
-      this.appendChild(iframe);
-      this.style.backgroundImage = 'none'; // Remove background
-      this.style.cursor = 'default';
-    }
-  });
-});
-
-// ===================================
-// VIDEO LIGHTBOX (Updated)
-// ===================================
-
-const videoLightbox = document.getElementById('video-lightbox');
-const videoLightboxContainer = document.querySelector('.video-lightbox-container');
-const videoLightboxClose = document.querySelector('.video-lightbox-close');
-
-if (videoFacades.length > 0 && videoLightbox) {
+if (videoFacades.length > 0) {
   videoFacades.forEach(facade => {
-    // Remove old inline logic
-    facade.onclick = null;
-
-    facade.addEventListener('click', function (e) {
-      // Add burst effect
+    facade.addEventListener('click', function () {
+      // Burst effect
       const playBtn = this.querySelector('.play-button');
       if (playBtn) {
         playBtn.classList.add('clicked');
-        setTimeout(() => {
-          playBtn.classList.remove('clicked');
-        }, 600);
+        setTimeout(() => { playBtn.classList.remove('clicked'); }, 600);
       }
 
       const videoId = this.getAttribute('data-video-id');
       if (videoId) {
-        setTimeout(() => {
-          videoLightbox.classList.add('active');
-
-          const iframe = document.createElement('iframe');
-          iframe.setAttribute('width', '100%');
-          iframe.setAttribute('height', '100%');
-          iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1`);
-          iframe.setAttribute('frameborder', '0');
-          iframe.setAttribute('allowfullscreen', 'true');
-          iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-
+        videoLightbox.classList.add('active');
+        const iframe = document.createElement('iframe');
+        iframe.setAttribute('width', '100%');
+        iframe.setAttribute('height', '100%');
+        iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1`);
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('allowfullscreen', 'true');
+        if (videoLightboxContainer) {
           videoLightboxContainer.innerHTML = '';
           videoLightboxContainer.appendChild(iframe);
-          document.body.style.overflow = 'hidden';
-        }, 300); // Wait for burst
+        }
+        document.body.style.overflow = 'hidden';
       }
     });
   });
-
-  const closeVideoLightbox = () => {
-    videoLightbox.classList.remove('active');
-    videoLightbox.classList.remove('zoomed-mode');
-    videoLightboxContainer.innerHTML = ''; // Stop video
-    document.body.style.overflow = '';
-  };
-
-  if (videoLightboxClose) {
-    videoLightboxClose.addEventListener('click', closeVideoLightbox);
-  }
-
-  videoLightbox.addEventListener('click', function (e) {
-    if (e.target === videoLightbox) {
-      closeVideoLightbox();
-    }
-  });
 }
-
-// Logic moved to DOMContentLoaded block

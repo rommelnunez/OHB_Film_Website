@@ -18,6 +18,7 @@
   --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --letter-spacing-wide: 0.5em;
   --letter-spacing-standard: 0.2em;
+  --header-height: 80px;
 }
 
 html {
@@ -33,6 +34,143 @@ body {
   font-size: 16px;
   overflow-x: hidden;
 }
+
+/* ===================================
+   V3 HEADER NAVIGATION
+   =================================== */
+
+.v2-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  z-index: 10000;
+  background: transparent;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  transition: background 0.3s ease, mix-blend-mode 0.3s ease;
+}
+
+.v2-header.nav-active {
+  mix-blend-mode: normal;
+  background: #000;
+}
+
+.v2-header>* {
+  pointer-events: auto;
+}
+
+.header-left {
+  z-index: 10001;
+}
+
+.header-nav {
+  display: flex;
+  gap: 3rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+  z-index: 10000;
+}
+
+.header-nav a {
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
+  transition: color 0.3s ease;
+}
+
+.header-nav a:hover,
+.header-nav a:active {
+  color: var(--color-bg);
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 20px;
+  cursor: pointer;
+  z-index: 20002;
+  position: relative;
+}
+
+.hamburger span {
+  width: 100%;
+  height: 3px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+.btn-ticket {
+  border: 1px solid #fff;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  position: relative;
+  z-index: 10001;
+}
+
+@media (max-width: 768px) {
+  .header-nav {
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 20001;
+    gap: 2rem;
+    transform: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .header-nav.active {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .header-nav a {
+    font-size: 1.5rem;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}
+
+/* ===================================
+   LAYOUT - FULL SCREEN HERO
+   =================================== */
 
 /* ===================================
    LAYOUT - FULL SCREEN HERO
@@ -338,71 +476,193 @@ nav.minimal-nav a:hover {
 }
 
 /* Cast */
-.cast-grid {
+.v2-cast-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  width: 100%;
-  gap: 3rem;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  max-width: 100%;
 }
 
-@media (max-width: 480px) {
-  .cast-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-}
-
-.cast-card {
+.cast-member-card {
   position: relative;
-  padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
   cursor: pointer;
-}
-
-.cast-card:hover,
-.cast-card.active {
-  border-color: rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.05);
-  transform: translateY(-4px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-}
-
-.cast-card:hover h3,
-.cast-card.active h3 {
-  color: var(--color-accent);
-}
-
-.cast-card h3 {
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 0.5rem;
-}
-
-.cast-role {
-  font-size: 0.85rem;
-  opacity: 0.6;
-  margin-bottom: 1rem;
-}
-
-.cast-bio {
-  font-size: 0.85rem;
-  line-height: 1.6;
-  opacity: 0;
-  max-height: 0;
   overflow: hidden;
-  transition: all 0.4s ease;
-  color: rgba(255, 255, 255, 0.8);
+  background: #000;
+  transition: background 0.5s ease;
 }
 
-.cast-card:hover .cast-bio,
-.cast-card.active .cast-bio {
+/* Headshot Background Feature - Applied when card has 'active' class */
+.cast-member-card.active {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.cast-member-card.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  /* Dark overlay to tone down the background */
+  z-index: 1;
+}
+
+/* Ensure content appears above the background overlay */
+.cast-member-card.active>* {
+  position: relative;
+  z-index: 2;
+}
+
+.cast-headshot-square {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.cast-headshot-square::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 54, 0, 0.15);
+  mix-blend-mode: color;
+  z-index: 1;
+  transition: opacity 0.6s ease;
+}
+
+.cast-member-card:hover .cast-headshot-square::before {
+  opacity: 0;
+}
+
+.cast-headshot-square img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(100%) contrast(1.1) brightness(0.9);
+  transition: filter 0.6s ease, transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.member-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.8) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.cast-member-card:hover img {
+  transform: scale(1.05);
+  filter: grayscale(0%) contrast(1);
+}
+
+.cast-member-card:hover .member-overlay {
   opacity: 1;
-  max-height: 200px;
-  margin-top: 1rem;
+}
+
+.overlay-content {
+  color: #fff;
+  transform: translateY(10px);
+  transition: transform 0.4s ease;
+}
+
+.cast-member-card:hover .overlay-content {
+  transform: translateY(0);
+}
+
+.overlay-content .name {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.overlay-content .role {
+  display: block;
+  font-size: 0.9rem;
+  color: #ff3600;
+  text-transform: uppercase;
+  margin-top: 0.2rem;
+  font-weight: 500;
+}
+
+.hidden-bio {
+  display: none;
+}
+
+/* Lightbox Bio Specifics */
+.bio-content {
+  max-width: 800px;
+  width: 90%;
+  color: #fff;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh;
+}
+
+.bio-header {
+  flex-shrink: 0;
+}
+
+.bio-body {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: #ff3600 transparent;
+}
+
+.bio-body::-webkit-scrollbar {
+  width: 4px;
+}
+
+.bio-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.bio-body::-webkit-scrollbar-thumb {
+  background-color: #ff3600;
+}
+
+.bio-content h3 {
+  font-size: 2.5rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.bio-content h4 {
+  font-size: 1.2rem;
+  color: #ff3600;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.bio-content p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Mobile Cast Grid */
+@media (max-width: 768px) {
+  .v2-cast-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* Events / Q&As */
@@ -578,7 +838,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 20000;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -625,7 +885,7 @@ footer {
   color: #fff;
   font-size: 40px;
   cursor: pointer;
-  z-index: 1001;
+  z-index: 20001;
   line-height: 1;
 }
 
@@ -793,18 +1053,21 @@ footer {
   transform: scale(1.1);
   animation: energyFlow 1.5s infinite;
 }
+
 /* Expandable Cast Bios */
 .cast-details {
   max-height: 0;
   overflow: hidden;
   opacity: 0;
   transform: translateY(-10px);
-  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Springy */
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* Springy */
   margin-top: 0;
 }
 
 .cast-card.active .cast-details {
-  max-height: 500px; /* Arbitrary large height */
+  max-height: 500px;
+  /* Arbitrary large height */
   opacity: 1;
   transform: translateY(0);
   margin-top: 1.5rem;
@@ -830,11 +1093,13 @@ footer {
   /* Only glow, no scaling */
   transform: none;
   background: transparent;
-  border-color: rgba(255,255,255,0.1);
-  box-shadow: 0 0 20px rgba(255, 54, 0, 0.3); /* Glow */
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px rgba(255, 54, 0, 0.3);
+  /* Glow */
 }
+
 .cast-card.active {
-   transform: none;
-   background: rgba(255, 255, 255, 0.05);
-   border-color: var(--color-accent);
+  transform: none;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--color-accent);
 }
