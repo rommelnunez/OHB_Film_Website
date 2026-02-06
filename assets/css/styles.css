@@ -59,6 +59,11 @@ body {
 .v2-header.nav-active {
   mix-blend-mode: normal;
   background: #000;
+  padding-top: 1rem;
+}
+
+.v2-header {
+  padding-top: 1rem;
 }
 
 .v2-header>* {
@@ -902,6 +907,24 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.video-facade::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.video-facade:hover::before {
+  opacity: 0.6;
 }
 
 .play-button {
@@ -1101,5 +1124,36 @@ footer {
 .cast-card.active {
   transform: none;
   background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.05);
   border-color: var(--color-accent);
+}
+
+/* Version Switcher */
+.version-switcher {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  border-radius: 4px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.version-switcher select {
+  background: transparent;
+  color: #fff;
+  border: none;
+  font-family: var(--font-main);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  outline: none;
+  padding: 5px;
+}
+
+.version-switcher select option {
+  background: #000;
+  color: #fff;
 }

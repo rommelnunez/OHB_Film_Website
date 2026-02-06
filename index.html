@@ -26,6 +26,14 @@
 <body>
 
   <!-- Full Screen Hero Section -->
+  <div class="version-switcher">
+    <select onchange="if (this.value) window.location.href=this.value;">
+      <option value="" disabled selected>Select Version</option>
+      <option value="#">Main Version</option>
+      <option value="v2/index.html">Version 2 (Marty Supreme)</option>
+      <option value="v3/index.html">Version 3</option>
+    </select>
+  </div>
   <div class="cinematic-frame" id="hero">
     <div class="hero-slideshow">
       <div class="hero-slide active" style="background-image: url('assets/images/slideshow/gallery-4.jpg');"></div>
