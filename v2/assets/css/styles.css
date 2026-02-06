@@ -1275,13 +1275,28 @@ html {
     right: 20px;
     z-index: 99999;
     display: flex;
-    gap: 12px;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
     background: rgba(0, 0, 0, 0.3);
-    padding: 10px 14px;
-    border-radius: 30px;
+    padding: 8px 12px;
+    border-radius: 20px;
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.version-label {
+    font-size: 8px;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.version-dots {
+    display: flex;
+    gap: 10px;
 }
 
 .version-dot {
