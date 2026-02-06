@@ -1265,3 +1265,74 @@ html {
         cursor: default !important;
     }
 }
+
+/* ===================================
+   VERSION SWITCHER
+   =================================== */
+.version-switcher {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 99999;
+    display: flex;
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px 14px;
+    border-radius: 30px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.version-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    display: block;
+    text-decoration: none;
+}
+
+.version-dot:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: scale(1.3);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+.version-dot.active {
+    background: #fff;
+    border-color: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    pointer-events: none;
+}
+
+/* Trailer Overlay */
+.video-facade {
+    position: relative;
+    overflow: hidden;
+}
+
+.video-facade::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+    transition: opacity 0.3s ease;
+}
+
+.video-facade:hover::before {
+    opacity: 0.6;
+}
+
+.play-button,
+.hero-play-btn {
+    z-index: 2;
+}
