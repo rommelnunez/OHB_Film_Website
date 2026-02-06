@@ -1131,8 +1131,8 @@ footer {
 /* Version Switcher (3 Circles) */
 .version-switcher {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  bottom: 20px;
+  left: 20px;
   z-index: 99999;
   display: flex;
   flex-direction: column;
