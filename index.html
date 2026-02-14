@@ -2,16 +2,771 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Our Hero, Balthazar</title>
-  <script>
-    window.location.href = "v4/";
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Hero, Balthazar - Official Website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <!-- SEO & Social Sharing -->
+    <meta name="description"
+        content="Ultra-wealthy NYC teenager Balthy makes dramatic gun control videos to impress his activist crush. When an online troll targets his content, Balthy becomes convinced he's communicating with a potential school shooter and embarks on an ill-advised journey to Texas to confront him.">
+    <link rel="canonical" href="https://ourherobalthazar.com/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ourherobalthazar.com/">
+    <meta property="og:title" content="Our Hero, Balthazar - Official Website">
+    <meta property="og:description"
+        content="Ultra-wealthy NYC teenager Balthy makes dramatic gun control videos to impress his activist crush. When an online troll targets his content, Balthy becomes convinced he's communicating with a potential school shooter and embarks on an ill-advised journey to Texas to confront him.">
+    <meta property="og:image" content="https://ourherobalthazar.com/assets/images/teaser-preview.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ourherobalthazar.com/">
+    <meta property="twitter:title" content="Our Hero, Balthazar - Official Website">
+    <meta property="twitter:description"
+        content="Ultra-wealthy NYC teenager Balthy makes dramatic gun control videos to impress his activist crush. When an online troll targets his content, Balthy becomes convinced he's communicating with a potential school shooter and embarks on an ill-advised journey to Texas to confront him.">
+    <meta property="twitter:image" content="https://ourherobalthazar.com/assets/images/teaser-preview.jpg">
 </head>
 
 <body>
-  <p>Redirecting to <a href="v4/">v4</a>...</p>
+    <h1 style="display: none;">Our Hero, Balthazar - Official Website</h1>
+
+    <!-- Sticky Header -->
+    <header class="v2-header">
+        <div class="header-left">
+            <!-- Title removed as requested -->
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <nav class="header-nav">
+            <a href="#hero">Teaser</a>
+            <a href="#tickets" class="btn-ticket" style="margin-left: 1rem;">Get Tickets</a>
+            <a href="#cast">Cast & Filmmakers</a>
+            <a href="#more">More</a>
+        </nav>
+        <!-- Removed header-right to unify z-index context -->
+    </header>
+
+    <!-- Hero Section (Full Screen Video) -->
+    <section class="v2-hero" id="hero">
+        <div class="hero-teaser-trigger"
+            style="background-image: url('assets/images/teaser-preview.jpg'); position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: cover; background-position: center; cursor: pointer;">
+            <div class="play-button hero-play-btn"></div>
+            <div class="teaser-coming-soon">TEASER TRAILER COMING SOON</div>
+        </div>
+
+        <div class="v2-hero-content"
+            style="pointer-events: none; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; padding: 0 4vw 10vh 4vw;">
+            <div class="v2-title-top-row"
+                style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;">
+                <div class="v2-title-part-top">our hero,</div>
+                <div class="v2-title-part-bottom">balthazar</div>
+            </div>
+            <div class="v2-title-tagline" style="margin-top: 1rem; text-align: left;">TAKE A SHOT AT FRIENDSHIP</div>
+        </div>
+    </section>
+
+    <!-- Info Strip (Sticky or below hero) -->
+    <!-- Info Strip (Sticky or below hero) -->
+    <div class="v2-info-strip">
+        <div class="info-item">Directed by Oscar Boyson</div>
+        <div class="info-item">Written by Ricky Camilleri & Oscar Boyson</div>
+    </div>
+
+    <!-- Ticketing Section -->
+    <!-- Ticketing Section -->
+    <section id="tickets" class="v2-section v2-tickets">
+        <h2 class="v2-section-title">IN THEATERS - SPRING 2026</h2>
+        <div class="v2-grid">
+            <div class="v2-card">
+                <h3>New York</h3>
+                <p class="venue">REGAL UNION SQUARE</p>
+                <p class="date">MARCH 27, 2026</p>
+                <a href="#" class="status">GET TICKETS</a>
+            </div>
+            <div class="v2-card">
+                <h3>Los Angeles</h3>
+                <p class="venue">ALAMO DRAFTHOUSE DTLA</p>
+                <p class="date">APRIL 3, 2026</p>
+                <a href="#" class="status">GET TICKETS</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events (Moved) -->
+    <!-- Events (Moved) -->
+    <section id="events" class="v2-section v2-events">
+        <h2 class="v2-section-title">Q&A Events</h2>
+        <div class="v2-list">
+            <a href="#" class="v2-list-item">
+                <span class="date">JAN 24</span>
+                <span class="event-name"><span class="status-btn">GET TICKETS</span> Opening Night Q&A with Oscar
+                    Boyson</span>
+                <span class="location">Angelika Film Center, NY</span>
+            </a>
+            <a href="#" class="v2-list-item">
+                <span class="date">JAN 25</span>
+                <span class="event-name"><span class="status-btn">GET TICKETS</span> Cast & Crew Q&A</span>
+                <span class="location">Laemmle Royal, LA</span>
+            </a>
+            <a href="#" class="v2-list-item">
+                <span class="date">JAN 31</span>
+                <span class="event-name"><span class="status-btn">GET TICKETS</span> Special Screening with Jaeden
+                    Martell</span>
+                <span class="location">IFC Center, NY</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Cast List (Full Bios) -->
+    <section id="cast" class="v2-section v2-cast">
+        <h2 class="v2-section-title">Cast & Filmmakers</h2>
+        <div class="v2-cast-list">
+            <!-- Jaeden Martell -->
+            <div class="cast-member-card">
+                <div class="cast-headshot-square">
+                    <img src="assets/images/cast/jaeden.jpg" alt="Jaeden Martell" loading="lazy">
+                    <div class="member-overlay">
+                        <div class="overlay-content">
+                            <span class="name">Jaeden Martell</span>
+                            <span class="role">Balthazar</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden-bio">
+                    <h3>Jaeden Martell</h3>
+                    <h4>Balthazar</h4>
+                    <p>Immensely talented and dynamic on screen, Jaeden Martell has already amassed quite a résumé at a
+                        young age, acting with an extraordinary list of actors and directors. Most recently, Jaeden
+                        stars in Arcadian, the post apocalyptical thriller opposite Nicolas Cage in Ireland and Y2K
+                        directed by Kyle Mooney. Jaeden also stars in Netflix/Blumhouse’s thriller Mr. Harrigan’s Phone,
+                        directed by John Lee Hancock and also starring Donald Sutherland, reuniting with writer Stephen
+                        King. In 2021, Jaeden starred in Netflix’s Metal Lords, directed by Peter Sollett and written
+                        and produced by D.B. Weiss. He can also be seen in the limited series Defending Jacob on Apple
+                        TV+, portraying the enigmatic titular character alongside Chris Evans and Michelle Dockery. In
+                        2019, Jaeden reprised his role in IT Chapter 2 and took part in Rian Johnson’s Knives Out.
+                        Premiering at Sundance, Jaeden appeared in the psychological thriller The Lodge and A24’s
+                        Lowtide. In one of his biggest films to date, Jaeden starred as the fearless leader of the
+                        Losers’ club in the record-breaking remake of horror classic IT as Bill Denborough. Earlier in
+                        2017, Martell played the titular character in Focus Feature’s The Book of Henry. Alongside Clive
+                        Owen, Jaeden shines in The Confirmation. Premiering at the Berlin Film Festival, Midnight
+                        Special featured Martell as a boy with special powers on the run with his father, Michael
+                        Shannon. He also worked with Cameron Crowe in Aloha and had a recurring role in Masters of Sex.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Asa Butterfield -->
+            <div class="cast-member-card">
+                <div class="cast-headshot-square">
+                    <img src="assets/images/cast/asa.jpg" alt="Asa Butterfield" loading="lazy">
+                    <div class="member-overlay">
+                        <div class="overlay-content">
+                            <span class="name">Asa Butterfield</span>
+                            <span class="role">Solomon</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden-bio">
+                    <h3>Asa Butterfield</h3>
+                    <h4>Solomon</h4>
+                    <p>British actor Asa Butterfield is arguably best known for his role as Otis Milburn in the Netflix
+                        worldwide phenomenon Sex Education. He will next star in Out of the Dust for Netflix, a six-part
+                        psychological thriller. Asa made his stage debut in January, in his one man play, Second Best at
+                        Riverside Studios. Asa made his on-screen debut at the age of eight in After Thomas (2006). In
+                        2007, he featured in Son of Rainbow alongside Will Poulter. The following year Asa starred in
+                        The Boy in the Striped Pajamas, earning him a British Independent Film Award nomination. In
+                        2011, he starred in Martin Scorsese’s adventure film Hugo and in 2015 in A Brilliant Young Mind.
+                        Asa led in the festive film Your Christmas or Mine for Amazon Prime, released at the end of
+                        2022, followed by a sequel in 2023. Asa’s further film and TV credits also include: Choose Or
+                        Die (2022), Greed (2019), Watch The Skies (2019), Slaughterhouse Rulez (2018), Time Freak
+                        (2018), Then Came You (2018), Thunderbirds Are Go (2017), The House Of Tomorrow (2017),
+                        Journey’s End (2017), The Space Between Us (2017), Miss Peregrine's Home For Peculiar Children
+                        (2016), 10,000 Saints (2015), Ender’s Game (2013), The Wolfman (2010), Nanny Mcphee Returns
+                        (2010), Merlin (2008) And Ashes To Ashes (2008).</p>
+                </div>
+            </div>
+
+            <!-- Anna Baryshnikov -->
+            <div class="cast-member-card">
+                <div class="cast-headshot-square">
+                    <img src="assets/images/cast/anna.jpg" alt="Anna Baryshnikov" loading="lazy">
+                    <div class="member-overlay">
+                        <div class="overlay-content">
+                            <span class="name">Anna Baryshnikov</span>
+                            <span class="role">Taylor</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden-bio">
+                    <h3>Anna Baryshnikov</h3>
+                    <h4>Taylor</h4>
+                    <p>Anna Baryshnikov was most recently seen in a critically acclaimed performance in Rose Glass's
+                        Love Lies Bleeding opposite Kristen Stewart. Previous films include Kenneth Lonergan’s
+                        Manchester by the Sea, and Sara Colangelo’s The Kindergarten Teacher. Anna played Lavinia
+                        Dickinson on Apple TV+’s Dickinson for three seasons, as well as appearing in numerous other tv
+                        shows such as Doll and Em, Superior Donuts, Prodigal Son and Good Girls Revolt. She’s appeared
+                        on and off Broadway in plays such as Time and the Conways, ChekhovOS, and Samuel Hunter’s A
+                        Bright New Boise. She'll next be seen in Idiotka in which she stars alongside Julia Fox and
+                        Camila Mendes, Sender produced by Jamie Lee Curtis, and opposite Robert Pattinson in Kristoffer
+                        Borgli’s The Drama for A24. She is currently shooting Cape Fear for Apple TV+ opposite Javier
+                        Bardem and Amy Adams. She attended Northwestern University.</p>
+                </div>
+            </div>
+            <!-- Chris Bauer -->
+            <div class="cast-member-card">
+                <div class="cast-headshot-square">
+                    <img src="assets/images/cast/chris.jpg" alt="Chris Bauer" loading="lazy">
+                    <div class="member-overlay">
+                        <div class="overlay-content">
+                            <span class="name">Chris Bauer</span>
+                            <span class="role">Beaver</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden-bio">
+                    <h3>Chris Bauer</h3>
+                    <h4>Beaver</h4>
+                    <p>Chris Bauer has appeared in over 300 episodes of television, 40 feature films, and several
+                        theater productions on Broadway and Off. His multiple long running television credits include
+                        Frank Sobotka in The Wire, Andy Bellefleur in True Blood, and Bobby Dwyer in The Deuce for HBO.
+                        Chris will next be seen in the Paramount+ limited series JonBenet, the Peacock hit series Poker
+                        Face, and the Netflix series His & Hers. He starred as pro wrestler Wild Bill Hancock on Heels
+                        for Starz, appeared in Gaslit with Julia Roberts and Sean Penn, Survivor's Remorse produced by
+                        LeBron James, and played Joe McCarthy in Fellow Travelers for Showtime. On Apple TV, he played
+                        Deke Slayton in For All Mankind, and appeared in People Vs. OJ for FX. Recent feature credits
+                        include The Little Things, Eenie Meanie, The Razor's Edge, Money Monster, and Sully. He received
+                        an Outer Critic’s nomination for A Streetcar Named Desire on Broadway. He is a graduate of the
+                        Yale School of Drama and a metalhead.</p>
+                </div>
+            </div>
+
+            <!-- Jennifer Ehle -->
+            <div class="cast-member-card">
+                <div class="cast-headshot-square">
+                    <img src="assets/images/cast/jennifer.jpg" alt="Jennifer Ehle" loading="lazy">
+                    <div class="member-overlay">
+                        <div class="overlay-content">
+                            <span class="name">Jennifer Ehle</span>
+                            <span class="role">Nicole</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden-bio">
+                    <h3>Jennifer Ehle</h3>
+                    <h4>Nicole</h4>
+                    <p>Jennifer Ehle is a two-time Tony Award and BAFTA winning actress. She will soon film the AMC
+                        series Interview with a Vampire. She can be seen in the Paramount+ series Lioness and starred in
+                        Alice Birch’s Amazon series Dead Ringers. She starred in Maria Schrader's film She Said, as well
+                        as Taylor Sheridan’s Paramount+ series 1923. She previously starred in Rose Glass' horror
+                        feature Saint Maud, for which she was nominated for a British Independent Film Award. She also
+                        starred in John and the Hole and The Comey Rule. Ehle’s other notable film credits include Tom
+                        Hooper’s The King’s Speech, Kathryn Bigelow’s Detroit and Zero Dark Thirty, Steven Soderbergh’s
+                        Contagion, George Clooney’s The Ides of March, Neil LaBute’s Possession, István Szabó’s
+                        Sunshine, and Sam Taylor-Johnson’s Fifty Shades franchise.</p>
+                </div>
+            </div>
+
+            <!-- Noah Centineo -->
+            <div class="cast-member-card">
+                <div class="cast-headshot-square">
+                    <img src="assets/images/cast/noah.jpg" alt="Noah Centineo" loading="lazy">
+                    <div class="member-overlay">
+                        <div class="overlay-content">
+                            <span class="name">Noah Centineo</span>
+                            <span class="role">Antony</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden-bio">
+                    <h3>Noah Centineo</h3>
+                    <h4>Antony</h4>
+                    <p>Noah Centineo continues to expand his talents as an actor and producer. Centineo can be seen
+                        starring in the Netflix series The Recruit, in which he also serves as an executive producer.
+                        This April, Centineo was seen in A24’s Warfare. Up next, Centineo will be seen in Our Hero,
+                        Balthazar, in which he also serves as a producer through his Arkhum banner. 2023 marked the
+                        launch of Centineo’s production company, ARKHUM PRODUCTIONS. Centineo made a cameo in Dream
+                        Scenario and in 2022, starred as ‘Atom Smasher’ in DC’s Black Adam. Centineo rose to fame in the
+                        Netflix trilogy To All the Boys I’ve Loved Before. In 2019, Centineo was seen in Charlie's
+                        Angels and The Perfect Date. He first came to prominence for his work in the ABC Family /
+                        Freeform series The Fosters.</p>
+                </div>
+            </div>
+            <!-- Becky Ann Baker -->
+            <div class="cast-member-card">
+                <div class="cast-headshot-square">
+                    <img src="assets/images/cast/becky.jpg" alt="Becky Ann Baker" loading="lazy">
+                    <div class="member-overlay">
+                        <div class="overlay-content">
+                            <span class="name">Becky Ann Baker</span>
+                            <span class="role">Elaine</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden-bio">
+                    <h3>Becky Ann Baker</h3>
+                    <h4>Elaine</h4>
+                    <p>Becky Ann Baker may be most recognized for her mothering skills, or lack thereof, in two Judd
+                        Apatow series, Freaks and Geeks and Girls (earning Emmy and Critics’ Choice nominations). She
+                        appeared in Ted Lasso (for which she earned her second Emmy nomination), Billions, New
+                        Amsterdam, and Big Little Lies. Other television credits include Brockmire, The Good Fight,
+                        Gotham, Younger and Only Murders in the Building. On film, she’s appeared in White Squall, Men
+                        in Black, A Simple Plan, War of the Worlds, All Happy Families and most recently, Jim Brooks’
+                        Ella McCay. Also an acclaimed theater actress, Becky was a member of the original companies of
+                        The Best Little Whorehouse in Texas, Titanic, and Stephen Sondheim’s Assassins.</p>
+                </div>
+            </div>
+            <!-- Avan Jogia -->
+            <div class="cast-member-card">
+                <div class="cast-headshot-square">
+                    <img src="assets/images/cast/avan.jpg" alt="Avan Jogia" loading="lazy">
+                    <div class="member-overlay">
+                        <div class="overlay-content">
+                            <span class="name">Avan Jogia</span>
+                            <span class="role">Supes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden-bio">
+                    <h3>Avan Jogia</h3>
+                    <h4>Supes</h4>
+                    <p>Avan Jogia most recently completed filming on the Amazon MGM Studios series 56 Days, starring
+                        opposite Dove Cameron. He also recently completed filming on Our Hero, Balthazar. Avan’s second
+                        book of poetry, titled Autopsy (Of an Ex-Teen Heartthrob) was recently published. Avan’s feature
+                        acting credits include Choose Love, Resident Evil: Welcome to Raccoon City, Zombieland 2, Shaft,
+                        The Exchange, The Artist’s Wife, The New Romantic, Paper Year, A Midsummer Night’s Dream, I am
+                        Michael, and Ten Thousand Saints. Avan’s television credits include Orphan Black: Echoes, Now
+                        Apocalypse, The Strangers, and Tut. Avan made his feature writing/directing debut with Door
+                        Mouse. In 2019, Avan published his first book titled Mixed Feelings: Poems and Stories.</p>
+                </div>
+            </div>
+            <!-- Pippa Knowles -->
+            <div class="cast-member-card">
+                <div class="cast-headshot-square">
+                    <img src="assets/images/cast/pippa.jpg" alt="Pippa Knowles" loading="lazy">
+                    <div class="member-overlay">
+                        <div class="overlay-content">
+                            <span class="name">Pippa Knowles</span>
+                            <span class="role">Eleanor</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden-bio">
+                    <h3>Pippa Knowles</h3>
+                    <h4>Eleanor</h4>
+                    <p>Pippa Knowles is a young up-and-coming actress based in New York City. She has been training in
+                        acting, singing, and dancing since she was 13 years old. In just 3 years, Pippa has performed at
+                        several prestigious theaters, including at the A.R.T Theatre, the Vineyard Theatre, and on Paper
+                        Mill Playhouse’s mainstage. She booked her first co-star role in 2023 on the HBO Max series And
+                        Just Like That, and shortly after booked her first national commercial. She kept up her training
+                        through work in short films and senior thesis films. In 2024, she was cast in her very first SAG
+                        feature film as Eleanor, the primary female lead in Our Hero, Balthazar.</p>
+                </div>
+            </div>
+
+            <!-- Oscar Boyson -->
+            <div class="cast-member-card">
+                <div class="cast-headshot-square">
+                    <img src="assets/images/cast/oscar.jpg" alt="Oscar Boyson" loading="lazy">
+                    <div class="member-overlay">
+                        <div class="overlay-content">
+                            <span class="name">Oscar Boyson</span>
+                            <span class="role">Director / Writer</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden-bio">
+                    <h3>Oscar Boyson</h3>
+                    <h4>Director / Writer</h4>
+                    <p>Oscar Boyson is a director and producer whose work explores the intersections of culture,
+                        technology, and urban life. He is known for his creative collaborations and innovative approach
+                        to storytelling. As a producer, his credits include several acclaimed films with directors like
+                        the Safdie Brothers and Noah Baumbach. In addition to his film work, Oscar has directed numerous
+                        short films and documentaries that investigate global trends and the future of cities. Our Hero,
+                        Balthazar marks a significant entry in his directorial career, blending his unique visual
+                        sensibility with a deeply human story.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Press Grid -->
+    <!-- Press Grid -->
+    <section class="v2-section v2-press">
+        <div class="v2-grid-3">
+            <div class="press-item">
+                <p>“…a screw-loose buddy movie for our time”</p>
+                <div class="press-logo"><img src="assets/images/logos/variety.svg" alt="Variety" loading="lazy"></div>
+                <cite>- Owen Gleiberman</cite>
+            </div>
+            <div class="press-item">
+                <p>"alternately disturbing and brutally funny”</p>
+                <div class="press-logo"><img src="assets/images/logos/thr.svg" alt="The Hollywood Reporter"
+                        loading="lazy"></div>
+                <cite>- Frank Scheck</cite>
+            </div>
+            <div class="press-item">
+                <p>"a scathing look at America"</p>
+                <div class="press-logo"><img src="assets/images/logos/thecontending.svg" alt="The Contending"
+                        loading="lazy"></div>
+                <cite>- Frank J. Avella</cite>
+            </div>
+        </div>
+    </section>
+
+    <!-- More Section (3-Tile Grid) -->
+    <section id="more" class="v2-section v2-more">
+        <h2 class="v2-section-title">More</h2>
+        <div class="more-grid">
+            <!-- Col 1: Posters Slideshow -->
+            <!-- Col 1: Posters Slideshow -->
+            <div class="more-tile poster-tile">
+                <div class="poster-slideshow">
+                    <img src="assets/images/poster_placeholder.svg" class="poster-slide active" alt="Official Poster"
+                        loading="lazy">
+                </div>
+            </div>
+
+            <!-- Col 2: Stacked Tiles -->
+            <div class="more-column">
+                <!-- Video Tile -->
+                <!-- Video Tile Removed -->
+
+                <!-- Stills Tile -->
+                <div class="more-tile stills-tile" id="stills-trigger">
+                    <div class="tile-label">STILLS</div>
+                    <!-- Single Preview Image -->
+                    <div class="stills-preview">
+                        <img src="assets/images/bts/IMG_5971.JPG" alt="Stills Preview" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <footer class="v2-footer">
+        <div class="socials">
+            <a href="https://www.instagram.com/ourherobalthazar/" target="_blank">Instagram</a>
+            <a href="#">Twitter</a>
+            <a href="#">Facebook</a>
+        </div>
+        <div class="credits">
+            &copy; 2026 Picturehouse.
+            <a href="https://picturehouse.com/terms-conditions/" target="_blank">Terms</a>
+            <a href="https://picturehouse.com/privacy-policy/" target="_blank">Privacy</a>
+        </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox-overlay">
+        <span class="lightbox-close">&times;</span>
+        <div class="lightbox-content">
+            <img class="lightbox-image" src="" alt="Poster Full Screen">
+            <div class="dual-poster-container" style="display: none;">
+                <img src="assets/images/poster_placeholder.svg" class="dual-poster-img" alt="Official Poster">
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Lightbox -->
+    <div id="video-lightbox" class="lightbox-overlay">
+        <span class="lightbox-close video-lightbox-close">&times;</span>
+        <div class="video-lightbox-container"></div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.querySelector('.lightbox-image');
+        const dualPosterContainer = document.querySelector('.dual-poster-container');
+        const dualPosterImages = document.querySelectorAll('.dual-poster-img');
+
+        const videoLightbox = document.getElementById('video-lightbox');
+        const videoLightboxContainer = document.querySelector('.video-lightbox-container');
+
+        // Navigation Elements (Stills)
+        let prevBtn, nextBtn;
+
+        // --- Functions --- //
+
+        // Master Close Function
+        let closeAllLightboxes = () => {
+            // Main Lightbox
+            if (lightbox) {
+                lightbox.classList.remove('active');
+                lightbox.classList.remove('zoomed-mode'); // Clear zoom mode
+                if (lightboxImage) {
+                    lightboxImage.style.display = 'none';
+                    lightboxImage.src = '';
+                }
+                if (dualPosterContainer) dualPosterContainer.style.display = 'none';
+            }
+            document.body.style.overflow = '';
+
+            // Cleanup Stills Nav
+            removeLightboxNav();
+
+            // Video Lightbox
+            if (videoLightbox) videoLightbox.classList.remove('active');
+            if (videoLightboxContainer) videoLightboxContainer.innerHTML = '';
+        };
+
+        // Helper: Create Nav Buttons for Stills
+        function createLightboxNav() {
+            if (!prevBtn) {
+                prevBtn = document.createElement('div');
+                prevBtn.innerHTML = '&#10094;';
+                prevBtn.style.cssText = 'position:fixed; top:50%; left:20px; color:white; font-size:50px; cursor:pointer; z-index:1002; transform:translateY(-50%); user-select:none;';
+                prevBtn.onclick = (e) => { e.stopPropagation(); changeImage(-1); };
+                lightbox.appendChild(prevBtn);
+            }
+            if (!nextBtn) {
+                nextBtn = document.createElement('div');
+                nextBtn.innerHTML = '&#10095;';
+                nextBtn.style.cssText = 'position:fixed; top:50%; right:20px; color:white; font-size:50px; cursor:pointer; z-index:1002; transform:translateY(-50%); user-select:none;';
+                nextBtn.onclick = (e) => { e.stopPropagation(); changeImage(1); };
+                lightbox.appendChild(nextBtn);
+            }
+        }
+
+        function removeLightboxNav() {
+            if (prevBtn) prevBtn.remove();
+            if (nextBtn) nextBtn.remove();
+            prevBtn = null;
+            nextBtn = null;
+        }
+
+        // --- Event Listeners --- //
+
+        // 1. Close Buttons (Attributes selector to catch multiple)
+        document.querySelectorAll('.lightbox-close').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                closeAllLightboxes();
+            });
+        });
+
+        // 2. Background Click Close
+        if (lightbox) {
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox || e.target.classList.contains('lightbox-content')) closeAllLightboxes();
+            });
+        }
+        if (videoLightbox) {
+            videoLightbox.addEventListener('click', (e) => {
+                if (e.target === videoLightbox) closeAllLightboxes();
+            });
+        }
+
+        // 3. Nav Link Auto-Close
+        document.querySelectorAll('.header-nav a').forEach(link => {
+            link.addEventListener('click', closeAllLightboxes);
+        });
+
+        // --- Gallery Logic --- //
+
+        // POSTERS: Dual View
+        const posterTrigger = document.querySelector('.poster-tile');
+        if (posterTrigger) {
+            posterTrigger.addEventListener('click', () => {
+                lightbox.classList.add('active');
+
+                // Toggle Views
+                if (lightboxImage) lightboxImage.style.display = 'none'; // Hide Single
+                if (dualPosterContainer) dualPosterContainer.style.display = 'flex'; // Show Dual
+
+                document.body.style.overflow = 'hidden';
+            });
+        }
+
+        // POSTERS: Zoom Logic
+        if (dualPosterImages) {
+            dualPosterImages.forEach(img => {
+                img.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    dualPosterImages.forEach(other => { if (other !== img) other.classList.remove('zoomed'); });
+                    img.classList.toggle('zoomed');
+                });
+            });
+        }
+
+        // STILLS: Gallery Logic
+        const stillsTrigger = document.getElementById('stills-trigger');
+        const btsImages = [
+            'assets/images/bts/IMG_5971.JPG',
+            'assets/images/bts/IMG_5995.JPG',
+            'assets/images/bts/OscarBTS.JPG',
+            'assets/images/bts/SolandBalthy.JPG',
+            'assets/images/bts/IMG_5982.JPG',
+            'assets/images/bts/IMG_5992.JPG',
+            'assets/images/bts/OscarChrisBTS.JPG',
+            'assets/images/bts/SolomonBTS3.JPG'
+        ];
+        let currentImageIndex = 0;
+
+        // Preload
+        btsImages.forEach(src => { new Image().src = src; });
+
+        function changeImage(dir) {
+            currentImageIndex += dir;
+            if (currentImageIndex >= btsImages.length) currentImageIndex = 0;
+            if (currentImageIndex < 0) currentImageIndex = btsImages.length - 1;
+
+            if (lightboxImage) {
+                lightboxImage.style.display = 'block'; // Ensure visible for Stills
+                lightboxImage.style.opacity = 1;
+                lightboxImage.src = btsImages[currentImageIndex];
+            }
+        }
+
+        // STILLS: Zoom Logic REMOVED
+
+
+        if (stillsTrigger) {
+            stillsTrigger.addEventListener('click', () => {
+                currentImageIndex = 0; // Reset
+                lightbox.classList.add('active');
+
+                // Toggle Views
+                if (dualPosterContainer) dualPosterContainer.style.display = 'none'; // Hide Dual
+                if (lightboxImage) {
+                    lightboxImage.style.display = 'block'; // Show Single
+                    lightboxImage.src = btsImages[0];
+                }
+
+                document.body.style.overflow = 'hidden';
+                createLightboxNav();
+            });
+        }
+
+        // --- Other Features --- //
+
+        // Poster Slideshow (Tile Background) -> DISABLED
+        // const posterSlides = document.querySelectorAll('.poster-slide');
+        // let currentPoster = 0;
+        // if (posterSlides.length > 1) { ... setInterval ... }
+
+        // Video Facade Logic
+        const videoFacades = document.querySelectorAll('.video-facade');
+        if (videoFacades.length > 0) {
+            videoFacades.forEach(facade => {
+                facade.addEventListener('click', function () {
+                    // Burst effect
+                    const playBtn = this.querySelector('.play-button') || this.querySelector('.hero-play-btn');
+                    if (playBtn) {
+                        playBtn.classList.add('clicked');
+                        setTimeout(() => { playBtn.classList.remove('clicked'); }, 600);
+                    }
+
+                    const videoId = this.getAttribute('data-video-id');
+                    if (videoId) {
+                        videoLightbox.classList.add('active');
+                        const iframe = document.createElement('iframe');
+                        iframe.setAttribute('width', '100%');
+                        iframe.setAttribute('height', '100%');
+                        iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1`);
+                        iframe.setAttribute('frameborder', '0');
+                        iframe.setAttribute('allowfullscreen', 'true');
+                        if (videoLightboxContainer) {
+                            videoLightboxContainer.innerHTML = '';
+                            videoLightboxContainer.appendChild(iframe);
+                        }
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            });
+        }
+
+        // Bio Lightbox Logic
+        const castMemberCards = document.querySelectorAll('.cast-member-card');
+        if (castMemberCards.length > 0) {
+            castMemberCards.forEach(card => {
+                card.addEventListener('click', function () {
+                    const bioHTML = this.querySelector('.hidden-bio').innerHTML;
+                    if (lightbox) {
+                        lightbox.classList.add('active');
+                        // Hide other content
+                        if (lightboxImage) lightboxImage.style.display = 'none';
+                        if (dualPosterContainer) dualPosterContainer.style.display = 'none';
+
+                        // Create or reuse bio container
+                        let bioContainer = lightbox.querySelector('.bio-content');
+                        if (!bioContainer) {
+                            bioContainer = document.createElement('div');
+                            bioContainer.className = 'bio-content';
+                            lightbox.querySelector('.lightbox-content').appendChild(bioContainer);
+                        }
+
+                        // Restructure Bio for Scrollability
+                        const hiddenBio = this.querySelector('.hidden-bio');
+                        const name = hiddenBio.querySelector('h3').innerText;
+                        const role = hiddenBio.querySelector('h4').innerText;
+                        const bioText = hiddenBio.querySelector('p').innerHTML;
+
+                        bioContainer.innerHTML = `
+                            <div class="bio-header">
+                                <h3>${name}</h3>
+                                <h4>${role}</h4>
+                            </div>
+                            <div class="bio-body">
+                                <p>${bioText}</p>
+                            </div>
+                        `;
+                        bioContainer.style.display = 'flex'; // Use flex for high-level structure
+                        bioContainer.style.flexDirection = 'column';
+
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            });
+        }
+
+        // Close Bio on Lightbox Close
+        const originalCloseAll = closeAllLightboxes;
+        closeAllLightboxes = function () {
+            originalCloseAll();
+            const bioContainer = document.querySelector('.bio-content');
+            if (bioContainer) bioContainer.style.display = 'none';
+        };
+
+        // Mobile Nav Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('.header-nav');
+        const header = document.querySelector('.v2-header');
+        if (hamburger && nav && header) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                nav.classList.toggle('active');
+                header.classList.toggle('nav-active');
+            });
+
+            // Close nav when link clicked
+            nav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    nav.classList.remove('active');
+                    header.classList.remove('nav-active');
+                });
+            });
+        }
+
+        // Hero Teaser Trigger
+        const heroTrigger = document.querySelector('.hero-teaser-trigger');
+        if (heroTrigger) {
+            heroTrigger.addEventListener('click', function () {
+                console.log('Teaser triggered');
+                this.classList.toggle('active');
+            });
+        }
+    </script>
 </body>
 
 </html>
