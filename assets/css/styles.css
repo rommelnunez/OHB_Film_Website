@@ -1534,34 +1534,43 @@ html {
     width: 100%;
 }
 
-/* Info Strip - Pushed below fold */
+/* Info Strip - Exact V3 Copy */
 .v2-info-strip {
-    background: #000;
-    color: #ff3600;
-    /* V3 Red as requested ("red 'directed by'") */
-    padding: 1rem 0;
     display: flex;
-    justify-content: center;
-    gap: 2rem;
-    font-family: 'Inter', sans-serif;
+    justify-content: space-between;
+    padding: 1rem 4vw;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
     font-size: 0.8rem;
     letter-spacing: 0.1em;
-    text-transform: uppercase;
+    background: #ff3600;
+    /* V3 BG Color */
+    color: #000;
+    /* V3 Text Color */
+    font-weight: 600;
     z-index: 10;
     position: relative;
-    /* Flows naturally below fixed height hero */
     width: 100%;
 }
 
-/* Header Overlay Interaction (Matches V3) */
+/* Header - Exact V3 Copy */
 .v2-header {
-    background: transparent;
-    mix-blend-mode: normal;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000;
+    height: 60px;
+    /* V3 var(--header-height) */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    z-index: 10000;
+    background: transparent;
+    mix-blend-mode: difference;
+    /* V3 Blend Mode */
+    pointer-events: none;
+    transition: background 0.3s ease, mix-blend-mode 0.3s ease;
 }
 
 /* Footer Social Icons */
