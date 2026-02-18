@@ -1461,45 +1461,45 @@ html {
 .v2-title-part-top,
 .v2-title-part-bottom {
     font-family: 'Neue Haas Grotesk Display Black', 'Inter', sans-serif;
-    font-size: clamp(4rem, 15vw, 12rem);
-    /* Adjusted V3 size */
-    line-height: 0.85;
-    text-transform: lowercase;
     font-weight: 900;
-    letter-spacing: -0.04em;
+    line-height: 0.8;
     color: #ff3600;
     /* V3 Red */
+    text-transform: lowercase;
+    letter-spacing: -0.04em;
     filter: blur(1.5px);
     /* V3 Blur */
     text-shadow: none;
     text-align: left;
-    /* Explicit Left */
-    padding-left: 4vw;
-    /* NEW: Apply padding here instead of parent */
-    width: 100%;
-    /* Ensure full width to hold left align */
+    margin: 0;
 }
 
 .v2-title-part-top {
     font-size: clamp(2rem, 10vw, 6rem);
-    /* V3 specific top size */
+    /* V3 Size */
+    /* No padding here, parent handles it via inline style or separate class */
+}
+
+.v2-title-part-bottom {
+    font-size: clamp(4rem, 18vw, 12rem);
+    /* V3 Bottom Size */
+    text-align: center;
+    /* V3 Bottom is centered */
+    width: 100%;
 }
 
 /* Specific Hero Layout Positioning */
-/* Specific Hero Layout Positioning */
 .v2-hero-content {
-    justify-content: center !important;
-    align-items: flex-start !important;
-    /* Keep items start, but control via widths */
+    /* Most layout is handled by inline styles to match V3: 
+       display: flex; flex-direction: column; justify-content: space-between; padding: ... */
+    /* Resetting my previous overrides */
+    top: 0;
+    left: 0;
+    bottom: auto;
     text-align: left;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-
-    /* FORCE FULL WIDTH FOR CENTER ALIGNMENT */
-    position: absolute !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100%;
+    padding: 0;
+    /* Let inline styles take precedence or define padding here if preferred */
+    /* removing strict position absolute hacks */
 }
 
 .v2-title-tagline {
@@ -1507,7 +1507,6 @@ html {
     font-size: clamp(0.7rem, 1.5vw, 1rem);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    background: transparent;
     padding: 0;
     color: #fff;
     /* V3 White */
@@ -1515,17 +1514,18 @@ html {
     filter: blur(.5px);
     /* V3 Blur */
 
-    /* Absolute Positioning Strategy for Perfect Centering */
+    /* Centering Strategy: Absolute Center */
     position: absolute;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    top: 38vh;
-    /* Positioned relative to screen height (~300px down from title area) */
-    /* V3 titles are around 25vh padding top. */
-    /* Let's try to position it relative to the hero container to be safe */
-    margin: 0 !important;
-    /* Reset margins */
+    left: 50%;
+    transform: translateX(-50%);
+    top: 50%;
+    /* Adjust vertically as needed relative to top-row or add specific margin */
+    /* Since it is inside .v2-title-top-row which is relative: */
+    /* V3 had it right aligned. User wants center. */
+    width: auto;
+    white-space: nowrap;
+    margin: 0;
+    background: transparent;
 }
 
 येईल
