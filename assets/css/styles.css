@@ -1429,16 +1429,16 @@ html {
     position: absolute;
     inset: 0;
     background: #000;
-    opacity: 0.2;
-    /* Slight black overlay */
+    opacity: 0.4;
+    /* Starts darker */
     transition: opacity 0.3s ease;
     z-index: 1;
     pointer-events: none;
 }
 
 .hero-teaser-trigger:hover .teaser-overlay {
-    opacity: 0.4;
-    /* Darkens on hover */
+    opacity: 0.1;
+    /* Lightens on hover */
 }
 
 /* Ensure content sits above overlay */
@@ -1447,6 +1447,14 @@ html {
 .v2-title-tagline {
     z-index: 2;
     position: relative;
+    transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-teaser-trigger:hover .play-button,
+.hero-teaser-trigger:hover .hero-play-btn {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
+    /* White Glow */
 }
 
 .teaser-coming-soon {
