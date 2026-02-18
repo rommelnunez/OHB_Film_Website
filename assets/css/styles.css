@@ -985,9 +985,16 @@ html {
     line-height: 0.8;
     color: #ff3600;
     text-transform: lowercase;
-    letter-spacing: 0.5em;
-    text-align: left;
+    filter: blur(1.2px);
+}
 
+.v2-title-part-top {
+    text-align: left;
+}
+
+.v2-title-part-bottom {
+    text-align: center;
+    width: 100%;
 }
 
 .v2-title-tagline {
