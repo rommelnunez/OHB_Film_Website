@@ -1632,24 +1632,33 @@ html {
         margin-bottom: 5vh !important;
     }
 
-    /* Footer Mobile: Stacked */
+    /* Footer Mobile: Stacked & Centered */
     .v2-footer {
         flex-direction: column;
         gap: 2rem;
-        align-items: flex-start;
-        /* Or center? Left seems safer for now */
+        align-items: center;
+        text-align: center;
     }
 
     .socials {
         order: 1;
         /* Icons First */
         margin-bottom: 1rem;
+        justify-content: center;
+        width: 100%;
     }
 
     .credits {
         order: 2;
         /* Text Second */
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
     }
-}
+
+    .credits a {
+        margin: 0;
+    }
 }
