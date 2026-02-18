@@ -1505,8 +1505,12 @@ html {
     margin-top: 300px !important;
     /* User requested "300px lower" */
     margin-bottom: 5vh !important;
-    text-align: left;
-    align-self: flex-start;
+    text-align: center;
+    /* Centered */
+    align-self: center;
+    /* Centered in Flex Container */
+    width: 100%;
+    /* Full width to allow centering */
 }
 
 /* Hero Overlay */
