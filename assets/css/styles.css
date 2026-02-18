@@ -985,9 +985,9 @@ html {
     line-height: 0.8;
     color: #ff3600;
     text-transform: lowercase;
-    letter-spacing: -0.04em;
+    letter-spacing: 0.15em;
     text-align: left;
-    filter: blur(1.5px);
+
 }
 
 .v2-title-tagline {
