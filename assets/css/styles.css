@@ -1504,7 +1504,8 @@ html {
 
 .v2-title-tagline {
     font-family: 'Neue Haas Grotesk Display Black', 'Inter', sans-serif;
-    font-size: clamp(0.7rem, 1.5vw, 1rem);
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    /* Increased from 0.7rem/1.5vw/1rem */
     text-transform: uppercase;
     letter-spacing: 0.05em;
     padding: 0;
