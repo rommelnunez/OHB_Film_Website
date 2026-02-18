@@ -1446,6 +1446,17 @@ html {
     opacity: 0;
 }
 
+/* Lightbox Zoom State */
+.lightbox-image {
+    transition: transform 0.3s ease;
+    cursor: zoom-in;
+}
+
+.lightbox-image.zoomed {
+    transform: scale(2.5);
+    cursor: zoom-out;
+}
+
 /* --- V4 Refinements (Round 2) --- */
 
 /* V3 Font Face */

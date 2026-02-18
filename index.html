@@ -619,6 +619,14 @@
             });
         }
 
+        // POSTERS: Zoom Logic (Mobile/Desktop)
+        if (lightboxImage) {
+            lightboxImage.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent closing
+                lightboxImage.classList.toggle('zoomed');
+            });
+        }
+
         // POSTERS: Zoom Logic
         if (dualPosterImages) {
             dualPosterImages.forEach(img => {
