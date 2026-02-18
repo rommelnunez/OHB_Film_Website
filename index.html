@@ -599,15 +599,20 @@
 
         // --- Gallery Logic --- //
 
-        // POSTERS: Dual View
+        // POSTERS: Single Optimized View
         const posterTrigger = document.querySelector('.poster-tile');
         if (posterTrigger) {
             posterTrigger.addEventListener('click', () => {
                 lightbox.classList.add('active');
 
-                // Toggle Views
-                if (lightboxImage) lightboxImage.style.display = 'none'; // Hide Single
-                if (dualPosterContainer) dualPosterContainer.style.display = 'flex'; // Show Dual
+                // Show Single Optimized Poster
+                if (lightboxImage) {
+                    lightboxImage.style.display = 'block';
+                    lightboxImage.src = 'assets/images/official_poster.jpg'; // Web Optimized 131KB
+                }
+
+                // Hide Dual if present
+                if (dualPosterContainer) dualPosterContainer.style.display = 'none';
 
                 document.body.style.overflow = 'hidden';
             });
