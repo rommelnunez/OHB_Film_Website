@@ -1453,7 +1453,14 @@ html {
 }
 
 .v2-title-tagline {
-    transform: translateY(-50px) !important;
+    width: auto;
+    /* Allow natural width */
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50px) !important;
+    text-align: center;
+    white-space: nowrap;
+    /* Prevent wrapping if not needed */
 }
 
 .hero-teaser-trigger:hover .play-button,
