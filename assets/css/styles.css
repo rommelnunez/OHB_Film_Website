@@ -1450,6 +1450,10 @@ html {
     transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
 }
 
+.v2-title-tagline {
+    transform: translateY(-50px);
+}
+
 .hero-teaser-trigger:hover .play-button,
 .hero-teaser-trigger:hover .hero-play-btn {
     transform: scale(1.1);
