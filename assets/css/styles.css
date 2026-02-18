@@ -1472,6 +1472,8 @@ html {
     filter: blur(1.5px);
     /* V3 Blur */
     text-shadow: none;
+    text-align: left;
+    /* Explicit Left */
 }
 
 .v2-title-part-top {
@@ -1482,9 +1484,10 @@ html {
 /* Specific Hero Layout Positioning */
 .v2-hero-content {
     justify-content: center !important;
-    /* Override previous flex align */
-    align-items: center !important;
-    text-align: center;
+    align-items: flex-start !important;
+    /* Left Aligned */
+    text-align: left;
+    padding-left: 4vw !important;
 }
 
 .v2-title-tagline {
@@ -1502,6 +1505,8 @@ html {
     margin-top: 300px !important;
     /* User requested "300px lower" */
     margin-bottom: 5vh !important;
+    text-align: left;
+    align-self: flex-start;
 }
 
 /* Hero Overlay */
