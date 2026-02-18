@@ -1493,8 +1493,13 @@ html {
     /* Keep items start, but control via widths */
     text-align: left;
     padding-left: 0 !important;
-    /* NEW: Remove parent padding so tagline centers correctly */
     padding-right: 0 !important;
+
+    /* FORCE FULL WIDTH FOR CENTER ALIGNMENT */
+    position: absolute !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100%;
 }
 
 .v2-title-tagline {
@@ -1509,16 +1514,21 @@ html {
     font-weight: 900;
     filter: blur(.5px);
     /* V3 Blur */
-    margin-top: 300px !important;
-    /* User requested "300px lower" */
-    margin-bottom: 5vh !important;
-    text-align: center;
-    /* Centered */
-    align-self: center;
-    /* Centered in Flex Container */
+
+    /* Absolute Positioning Strategy for Perfect Centering */
+    position: absolute;
+    left: 0;
     width: 100%;
-    /* Full width to allow centering */
+    text-align: center;
+    top: 38vh;
+    /* Positioned relative to screen height (~300px down from title area) */
+    /* V3 titles are around 25vh padding top. */
+    /* Let's try to position it relative to the hero container to be safe */
+    margin: 0 !important;
+    /* Reset margins */
 }
+
+येईल
 
 /* Hero Overlay */
 .hero-overlay {
