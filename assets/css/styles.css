@@ -1694,9 +1694,3 @@ html {
         margin: 0;
     }
 }
-
-@media (min-width: 769px) {
-    .v2-title-tagline {
-        transform: translate(-50%, 0) !important;
-    }
-}
