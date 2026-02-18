@@ -995,6 +995,9 @@ html {
 .v2-title-part-bottom {
     text-align: center;
     width: 100%;
+    font-size: clamp(3.6rem, 15.6vw, 14.4rem);
+    /* Doubled size */
+    line-height: 0.8;
 }
 
 .v2-title-tagline {
@@ -1418,7 +1421,32 @@ html {
     align-items: center;
     gap: 1.5rem;
     z-index: 5;
-    /* Ensure it has a layer */
+    position: relative;
+    /* Ensure relative context for overlay */
+}
+
+.teaser-overlay {
+    position: absolute;
+    inset: 0;
+    background: #000;
+    opacity: 0.2;
+    /* Slight black overlay */
+    transition: opacity 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-teaser-trigger:hover .teaser-overlay {
+    opacity: 0.4;
+    /* Darkens on hover */
+}
+
+/* Ensure content sits above overlay */
+.play-button,
+.hero-play-btn,
+.v2-title-tagline {
+    z-index: 2;
+    position: relative;
 }
 
 .teaser-coming-soon {
@@ -1490,7 +1518,9 @@ html {
     bottom: auto;
     text-align: left;
     padding: 0;
-    /* Let inline styles take precedence or define padding here if preferred */
+    position: relative;
+    z-index: 10;
+    /* Ensure text is above overlay/trigger */
     /* removing strict position absolute hacks */
 }
 
