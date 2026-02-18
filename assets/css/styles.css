@@ -1516,42 +1516,51 @@ html {
 /* Hero Overlay */
 .hero-overlay {
     background: rgba(0, 0, 0, 0.3) !important;
-    /* Slight black overlay */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
 }
 
-/* Footer Social Icons */
-.socials {
+/* Ensure Hero is exactly 100vh */
+.v2-hero {
+    height: 100vh;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+/* Info Strip - Pushed below fold */
+.v2-info-strip {
+    background: #000;
+    color: #fff;
+    padding: 1rem 0;
     display: flex;
-    gap: 1.5rem;
-    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    z-index: 10;
+    position: relative;
+    /* Flows naturally below fixed height hero */
+    width: 100%;
 }
 
-.socials a {
-    color: #000;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-    display: flex;
-    /* Fix SVG alignment */
-}
-
-.socials a:hover {
-    transform: translateY(-2px);
-    opacity: 0.7;
-    color: #000;
-    /* Ensure stays black */
-}
-
-/* Mobile Adjustments */
-@media (max-width: 768px) {
-
-    .v2-title-part-top,
-    .v2-title-part-bottom {
-        font-size: 18vw;
-        /* Larger on mobile */
-    }
-
-    .v2-title-tagline {
-        margin-top: 10vh !important;
-        /* Reduce huge gap on mobile */
-        margin-bottom: 5vh !important;
-    }
+/* Header Overlay Interaction (Matches V3) */
+.v2-header {
+    background: transparent;
+    mix-blend-mode: normal;
+    /* V3 had difference, but checking user request "overlay over header image" */
+    /* If user wants the V3 look where header sits ON TOP of image: */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
 }
