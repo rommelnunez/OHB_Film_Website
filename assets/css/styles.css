@@ -1514,21 +1514,19 @@ html {
     filter: blur(.5px);
     /* V3 Blur */
 
-    /* Centering Strategy: Absolute Center */
+    /* Absolute Positioning Strategy for Perfect Centering on Screen */
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: 50%;
-    /* Adjust vertically as needed relative to top-row or add specific margin */
-    /* Since it is inside .v2-title-top-row which is relative: */
-    /* V3 had it right aligned. User wants center. */
+    top: 35vh;
+    /* Visual center between Top Title and Bottom Title */
     width: auto;
     white-space: nowrap;
-    margin: 0;
+    margin: 0 !important;
     background: transparent;
+    text-align: center;
+    z-index: 20;
 }
-
-येईल
 
 /* Hero Overlay */
 .hero-overlay {
