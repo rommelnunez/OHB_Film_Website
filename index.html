@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Hero, Balthazar - Official Website</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/styles.css?v=4.92">
+    <link rel="stylesheet" href="assets/css/styles.css?v=4.95">
     <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
 
     <!-- SEO & Social Sharing -->
@@ -56,7 +56,7 @@
     <!-- Hero Section (Full Screen Video) -->
     <section class="v2-hero" id="hero">
         <div class="hero-teaser-trigger"
-            style="background-image: url('assets/images/teaser-preview.jpg'); position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: cover; background-position: center; cursor: pointer;">
+            style="background-image: url('assets/images/teaser-preview.jpg'); position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: cover; background-position: center;">
             <div class="teaser-overlay"></div>
             <div class="play-button hero-play-btn"></div>
             <!-- Tagline moved here -->
@@ -826,17 +826,22 @@
         }
 
         // Hero Teaser Trigger - Opens Video Lightbox
-        const heroTrigger = document.querySelector('.hero-teaser-trigger');
-        if (heroTrigger) {
-            heroTrigger.addEventListener('click', function () {
-                const videoId = 'DCTt2Sqghd8'; // User provided: https://www.youtube.com/watch?v=DCTt2Sqghd8
-                if (videoLightbox && videoLightboxContainer) {
-                    videoLightboxContainer.innerHTML = `
+        // Hero Teaser Trigger - Opens Video Lightbox
+        const heroTriggerContainer = document.querySelector('.hero-teaser-trigger');
+        if (heroTriggerContainer) {
+            const heroPlayBtn = heroTriggerContainer.querySelector('.hero-play-btn');
+            if (heroPlayBtn) {
+                heroPlayBtn.addEventListener('click', function (e) {
+                    e.stopPropagation(); // Prevent bubbling if needed
+                    const videoId = 'DCTt2Sqghd8'; // User provided: https://www.youtube.com/watch?v=DCTt2Sqghd8
+                    if (videoLightbox && videoLightboxContainer) {
+                        videoLightboxContainer.innerHTML = `
                         <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     `;
-                    videoLightbox.classList.add('active');
-                }
-            });
+                        videoLightbox.classList.add('active');
+                    }
+                });
+            }
         }
     </script>
 </body>
