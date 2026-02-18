@@ -1070,8 +1070,8 @@ html {
 
 /* 3-Tile Grid (More Section) */
 .v2-more {
-    padding: 6rem 4vw;
-    /* Restore standard padding */
+    padding: 3rem 4vw;
+    /* Reduced from 6rem */
     border-bottom: none;
     overflow: hidden;
     /* Prevent spillover */
@@ -1519,8 +1519,8 @@ html {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: 60vh;
-    /* Moved below play button (which is at center 50%) */
+    top: 65vh;
+    /* Moved down further per user request */
     width: auto;
     white-space: nowrap;
     margin: 0 !important;
