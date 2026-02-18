@@ -1631,4 +1631,25 @@ html {
         margin-top: 10vh !important;
         margin-bottom: 5vh !important;
     }
+
+    /* Footer Mobile: Stacked */
+    .v2-footer {
+        flex-direction: column;
+        gap: 2rem;
+        align-items: flex-start;
+        /* Or center? Left seems safer for now */
+    }
+
+    .socials {
+        order: 1;
+        /* Icons First */
+        margin-bottom: 1rem;
+    }
+
+    .credits {
+        order: 2;
+        /* Text Second */
+        width: 100%;
+    }
+}
 }
