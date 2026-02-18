@@ -1518,8 +1518,8 @@ html {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: 35vh;
-    /* Visual center between Top Title and Bottom Title */
+    top: 60vh;
+    /* Moved below play button (which is at center 50%) */
     width: auto;
     white-space: nowrap;
     margin: 0 !important;
