@@ -1413,8 +1413,10 @@ html {
 /* Teaser Coming Soon Placeholder */
 .hero-teaser-trigger {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 1.5rem;
     z-index: 5;
     /* Ensure it has a layer */
 }
