@@ -985,7 +985,7 @@ html {
     line-height: 0.8;
     color: #ff3600;
     text-transform: lowercase;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.5em;
     text-align: left;
 
 }
@@ -1469,35 +1469,7 @@ html {
 }
 
 /* Hero Typography Reversion to V3 Style */
-.v2-title-part-top,
-.v2-title-part-bottom {
-    font-family: 'Neue Haas Grotesk Display Black', 'Inter', sans-serif;
-    font-weight: 900;
-    line-height: 0.8;
-    color: #ff3600;
-    /* V3 Red */
-    text-transform: lowercase;
-    letter-spacing: -0.04em;
-    filter: blur(1.5px);
-    /* V3 Blur */
-    text-shadow: none;
-    text-align: left;
-    margin: 0;
-}
-
-.v2-title-part-top {
-    font-size: clamp(2rem, 10vw, 6rem);
-    /* V3 Size */
-    /* No padding here, parent handles it via inline style or separate class */
-}
-
-.v2-title-part-bottom {
-    font-size: clamp(4rem, 18vw, 12rem);
-    /* V3 Bottom Size */
-    text-align: center;
-    /* V3 Bottom is centered */
-    width: 100%;
-}
+/* Hero Typography - Handled in main block above */
 
 /* Specific Hero Layout Positioning */
 .v2-hero-content {
