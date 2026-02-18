@@ -1448,24 +1448,35 @@ html {
 
 /* --- V4 Refinements (Round 2) --- */
 
+/* V3 Font Face */
+@font-face {
+    font-family: 'Neue Haas Grotesk Display Black';
+    src: url('../fonts/NeueHaasDisplayBlack.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* Hero Typography Reversion to V3 Style */
 .v2-title-part-top,
 .v2-title-part-bottom {
-    font-size: 15vw;
-    /* V3 Size (approx) */
-    line-height: 0.8;
+    font-family: 'Neue Haas Grotesk Display Black', 'Inter', sans-serif;
+    font-size: clamp(4rem, 15vw, 12rem);
+    /* Adjusted V3 size */
+    line-height: 0.85;
     text-transform: lowercase;
     font-weight: 900;
     letter-spacing: -0.04em;
-    color: #fff;
-    /* White text (user specified slight black overlay on image, text usually white on top) */
-    /* Wait, V3 had black text on red, but hero video has text over it? */
-    /* V3 Hero: "Our Hero" (top), "Balthazar" (bottom). Text color: var(--color-accent) which is black. */
-    /* But if there is a black overlay on the image, black text might be hard to see? */
-    /* User said "revert to the title treatment... that version 3 has". V3 has black text. */
-    /* But V3 also has a video background. */
-    /* Let's stick to V3 style: Black text. */
-    color: #000;
+    color: #ff3600;
+    /* V3 Red */
+    filter: blur(1.5px);
+    /* V3 Blur */
+    text-shadow: none;
+}
+
+.v2-title-part-top {
+    font-size: clamp(2rem, 10vw, 6rem);
+    /* V3 specific top size */
 }
 
 /* Specific Hero Layout Positioning */
@@ -1477,13 +1488,17 @@ html {
 }
 
 .v2-title-tagline {
-    font-size: 1rem;
+    font-family: 'Neue Haas Grotesk Display Black', 'Inter', sans-serif;
+    font-size: clamp(0.7rem, 1.5vw, 1rem);
     text-transform: uppercase;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.05em;
     background: transparent;
     padding: 0;
-    color: #000;
-    font-weight: 700;
+    color: #fff;
+    /* V3 White */
+    font-weight: 900;
+    filter: blur(.5px);
+    /* V3 Blur */
     margin-top: 300px !important;
     /* User requested "300px lower" */
     margin-bottom: 5vh !important;
