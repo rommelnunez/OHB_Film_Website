@@ -623,7 +623,32 @@
         if (lightboxImage) {
             lightboxImage.addEventListener('click', (e) => {
                 e.stopPropagation(); // Prevent closing
-                lightboxImage.classList.toggle('zoomed');
+
+                if (lightboxImage.classList.contains('zoomed')) {
+                    // Zoom Out
+                    lightboxImage.classList.remove('zoomed');
+                    setTimeout(() => {
+                        lightboxImage.style.transformOrigin = 'center center'; // Reset after transition
+                    }, 300);
+                } else {
+                    // Zoom In to Click Position
+                    const rect = lightboxImage.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+                    lightboxImage.style.transformOrigin = `${x}% ${y}%`;
+                    lightboxImage.classList.add('zoomed');
+                }
+            });
+
+            // Allow panning while zoomed
+            lightboxImage.addEventListener('mousemove', (e) => {
+                if (lightboxImage.classList.contains('zoomed')) {
+                    const rect = lightboxImage.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+                    lightboxImage.style.transformOrigin = `${x}% ${y}%`;
+                }
             });
         }
 
