@@ -1474,6 +1474,10 @@ html {
     text-shadow: none;
     text-align: left;
     /* Explicit Left */
+    padding-left: 4vw;
+    /* NEW: Apply padding here instead of parent */
+    width: 100%;
+    /* Ensure full width to hold left align */
 }
 
 .v2-title-part-top {
@@ -1482,12 +1486,15 @@ html {
 }
 
 /* Specific Hero Layout Positioning */
+/* Specific Hero Layout Positioning */
 .v2-hero-content {
     justify-content: center !important;
     align-items: flex-start !important;
-    /* Left Aligned */
+    /* Keep items start, but control via widths */
     text-align: left;
-    padding-left: 4vw !important;
+    padding-left: 0 !important;
+    /* NEW: Remove parent padding so tagline centers correctly */
+    padding-right: 0 !important;
 }
 
 .v2-title-tagline {
