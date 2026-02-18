@@ -1537,7 +1537,8 @@ html {
 /* Info Strip - Pushed below fold */
 .v2-info-strip {
     background: #000;
-    color: #fff;
+    color: #ff3600;
+    /* V3 Red as requested ("red 'directed by'") */
     padding: 1rem 0;
     display: flex;
     justify-content: center;
@@ -1556,11 +1557,42 @@ html {
 .v2-header {
     background: transparent;
     mix-blend-mode: normal;
-    /* V3 had difference, but checking user request "overlay over header image" */
-    /* If user wants the V3 look where header sits ON TOP of image: */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
+}
+
+/* Footer Social Icons */
+.socials {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.socials a {
+    color: #000;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    display: flex;
+}
+
+.socials a:hover {
+    transform: translateY(-2px);
+    opacity: 0.7;
+    color: #000;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+
+    .v2-title-part-top,
+    .v2-title-part-bottom {
+        font-size: 18vw;
+    }
+
+    .v2-title-tagline {
+        margin-top: 10vh !important;
+        margin-bottom: 5vh !important;
+    }
 }
