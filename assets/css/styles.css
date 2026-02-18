@@ -1445,3 +1445,89 @@ html {
 .hero-teaser-trigger.active .play-button {
     opacity: 0;
 }
+
+/* --- V4 Refinements (Round 2) --- */
+
+/* Hero Typography Reversion to V3 Style */
+.v2-title-part-top,
+.v2-title-part-bottom {
+    font-size: 15vw;
+    /* V3 Size (approx) */
+    line-height: 0.8;
+    text-transform: lowercase;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    color: #fff;
+    /* White text (user specified slight black overlay on image, text usually white on top) */
+    /* Wait, V3 had black text on red, but hero video has text over it? */
+    /* V3 Hero: "Our Hero" (top), "Balthazar" (bottom). Text color: var(--color-accent) which is black. */
+    /* But if there is a black overlay on the image, black text might be hard to see? */
+    /* User said "revert to the title treatment... that version 3 has". V3 has black text. */
+    /* But V3 also has a video background. */
+    /* Let's stick to V3 style: Black text. */
+    color: #000;
+}
+
+/* Specific Hero Layout Positioning */
+.v2-hero-content {
+    justify-content: center !important;
+    /* Override previous flex align */
+    align-items: center !important;
+    text-align: center;
+}
+
+.v2-title-tagline {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    background: transparent;
+    padding: 0;
+    color: #000;
+    font-weight: 700;
+    margin-top: 300px !important;
+    /* User requested "300px lower" */
+    margin-bottom: 5vh !important;
+}
+
+/* Hero Overlay */
+.hero-overlay {
+    background: rgba(0, 0, 0, 0.3) !important;
+    /* Slight black overlay */
+}
+
+/* Footer Social Icons */
+.socials {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.socials a {
+    color: #000;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    display: flex;
+    /* Fix SVG alignment */
+}
+
+.socials a:hover {
+    transform: translateY(-2px);
+    opacity: 0.7;
+    color: #000;
+    /* Ensure stays black */
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+
+    .v2-title-part-top,
+    .v2-title-part-bottom {
+        font-size: 18vw;
+        /* Larger on mobile */
+    }
+
+    .v2-title-tagline {
+        margin-top: 10vh !important;
+        /* Reduce huge gap on mobile */
+        margin-bottom: 5vh !important;
+    }
+}
