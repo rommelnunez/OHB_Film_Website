@@ -1447,16 +1447,7 @@ html {
 .v2-title-tagline {
     z-index: 2;
     position: relative;
-    cursor: default;
-    /* Tagline shouldn't be pointer */
     transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
-}
-
-.play-button,
-.hero-play-btn {
-    cursor: pointer;
-    /* Only button is pointer */
-    pointer-events: auto;
 }
 
 .hero-teaser-trigger:hover .play-button,
