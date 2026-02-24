@@ -29,6 +29,7 @@ body {
 html {
     overflow-x: hidden;
     width: 100%;
+    scroll-behavior: smooth;
 }
 
 /* Header */
@@ -41,7 +42,7 @@ html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 2rem;
+    padding: 1.5rem 2rem 0;
     z-index: 10000;
     background: transparent;
     mix-blend-mode: difference;
@@ -334,6 +335,100 @@ html {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* Ticket button row */
+.ticket-btns {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: nowrap;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.ticket-btns .status {
+    margin-top: 0;
+    flex: 1;
+    text-align: center;
+}
+
+/* Q&A ticket button variant — filled black */
+.v2-card .status.status-qa {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+.v2-card .status.status-qa:hover {
+    background: transparent;
+    color: #000;
+}
+
+/* OPTION 4: Icon/Date Driven List */
+.o4-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: auto;
+    border: 1px solid #000;
+}
+
+.o4-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    text-decoration: none;
+    color: #000;
+    transition: background 0.2s;
+}
+
+.o4-row:not(:last-child) {
+    border-bottom: 1px solid #000;
+}
+
+.o4-row:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.o4-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.o4-icon.general {
+    background: transparent;
+    color: #000;
+    border: 1px solid #000;
+}
+
+.o4-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.o4-title {
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.o4-sub {
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+.o4-arrow {
+    font-size: 1.2rem;
+}
+
 /* Events List */
 .v2-events {
     background-color: #ff3600;
@@ -351,18 +446,17 @@ html {
 
 .v2-list-item {
     display: grid;
-    grid-template-columns: 100px 1fr 1fr;
-    padding: 2rem 0;
+    grid-template-columns: 140px 3fr 1fr auto;
+    /* More space for description */
+    column-gap: 4.5rem;
+    /* Added generous horizontal spacing */
+    padding: 2.5rem 0;
     border-bottom: 0.5px solid rgba(0, 0, 0, 0.2);
     color: #000;
     text-decoration: none;
     font-size: 1.2rem;
-    transition: opacity 0.3s;
     font-weight: 500;
-}
-
-.v2-list-item:hover {
-    opacity: 0.6;
+    align-items: center;
 }
 
 .v2-list-item .date {
@@ -370,6 +464,27 @@ html {
     color: #fff;
     /* White Dates */
     font-weight: 700;
+}
+
+.list-ticket-btn {
+    border: 1px solid #000;
+    background: #000;
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    justify-self: center;
+    text-align: center;
+}
+
+.list-ticket-btn:hover {
+    background: transparent;
+    color: #000;
 }
 
 /* Press */
@@ -710,6 +825,13 @@ html {
     .v2-list-item {
         grid-template-columns: 1fr;
         gap: 0.5rem;
+        text-align: center;
+    }
+
+    .list-ticket-btn {
+        width: 100%;
+        justify-self: stretch;
+        margin-top: 0.5rem;
     }
 
     .v2-card {
