@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q&A vs General Ticket Layout Options</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #ff3600;
+            --color-text: #000;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            margin: 0;
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5rem;
+        }
+
+        h1 {
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 0;
+        }
+
+        .intro {
+            text-align: center;
+            font-weight: 500;
+            font-size: 1.2rem;
+            max-width: 800px;
+        }
+
+        .option-container {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            border-top: 2px solid rgba(0, 0, 0, 0.1);
+            padding-top: 3rem;
+        }
+
+        .option-header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .option-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+        }
+
+        .option-header p {
+            margin: 0;
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Base Card Styling (from original site) */
+        .v2-card {
+            border: 1px solid #000;
+            padding: 3rem;
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .v2-card h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .v2-card .venue {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: rgba(0, 0, 0, 0.7);
+            margin: 0;
+        }
+
+        .v2-card .date {
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin: 0.5rem 0 2rem 0;
+        }
+
+        /* --------------------------------------------------- */
+        /* OPTION 1: Stacked with Helper Text */
+        .o1-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        .o1-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .o1-btn {
+            border: 1px solid #000;
+            padding: 1rem;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .o1-btn.general {
+            background: transparent;
+            color: #000;
+        }
+
+        .o1-btn.qa {
+            background: #000;
+            color: #fff;
+        }
+
+        .o1-btn:hover {
+            opacity: 0.8;
+        }
+
+        .o1-helper {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            opacity: 0.6;
+            text-align: center;
+        }
+
+        /* --------------------------------------------------- */
+        /* OPTION 2: Side-by-Side Badge Overlay */
+        .o2-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        .o2-btn {
+            flex: 1;
+            border: 1px solid #000;
+            padding: 1rem 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-align: center;
+            color: #000;
+            position: relative;
+            background: transparent;
+        }
+
+        .o2-btn:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .o2-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #000;
+            color: #fff;
+            font-size: 0.6rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+            transform: rotate(5deg);
+        }
+
+        /* --------------------------------------------------- */
+        /* OPTION 3: Split Tab Interface */
+        .o3-container {
+            border: 1px solid #000;
+            margin-top: auto;
+        }
+
+        .o3-tabs {
+            display: flex;
+            border-bottom: 1px solid #000;
+        }
+
+        .o3-tab {
+            flex: 1;
+            padding: 0.75rem;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            background: transparent;
+            color: #000;
+            text-decoration: none;
+        }
+
+        .o3-tab.active {
+            background: #000;
+            color: #fff;
+        }
+
+        .o3-content {
+            padding: 1.5rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .o3-desc {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        .o3-action {
+            display: inline-block;
+            background: var(--color-bg);
+            border: 1px solid #000;
+            color: #000;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        /* --------------------------------------------------- */
+        /* OPTION 4: Icon/Date Driven List */
+        .o4-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-top: auto;
+            border: 1px solid #000;
+        }
+
+        .o4-row {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            text-decoration: none;
+            color: #000;
+            transition: background 0.2s;
+        }
+
+        .o4-row:not(:last-child) {
+            border-bottom: 1px solid #000;
+        }
+
+        .o4-row:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .o4-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .o4-icon.general {
+            background: transparent;
+            color: #000;
+            border: 1px solid #000;
+        }
+
+        .o4-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .o4-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .o4-sub {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+
+        .o4-arrow {
+            font-size: 1.2rem;
+        }
+
+        /* --------------------------------------------------- */
+        /* OPTION 5: Dropdown Selector Style */
+        .o5-wrapper {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .o5-select {
+            appearance: none;
+            width: 100%;
+            padding: 1rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            background: transparent;
+            border: 1px solid #000;
+            color: #000;
+            cursor: pointer;
+            border-radius: 0;
+        }
+
+        .o5-btn {
+            background: #000;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .options-grid {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        /* Demo active states for tabs */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Q&A vs General Ticket UI Concepts</h1>
+
+    <!-- OPTION 1 -->
+    <div class="option-container">
+        <div class="option-header">
+            <h2>Option 1: Stacked with Helper Text</h2>
+        </div>
+        <div class="options-grid">
+            <div class="v2-card">
+                <h3>New York</h3>
+                <p class="venue">REGAL UNION SQUARE</p>
+                <p class="date">MARCH 27, 2026</p>
+
+                <div class="o1-buttons">
+                    <div class="o1-btn-group">
+                        <a href="#" class="o1-btn general">General Tickets</a>
+                        <span class="o1-helper">Standard Screenings</span>
+                    </div>
+                    <div class="o1-btn-group">
+                        <a href="#" class="o1-btn qa">Q&amp;A Tickets</a>
+                        <span class="o1-helper">Special Cast & Crew Events</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OPTION 2 -->
+    <div class="option-container">
+        <div class="option-header">
+            <h2>Option 2: Side-by-Side with "Special Event" Badges</h2>
+        </div>
+        <div class="options-grid">
+            <div class="v2-card">
+                <h3>New York</h3>
+                <p class="venue">REGAL UNION SQUARE</p>
+                <p class="date">MARCH 27, 2026</p>
+
+                <div class="o2-buttons">
+                    <a href="#" class="o2-btn">General<br>Tickets</a>
+                    <a href="#" class="o2-btn">
+                        Q&amp;A<br>Tickets
+                        <div class="o2-badge">SPECIAL EVENT</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- OPTION 3 -->
+    <div class="option-container">
+        <div class="option-header">
+            <h2>Option 3: Interactive Tab System</h2>
+        </div>
+        <div class="options-grid">
+            <div class="v2-card">
+                <h3>New York</h3>
+                <p class="venue">REGAL UNION SQUARE</p>
+                <p class="date">MARCH 27, 2026</p>
+
+                <div class="o3-container">
+                    <div class="o3-tabs">
+                        <div class="o3-tab active" onclick="switchTab('gen')">General</div>
+                        <div class="o3-tab" onclick="switchTab('qa')">Live Q&amp;A</div>
+                    </div>
+                    <div class="o3-content" id="tab-gen">
+                        <p class="o3-desc">Standard theatrical screenings releasing nationwide.</p>
+                        <a href="#" class="o3-action">Get Tickets</a>
+                    </div>
+                    <div class="o3-content hidden" id="tab-qa">
+                        <p class="o3-desc">Exclusive screenings featuring in-person Q&A sessions with the cast &
+                            director.</p>
+                        <a href="#" class="o3-action">View Event Dates</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- OPTION 4 -->
+    <div class="option-container">
+        <div class="option-header">
+            <h2>Option 4: List View with Icons</h2>
+        </div>
+        <div class="options-grid">
+            <div class="v2-card">
+                <h3>New York</h3>
+                <p class="venue">REGAL UNION SQUARE</p>
+                <p class="date">MARCH 27, 2026</p>
+
+                <div class="o4-list">
+                    <a href="#" class="o4-row">
+                        <div class="o4-icon general">🎟</div>
+                        <div class="o4-text">
+                            <span class="o4-title">General Admission</span>
+                            <span class="o4-sub">Standard Screenings</span>
+                        </div>
+                        <div class="o4-arrow">→</div>
+                    </a>
+                    <a href="#" class="o4-row">
+                        <div class="o4-icon qa">★</div>
+                        <div class="o4-text">
+                            <span class="o4-title">Live Q&amp;A Events</span>
+                            <span class="o4-sub">With Cast & Filmmakers</span>
+                        </div>
+                        <div class="o4-arrow">→</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OPTION 5 -->
+    <div class="option-container">
+        <div class="option-header">
+            <h2>Option 5: Dropdown Selection</h2>
+        </div>
+        <div class="options-grid">
+            <div class="v2-card">
+                <h3>New York</h3>
+                <p class="venue">REGAL UNION SQUARE</p>
+                <p class="date">MARCH 27, 2026</p>
+
+                <div class="o5-wrapper">
+                    <select class="o5-select">
+                        <option value="general">Standard Tickets (General)</option>
+                        <option value="qa">Special Event Tickets (In-person Q&A)</option>
+                    </select>
+                    <a href="#" class="o5-btn">Proceed To Tickets</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(type) {
+            document.querySelectorAll('.o3-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.o3-content').forEach(c => c.classList.add('hidden'));
+
+            if (type === 'gen') {
+                document.querySelectorAll('.o3-tab')[0].classList.add('active');
+                document.getElementById('tab-gen').classList.remove('hidden');
+            } else {
+                document.querySelectorAll('.o3-tab')[1].classList.add('active');
+                document.getElementById('tab-qa').classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+
+</html>
