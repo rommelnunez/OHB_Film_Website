@@ -29,6 +29,7 @@ body {
 html {
     overflow-x: hidden;
     width: 100%;
+    scroll-behavior: smooth;
 }
 
 /* Header */
@@ -334,6 +335,30 @@ html {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* Ticket button row */
+.ticket-btns {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.ticket-btns .status {
+    margin-top: 0;
+}
+
+/* Q&A ticket button variant — filled black */
+.v2-card .status.status-qa {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+.v2-card .status.status-qa:hover {
+    background: transparent;
+    color: #000;
+}
+
 /* Events List */
 .v2-events {
     background-color: #ff3600;
@@ -351,7 +376,7 @@ html {
 
 .v2-list-item {
     display: grid;
-    grid-template-columns: 100px 1fr 1fr;
+    grid-template-columns: 100px 1fr 1fr auto;
     padding: 2rem 0;
     border-bottom: 0.5px solid rgba(0, 0, 0, 0.2);
     color: #000;
@@ -359,6 +384,7 @@ html {
     font-size: 1.2rem;
     transition: opacity 0.3s;
     font-weight: 500;
+    align-items: center;
 }
 
 .v2-list-item:hover {
@@ -370,6 +396,25 @@ html {
     color: #fff;
     /* White Dates */
     font-weight: 700;
+}
+
+.list-ticket-btn {
+    border: 1px solid #000;
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    justify-self: end;
+}
+
+.list-ticket-btn:hover {
+    background: #000;
+    color: #fff;
 }
 
 /* Press */
@@ -987,7 +1032,7 @@ html {
     text-transform: lowercase;
     letter-spacing: -0.04em;
     text-align: left;
-    filter: blur(1.5px);
+    filter: blur(1px);
 }
 
 .v2-title-tagline {
