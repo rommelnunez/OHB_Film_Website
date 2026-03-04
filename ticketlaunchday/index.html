@@ -68,6 +68,28 @@
     <meta property="twitter:description"
         content="Official website for the film Our Hero, Balthazar (2026). Ultra-wealthy NYC teenager Balthy makes dramatic gun control videos to impress his activist crush. Directed by Oscar Boyson. Starring Jaeden Martell, Asa Butterfield, and Anna Baryshnikov.">
     <meta property="twitter:image" content="https://ourherobalthazar.com/assets/images/teaser-preview.jpg">
+
+    <style>
+        /* Sold Out Ribbon Option 2 */
+        .opt2-ribbon-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .opt2-ribbon {
+            position: absolute;
+            background: #ff3600;
+            color: white;
+            padding: 4px 40px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+            z-index: 10;
+        }
+    </style>
 </head>
 
 <body>
@@ -140,7 +162,7 @@
     <!-- Ticketing Section -->
     <section id="tickets" class="v2-section v2-tickets">
         <h2 class="v2-section-title">IN THEATERS - SPRING 2026</h2>
-        <div class="v2-grid">
+        <div class="v2-grid" style="align-items: stretch;">
             <div class="v2-card">
                 <h3>New York</h3>
                 <p class="venue">REGAL UNION SQUARE</p>
@@ -153,10 +175,19 @@
             <div class="v2-card">
                 <h3>Los Angeles</h3>
                 <p class="venue">ALAMO DRAFTHOUSE DTLA</p>
-                <p class="date">APRIL 3, 2026</p>
-                <div class="ticket-btns">
-                    <a href="#" class="status status-qa">General Tickets</a>
-                    <a href="#events" class="status status-qa">Q&amp;A Tickets</a>
+                <div class="o4-list">
+                    <a href="https://drafthouse.com/los-angeles/event/live-q-a-our-hero-balthazar?cinemaId=1701&sessionId=109223"
+                        target="_blank" class="o4-row">
+                        <div class="o4-icon qa">★</div>
+                        <div class="o4-text">
+                            <span class="o4-title">SPECIAL SCREENINGS</span>
+                            <span class="o4-sub">with Cast &amp; Filmmaker Q&amp;A</span>
+                            <span class="o4-date"
+                                style="font-size: 0.8rem; font-weight: 700; margin-top: 0.2rem; letter-spacing: 0.05em;">OPENING
+                                APRIL 4</span>
+                        </div>
+                        <div class="o4-arrow">→</div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -175,11 +206,13 @@
                 <span class="location">Angelika Film Center, NY</span>
                 <a href="#" class="list-ticket-btn">GET TICKETS</a>
             </div>
-            <div class="v2-list-item">
+            <div class="v2-list-item opt2-ribbon-container"
+                style="border-color: rgba(255,54,0,0.3); padding-right: 40px;">
+                <div class="opt2-ribbon" style="top: 25px; right: -40px;">SOLD OUT</div>
                 <span class="date">JAN 25</span>
                 <span class="event-name">Cast &amp; Crew Q&amp;A</span>
                 <span class="location">Laemmle Royal, LA</span>
-                <a href="#" class="list-ticket-btn">GET TICKETS</a>
+                <div class="list-ticket-btn" style="visibility: hidden;">GET TICKETS</div>
             </div>
             <div class="v2-list-item">
                 <span class="date">JAN 31</span>
@@ -193,6 +226,11 @@
     <!-- Cast List (Full Bios) -->
     <section id="cast" class="v2-section v2-cast">
         <h2 class="v2-section-title">Cast & Filmmakers</h2>
+        <p
+            style="text-align: center; max-width: 800px; margin: 0 auto 3rem auto; font-size: 1.25rem; font-style: italic; color: #ccc; line-height: 1.6;">
+            Eager to impress his activist crush, a wealthy New York teenager follows an online connection to Texas,
+            where he's convinced he can stop an act of extreme violence.
+        </p>
         <div class="v2-cast-list">
             <!-- Jaeden Martell -->
             <div class="cast-member-card">
