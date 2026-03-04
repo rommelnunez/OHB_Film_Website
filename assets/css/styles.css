@@ -1,7 +1,15 @@
+@font-face {
+    font-family: 'Neue Haas Grotesk Text Pro 75 Bold';
+    src: url('../fonts/NeueHaasTextPro75Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* V2 Styles - Marty Supreme Inspired */
 
 :root {
-    --font-main: 'Inter', sans-serif;
+    --font-main: 'Neue Haas Grotesk Text Pro 75 Bold', 'Inter', sans-serif;
     --color-bg: #ff3600;
     /* Signature Red */
     --color-text: #000;
