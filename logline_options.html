@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logline Variations - Our Hero, Balthazar</title>
+    <title>Logline Variations v2 - Our Hero, Balthazar</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&family=Space+Mono&family=Inter:wght@400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&family=Space+Mono&family=Inter:wght@400;700;900&family=Courier+Prime&display=swap"
         rel="stylesheet">
     <style>
         :root {
@@ -65,7 +65,14 @@
             color: var(--color-accent);
         }
 
-        /* Option 1: Photorealistic Etching */
+        .variation-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* V1: Photorealistic Engraving */
         .v1-container {
             position: relative;
             width: 100%;
@@ -73,19 +80,14 @@
             background-image: url('brain/309fb686-7fa8-4018-8edf-12e2f96a3666/shotgun_side_profile_dark_metal_1772659607339.png');
             background-size: cover;
             background-position: center;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
         }
 
         .v1-content {
             position: absolute;
             top: 48%;
-            /* Positioned over the receiver area */
             left: 55%;
             transform: translate(-50%, -50%) rotate(-0.5deg);
             width: 35%;
-            perspective: 1000px;
         }
 
         .v1-logline {
@@ -96,27 +98,23 @@
             color: rgba(255, 255, 255, 0.4);
             mix-blend-mode: overlay;
             text-shadow: 0.5px 0.5px 0px rgba(0, 0, 0, 0.5), -0.5px -0.5px 0px rgba(255, 255, 255, 0.1);
-            letter-spacing: 0.02em;
         }
 
-        /* Option 2: Minimalist Technical Blueprint */
+        /* V2: Technical Blueprint */
         .v2-container {
             background: #111;
             padding: 8rem 4rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
             position: relative;
-            overflow: hidden;
         }
 
         .v2-svg {
             width: 100%;
             height: auto;
             max-width: 900px;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             opacity: 0.3;
         }
 
@@ -128,31 +126,18 @@
             line-height: 1.8;
             color: var(--color-accent);
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            position: relative;
-            z-index: 2;
+            letter-spacing: 0.12em;
+            word-spacing: 0.2em;
         }
 
-        .v2-logline::before,
-        .v2-logline::after {
-            content: '';
-            display: block;
-            width: 40px;
-            height: 1px;
-            background: var(--color-accent);
-            margin: 1.5rem auto;
-        }
-
-        /* Option 3: Macro Industrial Detail */
+        /* V3: Industrial Macro */
         .v3-container {
             background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
-            height: 500px;
+            min-height: 500px;
             display: flex;
             justify-content: center;
             align-items: center;
-            border-radius: 8px;
             position: relative;
-            overflow: hidden;
         }
 
         .v3-texture {
@@ -166,10 +151,9 @@
         }
 
         .v3-frame {
-            border-left: 1px solid var(--color-accent);
-            padding: 2rem 4rem;
+            border-left: 2px solid var(--color-accent);
+            padding: 2.5rem 4rem;
             max-width: 600px;
-            position: relative;
             z-index: 2;
         }
 
@@ -177,20 +161,247 @@
             font-size: 1.8rem;
             font-weight: 300;
             line-height: 1.5;
-            letter-spacing: -0.01em;
-            color: #fff;
+            color: #eee;
         }
 
         .v3-label {
             position: absolute;
-            top: -10px;
+            top: -12px;
             left: 4rem;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.3em;
+            letter-spacing: 0.4em;
             color: var(--color-accent);
             background: #000;
-            padding: 0 0.5rem;
+            padding: 0 0.75rem;
+        }
+
+        /* NEW V4: Cinematic Title Card */
+        .v4-container {
+            background-image: url('brain/309fb686-7fa8-4018-8edf-12e2f96a3666/dark_film_grain_texture_red_light_1772660232259.png');
+            background-size: cover;
+            background-position: center;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem;
+            text-align: center;
+        }
+
+        .v4-logline {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: 2.5rem;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            max-width: 900px;
+            color: #fff;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+        }
+
+        .v4-sub {
+            margin-top: 2rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--color-accent);
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+        }
+
+        /* NEW V5: Technical Dossier */
+        .v5-container {
+            background: #fdfdfd;
+            padding: 6rem;
+            color: #111;
+            display: flex;
+            justify-content: center;
+        }
+
+        .v5-paper {
+            background: #fff;
+            width: 100%;
+            max-width: 650px;
+            padding: 4rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            border: 1px solid #ddd;
+        }
+
+        .v5-paper::before {
+            content: 'CONFIDENTIAL';
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            border: 3px solid #cc0000;
+            color: #cc0000;
+            padding: 0.5rem 1rem;
+            font-weight: 900;
+            transform: rotate(15deg);
+            opacity: 0.7;
+            font-size: 0.8rem;
+        }
+
+        .v5-logline {
+            font-family: 'Courier Prime', monospace;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: #222;
+        }
+
+        .v5-field {
+            font-family: 'Courier Prime', monospace;
+            font-weight: bold;
+            text-decoration: underline;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+        }
+
+        .redacted {
+            background: #111;
+            color: #111;
+            padding: 0 0.2rem;
+        }
+
+        /* NEW V6: Texas Night */
+        .v6-container {
+            background-image: url('brain/309fb686-7fa8-4018-8edf-12e2f96a3666/texas_highway_night_blur_1772660188315.png');
+            background-size: cover;
+            background-position: center;
+            min-height: 650px;
+            display: flex;
+            align-items: flex-end;
+            padding: 6rem;
+        }
+
+        .v6-content {
+            max-width: 600px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-left: 4px solid #fff;
+        }
+
+        .v6-logline {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-style: italic;
+            line-height: 1.4;
+            color: #fff;
+        }
+
+        /* NEW V7: Swiss Minimalism */
+        .v7-container {
+            background: #fff;
+            padding: 8rem 4rem;
+            color: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .v7-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            max-width: 900px;
+            border-top: 10px solid #000;
+            padding-top: 2rem;
+        }
+
+        .v7-logline {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: 3.5rem;
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: -0.04em;
+        }
+
+        .v7-accent {
+            color: var(--color-accent);
+        }
+
+        /* NEW V8: Kinetic Split */
+        .v8-container {
+            background: #050505;
+            padding: 10rem 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .v8-logline {
+            max-width: 800px;
+            font-size: 1.8rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .v8-word-1 {
+            font-weight: 900;
+            text-transform: uppercase;
+            color: #fff;
+            font-size: 2.2rem;
+        }
+
+        .v8-word-2 {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--color-accent);
+        }
+
+        .v8-word-3 {
+            font-weight: 300;
+            opacity: 0.6;
+            letter-spacing: 0.2em;
+        }
+
+        /* NEW V9: Cinematic Frame */
+        .v9-container {
+            background: #000;
+            padding: 12rem 0;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-top: 1px solid rgba(255, 54, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 54, 0, 0.3);
+        }
+
+        .v9-frame-top,
+        .v9-frame-bottom {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(to bottom, #000, transparent);
+            z-index: 2;
+        }
+
+        .v9-frame-top {
+            top: 0;
+        }
+
+        .v9-frame-bottom {
+            bottom: 0;
+            transform: rotate(180deg);
+        }
+
+        .v9-logline {
+            font-family: 'Inter', sans-serif;
+            font-size: 2rem;
+            font-weight: 400;
+            line-height: 1.5;
+            text-align: center;
+            max-width: 800px;
+            color: #ccc;
+            letter-spacing: 0.05em;
+            padding: 0 2rem;
         }
     </style>
 </head>
@@ -200,17 +411,19 @@
     <div class="container">
         <div class="header">
             <h1>Logline Visual Concepts</h1>
-            <p>Exploring the "Etched on Shotgun" aesthetic for the film's premise</p>
+            <p>9 premium concepts exploring the film's gritty, high-stakes aesthetic</p>
         </div>
 
         <!-- Variation 1 -->
         <div class="option-section">
             <div class="option-title"><span>01</span> Photorealistic Engraving</div>
-            <div class="v1-container">
-                <div class="v1-content">
-                    <div class="v1-logline">
-                        Eager to impress his activist crush, a wealthy New York teenager follows an online connection to
-                        Texas, where he's convinced he can stop an act of extreme violence.
+            <div class="variation-card">
+                <div class="v1-container">
+                    <div class="v1-content">
+                        <div class="v1-logline">
+                            Eager to impress his activist crush, a wealthy New York teenager follows an online
+                            connection to Texas, where he's convinced he can stop an act of extreme violence.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -219,18 +432,19 @@
         <!-- Variation 2 -->
         <div class="option-section">
             <div class="option-title"><span>02</span> Technical Blueprint</div>
-            <div class="v2-container">
-                <svg class="v2-svg" viewBox="0 0 1000 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Stylized Shotgun Silhouette -->
-                    <path d="M50 100 L900 100 M50 95 L50 105 M900 95 L900 105" stroke="white" stroke-width="1" />
-                    <rect x="200" y="80" width="150" height="40" stroke="white" stroke-width="1" />
-                    <circle cx="210" cy="90" r="2" fill="white" />
-                    <circle cx="340" cy="90" r="2" fill="white" />
-                    <path d="M100 100 Q 150 150, 50 180" stroke="white" stroke-width="1" />
-                </svg>
-                <div class="v2-logline">
-                    Eager to impress his activist crush, a wealthy New York teenager follows an online connection to
-                    Texas, where he's convinced he can stop an act of extreme violence.
+            <div class="variation-card">
+                <div class="v2-container">
+                    <svg class="v2-svg" viewBox="0 0 1000 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 100 L900 100 M50 95 L50 105 M900 95 L900 105" stroke="white" stroke-width="1" />
+                        <rect x="200" y="80" width="150" height="40" stroke="white" stroke-width="1" />
+                        <circle cx="210" cy="90" r="2" fill="white" />
+                        <circle cx="340" cy="90" r="2" fill="white" />
+                        <path d="M100 100 Q 150 150, 50 180" stroke="white" stroke-width="1" />
+                    </svg>
+                    <div class="v2-logline">
+                        Eager to impress his activist crush, a wealthy New York teenager follows an online connection to
+                        Texas, where he's convinced he can stop an act of extreme violence.
+                    </div>
                 </div>
             </div>
         </div>
@@ -238,14 +452,117 @@
         <!-- Variation 3 -->
         <div class="option-section">
             <div class="option-title"><span>03</span> Industrial Macro</div>
-            <div class="v3-container">
-                <div class="v3-texture"></div>
-                <div class="v3-frame">
-                    <div class="v3-label">Serial No. 2026-OHB</div>
-                    <div class="v3-logline">
+            <div class="variation-card">
+                <div class="v3-container">
+                    <div class="v3-texture"></div>
+                    <div class="v3-frame">
+                        <div class="v3-label">Serial No. 2026-OHB</div>
+                        <div class="v3-logline">
+                            Eager to impress his activist crush, a wealthy New York teenager follows an online
+                            connection to Texas, where he's convinced he can stop an act of extreme violence.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Variation 4 -->
+        <div class="option-section">
+            <div class="option-title"><span>04</span> Cinematic Title Card</div>
+            <div class="variation-card">
+                <div class="v4-container">
+                    <div class="v4-logline">
                         Eager to impress his activist crush, a wealthy New York teenager follows an online connection to
                         Texas, where he's convinced he can stop an act of extreme violence.
                     </div>
+                    <div class="v4-sub">Coming Spring 2026</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Variation 5 -->
+        <div class="option-section">
+            <div class="option-title"><span>05</span> Technical Dossier</div>
+            <div class="variation-card">
+                <div class="v5-container">
+                    <div class="v5-paper">
+                        <span class="v5-field">Subject: Balthazar <span class="redacted">REDACTED</span></span>
+                        <span class="v5-field">Location: <span class="redacted">REDACTED</span>, TX</span>
+                        <div style="margin-top: 2rem;"></div>
+                        <span class="v5-field">Summary:</span>
+                        <div class="v5-logline">
+                            Eager to impress his activist crush, a wealthy New York teenager follows an online
+                            connection to Texas, where he's convinced he can stop an act of extreme violence.
+                        </div>
+                        <div
+                            style="margin-top: 2.5rem; border-top: 1px dashed #ccc; padding-top: 1rem; font-family: 'Courier Prime'; font-size: 0.7rem; color: #888;">
+                            FILE ID: 84B6-D056-19B4-070D
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Variation 6 -->
+        <div class="option-section">
+            <div class="option-title"><span>06</span> Texas Night</div>
+            <div class="variation-card">
+                <div class="v6-container">
+                    <div class="v6-content">
+                        <div class="v6-logline">
+                            Eager to impress his activist crush, a wealthy New York teenager follows an online
+                            connection to Texas, where he's convinced he can stop an act of extreme violence.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Variation 7 -->
+        <div class="option-section">
+            <div class="option-title"><span>07</span> Swiss Minimalism</div>
+            <div class="variation-card">
+                <div class="v7-container">
+                    <div class="v7-grid">
+                        <div class="v7-logline">
+                            Eager to impress his <span class="v7-accent">activist crush</span>, a wealthy New York
+                            teenager
+                            follows an online connection to <span class="v7-accent">Texas</span>, where he's convinced
+                            he
+                            can stop an act of <span class="v7-accent">extreme violence</span>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Variation 8 -->
+        <div class="option-section">
+            <div class="option-title"><span>08</span> Kinetic Typography</div>
+            <div class="variation-card">
+                <div class="v8-container">
+                    <div class="v8-logline">
+                        <span class="v8-word-1">Eager</span> to <span class="v8-word-2">impress</span> his activist
+                        crush,
+                        <span class="v8-word-3">a wealthy New York teenager</span> follows an online connection to <span
+                            class="v8-word-1">Texas</span>, where he's convinced he can <span
+                            class="v8-word-2">stop</span> an act of <span class="v8-word-1">extreme violence</span>.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Variation 9 -->
+        <div class="option-section">
+            <div class="option-title"><span>09</span> Cinematic Frame</div>
+            <div class="variation-card">
+                <div class="v9-container">
+                    <div class="v9-frame-top"></div>
+                    <div class="v9-logline">
+                        Eager to impress his activist crush, a wealthy New York teenager follows an online connection to
+                        Texas, where he's convinced he can stop an act of extreme violence.
+                    </div>
+                    <div class="v9-frame-bottom"></div>
                 </div>
             </div>
         </div>
