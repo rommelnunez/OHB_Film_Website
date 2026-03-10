@@ -14,6 +14,27 @@
 
         gtag('config', 'G-XPPEN38FH8');
     </script>
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '936712952228574');
+        fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=936712952228574&ev=PageView&noscript=1" />
+    </noscript>
+    <!-- End Meta Pixel Code -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Hero, Balthazar (2026) | Official Movie Website</title>
@@ -108,7 +129,7 @@
             </div>
         </div>
         <nav class="header-nav">
-            <a href="#hero">Teaser</a>
+            <a href="#hero">Trailer</a>
             <a href="#tickets" class="btn-ticket" style="margin-left: 1rem;">Get Tickets</a>
             <a href="#cast">Cast & Filmmakers</a>
             <a href="#more">More</a>
@@ -597,15 +618,23 @@
 
             <!-- Col 2: Stacked Tiles -->
             <div class="more-column">
-                <!-- Video Tile -->
-                <!-- Video Tile Removed -->
-
-                <!-- Stills Tile -->
+                <!-- BTS Stills Tile -->
                 <div class="more-tile stills-tile" id="stills-trigger">
                     <div class="tile-label">BTS</div>
                     <!-- Single Preview Image -->
                     <div class="stills-preview">
                         <img src="assets/images/bts/IMG_5971.JPG" alt="Stills Preview" loading="lazy">
+                    </div>
+                </div>
+
+                <!-- Teaser Video Tile -->
+                <div class="more-tile video-facade" data-video-id="DCTt2Sqghd8"
+                    style="cursor: pointer; position: relative; overflow: hidden; background: #000;">
+                    <div class="tile-label">TEASER</div>
+                    <img src="assets/images/teaser-preview.jpg" alt="Teaser Preview" loading="lazy"
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.75;">
+                    <div class="play-button"
+                        style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;">
                     </div>
                 </div>
             </div>
@@ -978,12 +1007,11 @@
             });
         }
 
-        // Hero Teaser Trigger - Opens Video Lightbox
-        // Hero Teaser Trigger - Opens Video Lightbox
+        // Hero Trigger - Opens Official Trailer in Video Lightbox
         const heroTrigger = document.querySelector('.hero-teaser-trigger');
         if (heroTrigger) {
             heroTrigger.addEventListener('click', function () {
-                const videoId = 'DCTt2Sqghd8'; // User provided: https://www.youtube.com/watch?v=DCTt2Sqghd8
+                const videoId = 'BjmkWI96YLY'; // Official Trailer
                 if (videoLightbox && videoLightboxContainer) {
                     videoLightboxContainer.innerHTML = `
                         <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
