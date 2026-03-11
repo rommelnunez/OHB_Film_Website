@@ -1094,7 +1094,93 @@
         }
     </style>
 
-
+    <!-- Override MailerLite styles to match site -->
+    <style type="text/css">
+        /* Remove border, make full-width, match site section padding */
+        #mlb2-38331472.ml-form-embedContainer {
+            padding: 2rem 4vw;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        }
+        #mlb2-38331472.ml-form-embedContainer .ml-form-embedWrapper {
+            border: none !important;
+            border-radius: 0 !important;
+            max-width: 600px !important;
+            width: 100% !important;
+            background-color: #ff3600 !important;
+        }
+        /* Heading: match v2-section-title style */
+        #mlb2-38331472.ml-form-embedContainer h4,
+        #mlb2-38331472.ml-form-embedContainer .ml-form-successContent h4 {
+            font-family: 'Neue Haas Grotesk Text Pro 75 Bold', 'Inter', sans-serif !important;
+            font-size: 2.5rem !important;
+            font-weight: 900 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.05em !important;
+            line-height: 0.9 !important;
+            text-align: center !important;
+            margin-bottom: 0.5rem !important;
+        }
+        /* Subtext */
+        #mlb2-38331472.ml-form-embedContainer .ml-form-embedContent p,
+        #mlb2-38331472.ml-form-embedContainer .ml-form-successContent p {
+            font-family: 'Neue Haas Grotesk Text Pro 75 Bold', 'Inter', sans-serif !important;
+            font-size: 0.9rem !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.1em !important;
+            text-align: center !important;
+            color: #000 !important;
+        }
+        /* Content area centered */
+        #mlb2-38331472 .ml-form-embedContent {
+            text-align: center !important;
+        }
+        /* Email input */
+        #mlb2-38331472 .ml-form-horizontalRow input,
+        #mlb2-38331472 .ml-form-fieldRow input {
+            background-color: transparent !important;
+            color: #000 !important;
+            border: 2px solid #000 !important;
+            border-radius: 0 !important;
+            font-family: 'Neue Haas Grotesk Text Pro 75 Bold', 'Inter', sans-serif !important;
+            font-size: 0.85rem !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.1em !important;
+            padding: 12px 14px !important;
+        }
+        #mlb2-38331472 .ml-form-horizontalRow input::placeholder,
+        #mlb2-38331472 .ml-form-fieldRow input::placeholder {
+            color: rgba(0, 0, 0, 0.5) !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.1em !important;
+        }
+        #mlb2-38331472 .ml-form-horizontalRow input::-webkit-input-placeholder,
+        #mlb2-38331472 .ml-form-fieldRow input::-webkit-input-placeholder {
+            color: rgba(0, 0, 0, 0.5) !important;
+        }
+        /* Subscribe button */
+        #mlb2-38331472 .ml-form-horizontalRow button,
+        #mlb2-38331472 .ml-form-embedSubmit button,
+        #mlb2-38331472 .ml-mobileButton-horizontal button {
+            background-color: #000 !important;
+            color: #fff !important;
+            border: 2px solid #000 !important;
+            border-radius: 0 !important;
+            font-family: 'Neue Haas Grotesk Text Pro 75 Bold', 'Inter', sans-serif !important;
+            font-size: 0.85rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.15em !important;
+            padding: 12px 14px !important;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        #mlb2-38331472 .ml-form-horizontalRow button:hover,
+        #mlb2-38331472 .ml-form-embedSubmit button:hover,
+        #mlb2-38331472 .ml-mobileButton-horizontal button:hover {
+            background-color: #ff3600 !important;
+            color: #000 !important;
+        }
+    </style>
 
 
 
