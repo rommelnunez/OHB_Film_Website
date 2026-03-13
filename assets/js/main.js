@@ -169,6 +169,18 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  // Track ticket clicks (external ticketing platforms: Regal, AMC, Alamo Drafthouse)
+  document.querySelectorAll('a.o4-row, a.list-ticket-btn').forEach(link => {
+    link.addEventListener('click', function () {
+      if (typeof gtag === 'function') {
+        gtag('event', 'ticket_click');
+      }
+      if (typeof fbq === 'function') {
+        fbq('track', 'InitiateCheckout');
+      }
+    });
+  });
+
   // ===================================
   // HERO SLIDESHOW
   // ===================================
