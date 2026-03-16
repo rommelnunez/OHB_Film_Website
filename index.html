@@ -2275,6 +2275,21 @@
                 }
             });
         }
+        // Track ticket clicks (external ticketing platforms: Regal, AMC, Alamo Drafthouse)
+        document.querySelectorAll('a.o4-row, a.list-ticket-btn').forEach(link => {
+            link.addEventListener('click', function () {
+                if (typeof gtag === 'function') {
+                    gtag('event', 'ticket_click', {
+                        'event_category': 'engagement',
+                        'event_label': this.href
+                    });
+                }
+                if (typeof fbq === 'function') {
+                    fbq('track', 'InitiateCheckout');
+                }
+            });
+        });
+
         // Smooth Scroll for all anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
