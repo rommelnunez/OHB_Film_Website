@@ -137,37 +137,6 @@
         <!-- Removed header-right to unify z-index context -->
     </header>
 
-    <!-- Hero Section (Full Screen Video) -->
-    <section class="v2-hero" id="hero">
-        <div class="hero-teaser-trigger"
-            style="background-image: url('../assets/images/teaser-preview.jpg'); position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: cover; background-position: center; cursor: pointer;">
-            <div class="teaser-overlay"></div>
-            <div class="play-button hero-play-btn"></div>
-            <!-- Tagline moved here -->
-            <div class="v2-title-tagline">TAKE A SHOT AT FRIENDSHIP</div>
-        </div>
-
-        <div class="v2-hero-content"
-            style="pointer-events: none; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 25vh 4vw 12vh 4vw;">
-            <div class="v2-title-top-row"
-                style="display: flex; justify-content: space-between; width: 100%; position: relative;">
-                <div class="v2-title-part-top">our<br>hero,</div>
-            </div>
-
-            <div class="v2-title-part-bottom">balthazar</div>
-        </div>
-        <div class="hero-overlay"
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); pointer-events: none; z-index: 1;">
-        </div>
-    </section>
-
-    <!-- Info Strip (Sticky or below hero) -->
-    <!-- Info Strip (Sticky or below hero) -->
-    <div class="v2-info-strip">
-        <div class="info-item">Directed by Oscar Boyson</div>
-        <div class="info-item">Written by Ricky Camilleri & Oscar Boyson</div>
-    </div>
-
     <!-- Ticket Calendar Section -->
     <section id="tickets" class="ticket-calendar">
         <!-- Header -->
@@ -649,6 +618,36 @@
         }
     })();
     </script>
+
+    <!-- Hero Section (Full Screen Video) -->
+    <section class="v2-hero" id="hero">
+        <div class="hero-teaser-trigger"
+            style="background-image: url('../assets/images/teaser-preview.jpg'); position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: cover; background-position: center; cursor: pointer;">
+            <div class="teaser-overlay"></div>
+            <div class="play-button hero-play-btn"></div>
+            <!-- Tagline moved here -->
+            <div class="v2-title-tagline">TAKE A SHOT AT FRIENDSHIP</div>
+        </div>
+
+        <div class="v2-hero-content"
+            style="pointer-events: none; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 25vh 4vw 12vh 4vw;">
+            <div class="v2-title-top-row"
+                style="display: flex; justify-content: space-between; width: 100%; position: relative;">
+                <div class="v2-title-part-top">our<br>hero,</div>
+            </div>
+
+            <div class="v2-title-part-bottom">balthazar</div>
+        </div>
+        <div class="hero-overlay"
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); pointer-events: none; z-index: 1;">
+        </div>
+    </section>
+
+    <!-- Info Strip -->
+    <div class="v2-info-strip">
+        <div class="info-item">Directed by Oscar Boyson</div>
+        <div class="info-item">Written by Ricky Camilleri & Oscar Boyson</div>
+    </div>
 
     <!-- Events (Moved) -->
     <!-- Events (Moved) -->
@@ -2705,7 +2704,7 @@
             });
         });
 
-        // Auto-scroll to tickets section on page load (fast)
+        /* Auto-scroll to tickets section on page load (fast)
         window.addEventListener('load', function() {
             const ticketsSection = document.getElementById('tickets');
             if (ticketsSection) {
@@ -2731,6 +2730,7 @@
                 }, 100);
             }
         });
+        */
     </script>
 </body>
 
