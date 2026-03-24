@@ -2003,7 +2003,8 @@ html {
 .ticket-filter-bar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 1.5rem;
     padding: 1rem 4vw;
     background: #111;
     position: relative;
