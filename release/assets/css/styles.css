@@ -1857,21 +1857,37 @@ html {
     padding: 0;
 }
 
-.ticket-calendar-header {
-    text-align: left;
-    padding: 2rem 4vw;
+.ticket-calendar-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 4vw 1rem;
     background: #000;
 }
 
-.ticket-calendar-header h2 {
-    font-family: 'Neue Haas Grotesk Text Pro 75 Bold', 'Inter', sans-serif;
-    font-size: 3rem;
+.title-banner-text {
+    font-family: 'Neue Haas Grotesk Display Black', 'Inter', sans-serif;
+    font-size: clamp(1.5rem, 5vw, 4rem);
     font-weight: 900;
-    text-transform: uppercase;
     line-height: 0.9;
-    margin-bottom: 0.5rem;
+    color: #ff3600;
+    text-transform: lowercase;
+    filter: blur(0.5px);
+}
+
+.ticket-calendar-subtitle {
+    padding: 0.5rem 4vw;
+    background: #000;
+}
+
+.ticket-calendar-subtitle h2 {
+    font-family: 'Neue Haas Grotesk Text Pro 75 Bold', 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     color: #fff;
-    margin-top: 0;
+    margin: 0;
 }
 
 /* Date Picker Rail */
