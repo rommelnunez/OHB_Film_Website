@@ -1115,7 +1115,7 @@ html {
 /* V2 Titles Refinement (Matching V1) */
 @font-face {
     font-family: 'Neue Haas Grotesk Display Black';
-    src: url('../../assets/fonts/NeueHaasDisplayBlack.ttf') format('truetype');
+    src: url('../fonts/NeueHaasDisplayBlack.ttf') format('truetype');
     font-weight: 900;
     font-style: normal;
     font-display: swap;
@@ -1844,5 +1844,481 @@ html {
 
     .credits a {
         margin: 0;
+    }
+}
+
+/* ===================================
+   TICKET CALENDAR STYLES
+   =================================== */
+
+.ticket-calendar {
+    background-color: #000;
+    color: #fff;
+    padding: 0;
+}
+
+.ticket-calendar-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 4vw 1rem;
+    background: #000;
+}
+
+.title-banner-text {
+    font-family: 'Neue Haas Grotesk Display Black', 'Inter', sans-serif;
+    font-size: clamp(1.5rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 0.9;
+    color: #ff3600;
+    text-transform: lowercase;
+    filter: blur(0.5px);
+}
+
+.ticket-calendar-subtitle {
+    padding: 0.5rem 4vw;
+    background: #000;
+}
+
+.ticket-calendar-subtitle h2 {
+    font-family: 'Neue Haas Grotesk Text Pro 75 Bold', 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #fff;
+    margin: 0;
+}
+
+/* Date Picker Rail */
+.date-picker-container {
+    position: relative;
+    background: #000;
+}
+
+.date-picker-rail {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.date-picker-rail::-webkit-scrollbar {
+    display: none;
+}
+
+.date-btn {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 2.5rem;
+    border: none;
+    border-right: 2px solid rgba(255, 255, 255, 0.1);
+    background: #000;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 120px;
+}
+
+.date-btn:hover:not(.disabled):not(.active) {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.date-btn.active {
+    background: #ff3600 !important;
+}
+
+.date-btn.active .month,
+.date-btn.active .weekday {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.date-btn.active .day {
+    color: #fff !important;
+}
+
+.date-btn.disabled {
+    background: #111;
+    cursor: not-allowed;
+}
+
+.date-btn .month {
+    font-size: 0.625rem;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+    color: #fff;
+}
+
+.date-btn.disabled .month {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.date-btn .weekday {
+    font-size: 0.625rem;
+    letter-spacing: 0.15em;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.date-btn.disabled .weekday {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.date-btn .day {
+    font-family: 'Neue Haas Grotesk Display Black', 'Inter', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: #ff3600;
+}
+
+.date-btn.disabled .day {
+    color: rgba(255, 54, 0, 0.3);
+}
+
+/* Scroll Arrows */
+.date-scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    border: 2px solid #fff;
+    color: #fff;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.2s ease;
+}
+
+.date-scroll-btn:hover {
+    background: #ff3600;
+    border-color: #ff3600;
+    color: #fff;
+}
+
+.date-scroll-btn.left {
+    left: 0.5rem;
+}
+
+.date-scroll-btn.right {
+    right: 0.5rem;
+}
+
+/* Filter Bar */
+.ticket-filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    padding: 1rem 4vw;
+    background: #111;
+    position: relative;
+}
+
+.location-dropdown {
+    position: relative;
+}
+
+.location-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: opacity 0.2s;
+}
+
+.location-btn:hover {
+    opacity: 0.7;
+}
+
+.location-btn svg {
+    transition: transform 0.2s;
+}
+
+.location-btn.open svg.chevron {
+    transform: rotate(180deg);
+}
+
+.location-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    min-width: 200px;
+    background: #000;
+    border: 2px solid #fff;
+    border-top: none;
+    z-index: 100;
+    display: none;
+}
+
+.location-menu.open {
+    display: block;
+}
+
+.location-menu button {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    border: none;
+    color: #fff;
+    text-align: left;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.2s;
+}
+
+.location-menu button:hover,
+.location-menu button.active {
+    background: #ff3600;
+    color: #fff;
+}
+
+.filter-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.special-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.75rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+}
+
+.special-toggle:hover {
+    border-color: #ff3600;
+    color: #ff3600;
+}
+
+.special-toggle.active {
+    background: #ff3600;
+    color: #fff;
+    border-color: #ff3600;
+}
+
+.theater-count {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Showtimes Grid */
+.showtimes-container {
+    padding: 1rem 4vw;
+    background: #000;
+}
+
+.showtimes-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.date-panel {
+    display: none;
+}
+
+.date-panel.active {
+    display: block;
+}
+
+.no-showtimes {
+    padding: 3rem 0;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Theater Row */
+.theater-row {
+    padding: 1.5rem 0;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 2rem;
+    align-items: start;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.theater-row:last-child {
+    border-bottom: none;
+}
+
+.theater-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.theater-logo {
+    height: 20px;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.theater-logo img {
+    height: 100%;
+    width: auto;
+    filter: invert(1);
+    object-fit: contain;
+    object-position: left;
+}
+
+.theater-name {
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.special-badge {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background: #ff3600;
+    color: #fff;
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Showtime Buttons */
+.showtimes-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.showtime-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border: 2px solid #fff;
+    background: transparent;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: all 0.2s;
+}
+
+.showtime-btn:hover {
+    transform: scale(1.05);
+    border-color: #ff3600;
+    color: #ff3600;
+}
+
+.showtime-btn.special {
+    background: #ff3600;
+    border-color: #ff3600;
+    color: #fff;
+}
+
+.showtime-btn.special:hover {
+    background: #e03000;
+    border-color: #e03000;
+    transform: scale(1.05);
+}
+
+.showtime-btn.sold-out {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.showtime-btn .time {
+    font-size: 1rem;
+    letter-spacing: -0.02em;
+}
+
+.showtime-btn .event-type {
+    font-size: 0.5rem;
+    margin-top: 0.25rem;
+    letter-spacing: 0.1em;
+    opacity: 0.8;
+}
+
+.showtime-btn .sold-out-label {
+    font-size: 0.5rem;
+    margin-top: 0.25rem;
+    letter-spacing: 0.1em;
+    color: #ff3600;
+    font-weight: 700;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .date-btn {
+        padding: 1rem 1.5rem;
+        min-width: 90px;
+    }
+
+    .date-btn .day {
+        font-size: 2.5rem;
+    }
+
+    .theater-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .ticket-filter-bar {
+        flex-direction: row;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .filter-controls {
+        width: auto;
+        justify-content: flex-start;
+    }
+
+    .location-menu {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-radius: 1rem 1rem 0 0;
     }
 }
