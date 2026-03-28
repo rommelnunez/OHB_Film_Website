@@ -354,18 +354,39 @@
             return "SPECIAL";
         }
 
+        // Get current date in Pacific Time (handles PST/PDT automatically)
+        function getCurrentPacificDate() {
+            const pacificFormatter = new Intl.DateTimeFormat('en-US', {
+                timeZone: 'America/Los_Angeles',
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            });
+
+            const parts = pacificFormatter.formatToParts(new Date());
+            const year = parts.find(p => p.type === 'year').value;
+            const month = parts.find(p => p.type === 'month').value;
+            const day = parts.find(p => p.type === 'day').value;
+
+            return `${year}-${month}-${day}`;
+        }
+
         // Get unique dates
         function getUniqueDates() {
+            const currentPacificDate = getCurrentPacificDate();
             const dateSet = new Set(SHOWTIMES_DATA.map(s => s.date));
-            return Array.from(dateSet).sort().map(dateStr => {
-                const date = new Date(dateStr + "T00:00:00");
-                return {
-                    dateStr,
-                    day: date.getDate().toString().padStart(2, "0"),
-                    weekday: date.toLocaleDateString("en-US", { weekday: "short" }).toUpperCase(),
-                    month: date.toLocaleDateString("en-US", { month: "short" }).toUpperCase()
-                };
-            });
+            return Array.from(dateSet)
+                .filter(dateStr => dateStr >= currentPacificDate)
+                .sort()
+                .map(dateStr => {
+                    const date = new Date(dateStr + "T00:00:00");
+                    return {
+                        dateStr,
+                        day: date.getDate().toString().padStart(2, "0"),
+                        weekday: date.toLocaleDateString("en-US", { weekday: "short" }).toUpperCase(),
+                        month: date.toLocaleDateString("en-US", { month: "short" }).toUpperCase()
+                    };
+                });
         }
 
         // Get unique cities
@@ -563,6 +584,8 @@
             const dates = getUniqueDates();
             if (dates.length > 0) {
                 selectedDate = dates[0].dateStr;
+            } else {
+                console.warn('No upcoming showtimes available');
             }
 
             renderDatePicker();
