@@ -2286,6 +2286,11 @@ html {
     font-weight: 700;
 }
 
+/* White sold-out label for special events */
+.showtime-btn.special.sold-out .sold-out-label {
+    color: #ffffff;
+}
+
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .date-btn {
