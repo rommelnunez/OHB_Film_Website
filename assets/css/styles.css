@@ -2197,7 +2197,6 @@ html {
 .theater-logo img {
     height: 100%;
     width: auto;
-    filter: invert(1);
     object-fit: contain;
     object-position: left;
 }
