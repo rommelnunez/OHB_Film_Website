@@ -205,93 +205,110 @@
     (function() {
         // Showtime data from CSV
         const SHOWTIMES_DATA = [
-            // March 26 - Regal
-            { theater: "Regal Union Square", date: "2026-03-26", time: "7:30 PM", eventType: "Live Intro with Cast & Filmmakers", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-live-intro-wcast-filmmakers-ho00021029?id=287484&site=1320&date=03-26-2026" },
-            // March 27 - Regal
-            { theater: "Regal Union Square", date: "2026-03-27", time: "11:00 AM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287893&site=1320&date=03-27-2026" },
-            { theater: "Regal Union Square", date: "2026-03-27", time: "1:35 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287892&site=1320&date=03-27-2026" },
-            { theater: "Regal Union Square", date: "2026-03-27", time: "4:20 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287890&site=1320&date=03-27-2026" },
-            { theater: "Regal Union Square", date: "2026-03-27", time: "7:00 PM", eventType: "Live Q&A with Cast & Filmmakers", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-live-qa-w-cast-filmmakers-ho00020997?id=287491&site=1320&date=03-27-2026" },
-            { theater: "Regal Union Square", date: "2026-03-27", time: "8:00 PM", eventType: "Live Q&A with Cast & Filmmakers", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-live-qa-w-cast-filmmakers-ho00020997?id=290432&site=1320&date=03-27-2026" },
-            { theater: "Regal Union Square", date: "2026-03-27", time: "10:20 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287891&site=1320&date=03-27-2026" },
-            // March 28 - Regal
-            { theater: "Regal Union Square", date: "2026-03-28", time: "11:00 AM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287894&site=1320&date=03-28-2026" },
+            // March 26 - Regal (SOLD OUT)
+            { theater: "Regal Union Square", date: "2026-03-26", time: "7:30 PM", eventType: "Live Intro with Cast & Filmmakers (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-live-intro-wcast-filmmakers-ho00021029?id=287484&site=1320&date=03-26-2026" },
+            // March 27 - Regal (SOLD OUT)
+            { theater: "Regal Union Square", date: "2026-03-27", time: "11:00 AM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287893&site=1320&date=03-27-2026" },
+            { theater: "Regal Union Square", date: "2026-03-27", time: "1:35 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287892&site=1320&date=03-27-2026" },
+            { theater: "Regal Union Square", date: "2026-03-27", time: "4:20 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287890&site=1320&date=03-27-2026" },
+            { theater: "Regal Union Square", date: "2026-03-27", time: "7:00 PM", eventType: "Live Q&A with Cast & Filmmakers (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-live-qa-w-cast-filmmakers-ho00020997?id=287491&site=1320&date=03-27-2026" },
+            { theater: "Regal Union Square", date: "2026-03-27", time: "8:00 PM", eventType: "Live Q&A with Cast & Filmmakers (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-live-qa-w-cast-filmmakers-ho00020997?id=290432&site=1320&date=03-27-2026" },
+            { theater: "Regal Union Square", date: "2026-03-27", time: "10:20 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287891&site=1320&date=03-27-2026" },
+            // March 28 - Regal (SOLD OUT)
+            { theater: "Regal Union Square", date: "2026-03-28", time: "11:00 AM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287894&site=1320&date=03-28-2026" },
             { theater: "Regal Union Square", date: "2026-03-28", time: "4:20 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?date=03-28-2026" },
-            { theater: "Regal Union Square", date: "2026-03-28", time: "7:00 PM", eventType: "Live Q&A with Cast & Filmmakers", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-live-qa-w-cast-filmmakers-ho00020997?id=287492&site=1320&date=03-28-2026" },
-            { theater: "Regal Union Square", date: "2026-03-28", time: "8:00 PM", eventType: "Live Q&A with Cast & Filmmakers", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-live-qa-w-cast-filmmakers-ho00020997?id=290433&site=1320&date=03-28-2026" },
-            { theater: "Regal Union Square", date: "2026-03-28", time: "10:20 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287897&site=1320&date=03-28-2026" },
-            // March 29 - Regal
-            { theater: "Regal Union Square", date: "2026-03-29", time: "9:55 AM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287900&site=1320&date=03-29-2026" },
+            { theater: "Regal Union Square", date: "2026-03-28", time: "7:00 PM", eventType: "Live Q&A with Cast & Filmmakers (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-live-qa-w-cast-filmmakers-ho00020997?id=287492&site=1320&date=03-28-2026" },
+            { theater: "Regal Union Square", date: "2026-03-28", time: "8:00 PM", eventType: "Live Q&A with Cast & Filmmakers (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-live-qa-w-cast-filmmakers-ho00020997?id=290433&site=1320&date=03-28-2026" },
+            { theater: "Regal Union Square", date: "2026-03-28", time: "10:20 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287897&site=1320&date=03-28-2026" },
+            // March 29 - Regal (SOLD OUT)
+            { theater: "Regal Union Square", date: "2026-03-29", time: "9:55 AM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287900&site=1320&date=03-29-2026" },
             { theater: "Regal Union Square", date: "2026-03-29", time: "3:00 PM", eventType: "Live Q&A with Cast & Filmmakers (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-live-qa-w-cast-filmmakers-ho00020997?id=287493&site=1320&date=03-29-2026" },
             { theater: "Regal Union Square", date: "2026-03-29", time: "6:00 PM", eventType: "Live Q&A with Cast & Filmmakers (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-live-qa-w-cast-filmmakers-ho00020997?id=287493&site=1320&date=03-29-2026" },
-            { theater: "Regal Union Square", date: "2026-03-29", time: "8:55 PM", eventType: "Live Intro with Cast & Filmmakers", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-live-intro-wcast-filmmakers-ho00021029?id=287901&site=1320&date=03-29-2026" },
-            { theater: "Regal Union Square", date: "2026-03-29", time: "11:25 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287902&site=1320&date=03-29-2026" },
-            // March 30 - Regal
-            { theater: "Regal Union Square", date: "2026-03-30", time: "11:00 AM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287903&site=1320&date=03-30-2026" },
-            { theater: "Regal Union Square", date: "2026-03-30", time: "1:40 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287904&site=1320&date=03-30-2026" },
-            { theater: "Regal Union Square", date: "2026-03-30", time: "4:15 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287905&site=1320&date=03-30-2026" },
-            { theater: "Regal Union Square", date: "2026-03-30", time: "9:50 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287907&site=1320&date=03-30-2026" },
-            // March 31 - Regal
-            { theater: "Regal Union Square", date: "2026-03-31", time: "11:00 AM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287922&site=1320&date=03-31-2026" },
-            { theater: "Regal Union Square", date: "2026-03-31", time: "1:40 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287921&site=1320&date=03-31-2026" },
-            { theater: "Regal Union Square", date: "2026-03-31", time: "4:30 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287920&site=1320&date=03-31-2026" },
-            { theater: "Regal Union Square", date: "2026-03-31", time: "7:10 PM", eventType: "Live Q&A with Cast & Filmmakers", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-live-qa-w-cast-filmmakers-ho00020997?id=287919&site=1320&date=03-31-2026" },
-            { theater: "Regal Union Square", date: "2026-03-31", time: "10:15 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287918&site=1320&date=03-31-2026" },
-            // April 1 - Regal
-            { theater: "Regal Union Square", date: "2026-04-01", time: "5:15 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291246&site=1320&date=04-01-2026" },
-            { theater: "Regal Union Square", date: "2026-04-01", time: "7:55 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291245&site=1320&date=04-01-2026" },
-            { theater: "Regal Union Square", date: "2026-04-01", time: "10:45 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287911&site=1320&date=04-01-2026" },
-            // April 2 - Regal
-            { theater: "Regal Union Square", date: "2026-04-02", time: "12:15 AM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287914&site=1320&date=04-02-2026" },
-            { theater: "Regal Union Square", date: "2026-04-02", time: "10:35 AM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291250&site=1320&date=04-02-2026" },
-            { theater: "Regal Union Square", date: "2026-04-02", time: "1:10 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291249&site=1320&date=04-02-2026" },
-            { theater: "Regal Union Square", date: "2026-04-02", time: "3:50 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291248&site=1320&date=04-02-2026" },
-            { theater: "Regal Union Square", date: "2026-04-02", time: "9:10 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291247&site=1320&date=04-02-2026" },
-            // April 3 - Regal Union Square
-            { theater: "Regal Union Square", date: "2026-04-03", time: "8:15 AM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291312&site=1320&date=04-03-2026" },
-            { theater: "Regal Union Square", date: "2026-04-03", time: "12:10 AM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291274&site=1320&date=04-03-2026" },
-            { theater: "Regal Union Square", date: "2026-04-03", time: "9:35 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291630&site=1320&date=04-03-2026" },
-            // April 3 - LA theaters
-            { theater: "AMC The Americana at Brand 18", date: "2026-04-03", time: "7:00 PM", eventType: "Live Q&A with Cast & Filmmakers", ticketLink: "https://www.amctheatres.com/showtimes/141409104/seats" },
-            { theater: "AMC Burbank Town Center 8", date: "2026-04-03", time: "7:45 PM", eventType: "General Admission", ticketLink: "https://www.amctheatres.com/showtimes/141497066/seats" },
-            { theater: "Alamo Drafthouse DTLA", date: "2026-04-03", time: "11:00 AM", eventType: "General Admission", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109784" },
-            { theater: "Alamo Drafthouse DTLA", date: "2026-04-03", time: "1:40 PM", eventType: "General Admission", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109785" },
-            { theater: "Alamo Drafthouse DTLA", date: "2026-04-03", time: "4:20 PM", eventType: "General Admission", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109786" },
-            { theater: "Alamo Drafthouse DTLA", date: "2026-04-03", time: "7:00 PM", eventType: "General Admission", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109787" },
-            { theater: "Alamo Drafthouse DTLA", date: "2026-04-03", time: "10:00 PM", eventType: "General Admission", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109788" },
-            // April 4 - Regal Union Square
-            { theater: "Regal Union Square", date: "2026-04-04", time: "8:20 AM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291434&site=1320&date=04-04-2026" },
-            { theater: "Regal Union Square", date: "2026-04-04", time: "12:55 AM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291420&site=1320&date=04-04-2026" },
-            { theater: "Regal Union Square", date: "2026-04-04", time: "7:35 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291631&site=1320&date=04-04-2026" },
-            // April 4 - AMC & Alamo
-            { theater: "AMC Burbank Town Center 8", date: "2026-04-04", time: "7:45 PM", eventType: "General Admission", ticketLink: "https://www.amctheatres.com/showtimes/141497067/seats" },
-            { theater: "Alamo Drafthouse DTLA", date: "2026-04-04", time: "11:00 AM", eventType: "General Admission", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109779" },
-            { theater: "Alamo Drafthouse DTLA", date: "2026-04-04", time: "1:40 PM", eventType: "General Admission", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109778" },
-            { theater: "Alamo Drafthouse DTLA", date: "2026-04-04", time: "4:20 PM", eventType: "General Admission", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109777" },
-            { theater: "Alamo Drafthouse DTLA", date: "2026-04-04", time: "7:00 PM", eventType: "Live Q&A with Cast & Filmmakers", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109223" },
-            { theater: "Alamo Drafthouse DTLA", date: "2026-04-04", time: "7:45 PM", eventType: "Live Q&A with Cast & Filmmakers", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109775" },
-            { theater: "Alamo Drafthouse DTLA", date: "2026-04-04", time: "10:00 PM", eventType: "General Admission", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109780" },
-            // April 5 - AMC & Alamo
-            { theater: "AMC Burbank Town Center 8", date: "2026-04-05", time: "7:30 PM", eventType: "General Admission", ticketLink: "https://www.amctheatres.com/showtimes/141497068/seats" },
-            { theater: "Alamo Drafthouse DTLA", date: "2026-04-05", time: "11:00 AM", eventType: "General Admission", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109781" },
-            { theater: "Alamo Drafthouse DTLA", date: "2026-04-05", time: "1:40 PM", eventType: "General Admission", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109782" },
-            { theater: "Alamo Drafthouse DTLA", date: "2026-04-05", time: "4:20 PM", eventType: "General Admission", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109783" },
+            { theater: "Regal Union Square", date: "2026-03-29", time: "8:55 PM", eventType: "Live Intro with Cast & Filmmakers (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-live-intro-wcast-filmmakers-ho00021029?id=287901&site=1320&date=03-29-2026" },
+            { theater: "Regal Union Square", date: "2026-03-29", time: "11:25 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287902&site=1320&date=03-29-2026" },
+            // March 30 - Regal (SOLD OUT)
+            { theater: "Regal Union Square", date: "2026-03-30", time: "11:00 AM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287903&site=1320&date=03-30-2026" },
+            { theater: "Regal Union Square", date: "2026-03-30", time: "1:40 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287904&site=1320&date=03-30-2026" },
+            { theater: "Regal Union Square", date: "2026-03-30", time: "4:15 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287905&site=1320&date=03-30-2026" },
+            { theater: "Regal Union Square", date: "2026-03-30", time: "9:50 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287907&site=1320&date=03-30-2026" },
+            // March 31 - Regal (SOLD OUT)
+            { theater: "Regal Union Square", date: "2026-03-31", time: "11:00 AM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287922&site=1320&date=03-31-2026" },
+            { theater: "Regal Union Square", date: "2026-03-31", time: "1:40 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287921&site=1320&date=03-31-2026" },
+            { theater: "Regal Union Square", date: "2026-03-31", time: "4:30 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287920&site=1320&date=03-31-2026" },
+            { theater: "Regal Union Square", date: "2026-03-31", time: "7:10 PM", eventType: "Live Q&A with Cast & Filmmakers (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-live-qa-w-cast-filmmakers-ho00020997?id=287919&site=1320&date=03-31-2026" },
+            { theater: "Regal Union Square", date: "2026-03-31", time: "10:15 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287918&site=1320&date=03-31-2026" },
+            // April 1 - Regal (SOLD OUT)
+            { theater: "Regal Union Square", date: "2026-04-01", time: "5:15 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291246&site=1320&date=04-01-2026" },
+            { theater: "Regal Union Square", date: "2026-04-01", time: "7:55 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291245&site=1320&date=04-01-2026" },
+            { theater: "Regal Union Square", date: "2026-04-01", time: "10:45 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287911&site=1320&date=04-01-2026" },
+            // April 2 - Regal (SOLD OUT)
+            { theater: "Regal Union Square", date: "2026-04-02", time: "12:15 AM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=287914&site=1320&date=04-02-2026" },
+            { theater: "Regal Union Square", date: "2026-04-02", time: "10:35 AM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291250&site=1320&date=04-02-2026" },
+            { theater: "Regal Union Square", date: "2026-04-02", time: "1:10 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291249&site=1320&date=04-02-2026" },
+            { theater: "Regal Union Square", date: "2026-04-02", time: "3:50 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291248&site=1320&date=04-02-2026" },
+            { theater: "Regal Union Square", date: "2026-04-02", time: "9:10 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291247&site=1320&date=04-02-2026" },
+            // April 3 - Regal Union Square (SOLD OUT)
+            { theater: "Regal Union Square", date: "2026-04-03", time: "8:15 AM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291312&site=1320&date=04-03-2026" },
+            { theater: "Regal Union Square", date: "2026-04-03", time: "12:10 AM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291274&site=1320&date=04-03-2026" },
+            { theater: "Regal Union Square", date: "2026-04-03", time: "9:35 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291630&site=1320&date=04-03-2026" },
+            // April 3 - LA theaters (SOLD OUT)
+            { theater: "AMC The Americana at Brand 18", date: "2026-04-03", time: "7:00 PM", eventType: "Live Q&A with Cast & Filmmakers (Sold Out)", ticketLink: "https://www.amctheatres.com/showtimes/141409104/seats" },
+            { theater: "AMC Burbank Town Center 8", date: "2026-04-03", time: "7:45 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.amctheatres.com/showtimes/141497066/seats" },
+            { theater: "Alamo Drafthouse DTLA", date: "2026-04-03", time: "11:00 AM", eventType: "General Admission (Sold Out)", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109784" },
+            { theater: "Alamo Drafthouse DTLA", date: "2026-04-03", time: "1:40 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109785" },
+            { theater: "Alamo Drafthouse DTLA", date: "2026-04-03", time: "4:20 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109786" },
+            { theater: "Alamo Drafthouse DTLA", date: "2026-04-03", time: "7:00 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109787" },
+            { theater: "Alamo Drafthouse DTLA", date: "2026-04-03", time: "10:00 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109788" },
+            // April 4 - Regal Union Square (SOLD OUT)
+            { theater: "Regal Union Square", date: "2026-04-04", time: "8:20 AM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291434&site=1320&date=04-04-2026" },
+            { theater: "Regal Union Square", date: "2026-04-04", time: "12:55 AM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291420&site=1320&date=04-04-2026" },
+            { theater: "Regal Union Square", date: "2026-04-04", time: "7:35 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291631&site=1320&date=04-04-2026" },
+            // April 4 - AMC & Alamo (SOLD OUT)
+            { theater: "AMC Burbank Town Center 8", date: "2026-04-04", time: "7:45 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.amctheatres.com/showtimes/141497067/seats" },
+            { theater: "Alamo Drafthouse DTLA", date: "2026-04-04", time: "11:00 AM", eventType: "General Admission (Sold Out)", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109779" },
+            { theater: "Alamo Drafthouse DTLA", date: "2026-04-04", time: "1:40 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109778" },
+            { theater: "Alamo Drafthouse DTLA", date: "2026-04-04", time: "4:20 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109777" },
+            { theater: "Alamo Drafthouse DTLA", date: "2026-04-04", time: "7:00 PM", eventType: "Live Q&A with Cast & Filmmakers (Sold Out)", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109223" },
+            { theater: "Alamo Drafthouse DTLA", date: "2026-04-04", time: "7:45 PM", eventType: "Live Q&A with Cast & Filmmakers (Sold Out)", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109775" },
+            { theater: "Alamo Drafthouse DTLA", date: "2026-04-04", time: "10:00 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109780" },
+            // April 5 - AMC & Alamo (SOLD OUT)
+            { theater: "AMC Burbank Town Center 8", date: "2026-04-05", time: "7:30 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.amctheatres.com/showtimes/141497068/seats" },
+            { theater: "Alamo Drafthouse DTLA", date: "2026-04-05", time: "11:00 AM", eventType: "General Admission (Sold Out)", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109781" },
+            { theater: "Alamo Drafthouse DTLA", date: "2026-04-05", time: "1:40 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109782" },
+            { theater: "Alamo Drafthouse DTLA", date: "2026-04-05", time: "4:20 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109783" },
             { theater: "Alamo Drafthouse DTLA", date: "2026-04-05", time: "7:00 PM", eventType: "Live Q&A with Cast & Filmmakers (Sold Out)", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109227" },
-            { theater: "Alamo Drafthouse DTLA", date: "2026-04-05", time: "7:45 PM", eventType: "Live Q&A with Cast & Filmmakers", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109776" },
-            // April 5 - Regal Union Square
-            { theater: "Regal Union Square", date: "2026-04-05", time: "8:15 AM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291482&site=1320&date=04-05-2026" },
-            { theater: "Regal Union Square", date: "2026-04-05", time: "11:50 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291456&site=1320&date=04-05-2026" },
-            // April 6 - AMC & Alamo
-            { theater: "AMC Burbank Town Center 8", date: "2026-04-06", time: "1:30 PM", eventType: "General Admission", ticketLink: "https://www.amctheatres.com/showtimes/142008072/seats" },
-            { theater: "AMC Burbank Town Center 8", date: "2026-04-06", time: "7:00 PM", eventType: "General Admission", ticketLink: "https://www.amctheatres.com/showtimes/141497069/seats" },
-            { theater: "Alamo Drafthouse DTLA", date: "2026-04-06", time: "11:20 AM", eventType: "General Admission", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109789" },
-            { theater: "Alamo Drafthouse DTLA", date: "2026-04-06", time: "2:00 PM", eventType: "General Admission", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109790" },
-            { theater: "Alamo Drafthouse DTLA", date: "2026-04-06", time: "4:40 PM", eventType: "General Admission", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109791" },
-            { theater: "Alamo Drafthouse DTLA", date: "2026-04-06", time: "7:20 PM", eventType: "General Admission", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109792" },
-            { theater: "Alamo Drafthouse DTLA", date: "2026-04-06", time: "10:00 PM", eventType: "General Admission", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109793" },
-            // April 6 - Regal Union Square
-            { theater: "Regal Union Square", date: "2026-04-06", time: "11:30 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291544&site=1320&date=04-06-2026" },
-            // April 7 - AMC & Alamo
+            { theater: "Alamo Drafthouse DTLA", date: "2026-04-05", time: "7:45 PM", eventType: "Live Q&A with Cast & Filmmakers (Sold Out)", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109776" },
+            // April 5 - Regal Union Square (SOLD OUT)
+            { theater: "Regal Union Square", date: "2026-04-05", time: "8:15 AM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291482&site=1320&date=04-05-2026" },
+            { theater: "Regal Union Square", date: "2026-04-05", time: "11:50 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291456&site=1320&date=04-05-2026" },
+            // April 6 - AMC & Alamo (SOLD OUT)
+            { theater: "AMC Burbank Town Center 8", date: "2026-04-06", time: "1:30 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.amctheatres.com/showtimes/142008072/seats" },
+            { theater: "AMC Burbank Town Center 8", date: "2026-04-06", time: "7:00 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.amctheatres.com/showtimes/141497069/seats" },
+            { theater: "Alamo Drafthouse DTLA", date: "2026-04-06", time: "11:20 AM", eventType: "General Admission (Sold Out)", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109789" },
+            { theater: "Alamo Drafthouse DTLA", date: "2026-04-06", time: "2:00 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109790" },
+            { theater: "Alamo Drafthouse DTLA", date: "2026-04-06", time: "4:40 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109791" },
+            { theater: "Alamo Drafthouse DTLA", date: "2026-04-06", time: "7:20 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109792" },
+            { theater: "Alamo Drafthouse DTLA", date: "2026-04-06", time: "10:00 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109793" },
+            // April 6 - Regal Union Square (SOLD OUT)
+            { theater: "Regal Union Square", date: "2026-04-06", time: "11:30 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291544&site=1320&date=04-06-2026" },
+            // April 3-6 - Los Feliz 3 (SOLD OUT)
+            { theater: "Los Feliz 3", date: "2026-04-03", time: "1:30 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-03%2B13%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-43e137b9d81780b089243f7a43ad34b36a3f046d73c8739c55c73ec4ab91ba21" },
+            { theater: "Los Feliz 3", date: "2026-04-03", time: "4:15 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-03%2B16%3A15&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-972edac65a034141410498f470a372950393c8f8d3898e9bca514451fcbf71dd" },
+            { theater: "Los Feliz 3", date: "2026-04-03", time: "7:00 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-03%2B19%3A00&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-743eae875e60d7cd11c9f8286a998a32c096a5538af56ef32f46ff648a2e07f4" },
+            { theater: "Los Feliz 3", date: "2026-04-03", time: "9:30 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-03%2B21%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-7974dc7ca48eb2129a72aacc832c0405438d8d6a617beebe2cd7fc2c96eeb4d5" },
+            { theater: "Los Feliz 3", date: "2026-04-04", time: "1:30 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-04%2B13%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-88aa7695e983af01a6f9e94b9c0a2136b5aeab174bbd6809748f02a3be59ae0c" },
+            { theater: "Los Feliz 3", date: "2026-04-04", time: "4:15 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-04%2B16%3A15&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-be7999d8575fec624ac71a3af5827e3a6ca5324066473eb41a953238d1151721" },
+            { theater: "Los Feliz 3", date: "2026-04-04", time: "7:00 PM", eventType: "Live Q&A with Cast & Filmmakers (Sold Out)", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-04%2B19%3A00&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-eeefdb4dabd6f6e1faef8f548f2e7fad61523503a8a91f54118595d49d0892ae" },
+            { theater: "Los Feliz 3", date: "2026-04-04", time: "9:30 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-04%2B21%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-b82437a486568da000948af40753f02912dada864f774c5645bf5a1dd48829a0" },
+            { theater: "Los Feliz 3", date: "2026-04-05", time: "1:30 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-05%2B13%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-5e073f81ae04797bc8cf9b916b35ecea5dc0f75a3b42192737d6343bb157f7c8" },
+            { theater: "Los Feliz 3", date: "2026-04-05", time: "4:15 PM", eventType: "Live Q&A with Cast & Filmmakers (Sold Out)", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-05%2B16%3A15&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-9cc9adbc1bc029b80ef00c3e2cbe73295a7f4d639bff23e9bee6939d54c04feb" },
+            { theater: "Los Feliz 3", date: "2026-04-05", time: "7:00 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-05%2B19%3A00&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-cddd6f41c105d09f7e3fe2f6ab0dfc95efcc45fd7d7b6780b449f4f4190911cf" },
+            { theater: "Los Feliz 3", date: "2026-04-05", time: "9:30 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-05%2B21%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-fc5d1330553fd63f0afdd5448f3d7f36f869afbd8bc5fe2e1bf03dd3c916aeeb" },
+            { theater: "Los Feliz 3", date: "2026-04-06", time: "1:30 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-06%2B13%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-316dfd0f4021a6952617fc190234e8250af509950441bba2878885e4fb942807" },
+            { theater: "Los Feliz 3", date: "2026-04-06", time: "4:15 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-06%2B16%3A15&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-9781028e1e3df18a3bf30b2e47f50035e7c34fb8842b2c8fc9e9d1b6fd2e0409" },
+            { theater: "Los Feliz 3", date: "2026-04-06", time: "7:00 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-06%2B19%3A00&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-c808be160c2f5aa1a751e47f6596ba2a7a4d0a706665b5b2555f19e8a0d7c8df" },
+            { theater: "Los Feliz 3", date: "2026-04-06", time: "9:30 PM", eventType: "General Admission (Sold Out)", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-06%2B21%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-2da1db2b1ada00cb77dcfb8c06d5cb47450cf9517bdb892a0491165409139e63" },
+            // April 7 - AMC & Alamo (Current Day - Available)
             { theater: "AMC Burbank Town Center 8", date: "2026-04-07", time: "1:30 PM", eventType: "General Admission", ticketLink: "https://www.amctheatres.com/showtimes/142008071/seats" },
             { theater: "AMC Burbank Town Center 8", date: "2026-04-07", time: "7:00 PM", eventType: "General Admission", ticketLink: "https://www.amctheatres.com/showtimes/141497070/seats" },
             { theater: "Alamo Drafthouse DTLA", date: "2026-04-07", time: "11:20 AM", eventType: "Baby Day Show", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109794" },
@@ -301,6 +318,11 @@
             { theater: "Alamo Drafthouse DTLA", date: "2026-04-07", time: "10:00 PM", eventType: "General Admission", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109798" },
             // April 7 - Regal Union Square
             { theater: "Regal Union Square", date: "2026-04-07", time: "11:30 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291339&site=1320&date=04-07-2026" },
+            // April 7 - Los Feliz 3
+            { theater: "Los Feliz 3", date: "2026-04-07", time: "1:30 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-07%2B13%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-b627c34d987539cf41474a947b2e8ce4b5325f36fd679c00e4f92b77d198f2ae" },
+            { theater: "Los Feliz 3", date: "2026-04-07", time: "4:15 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-07%2B16%3A15&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-ad873a6ea35f73aad42fd09adceca9d2c441b5c55635c9d8c9b5d6cfb2a940c3" },
+            { theater: "Los Feliz 3", date: "2026-04-07", time: "7:00 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-07%2B19%3A00&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-6cbd09831c96f86190ebcdc0bc2f2775cf928a09bbcafe601249f7d9d35a290f" },
+            { theater: "Los Feliz 3", date: "2026-04-07", time: "9:30 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-07%2B21%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-9b9cf8a550b2522114d30767131cbff35c9e99b00b3bdb9cb8d4faea2d2ca120" },
             // April 8 - AMC & Alamo
             { theater: "AMC Burbank Town Center 8", date: "2026-04-08", time: "1:30 PM", eventType: "General Admission", ticketLink: "https://www.amctheatres.com/showtimes/142008068/seats" },
             { theater: "AMC Burbank Town Center 8", date: "2026-04-08", time: "7:00 PM", eventType: "General Admission", ticketLink: "https://www.amctheatres.com/showtimes/141497071/seats" },
@@ -311,35 +333,30 @@
             { theater: "Alamo Drafthouse DTLA", date: "2026-04-08", time: "10:00 PM", eventType: "General Admission", ticketLink: "https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109803" },
             // April 8 - Regal Union Square
             { theater: "Regal Union Square", date: "2026-04-08", time: "10:30 PM", eventType: "General Admission", ticketLink: "https://www.regmovies.com/movies/our-hero-balthazar-ho00020753?id=291506&site=1320&date=04-08-2026" },
-            // Los Feliz 3 - April 3-9
-            { theater: "Los Feliz 3", date: "2026-04-03", time: "1:30 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-03%2B13%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-43e137b9d81780b089243f7a43ad34b36a3f046d73c8739c55c73ec4ab91ba21" },
-            { theater: "Los Feliz 3", date: "2026-04-03", time: "4:15 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-03%2B16%3A15&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-972edac65a034141410498f470a372950393c8f8d3898e9bca514451fcbf71dd" },
-            { theater: "Los Feliz 3", date: "2026-04-03", time: "7:00 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-03%2B19%3A00&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-743eae875e60d7cd11c9f8286a998a32c096a5538af56ef32f46ff648a2e07f4" },
-            { theater: "Los Feliz 3", date: "2026-04-03", time: "9:30 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-03%2B21%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-7974dc7ca48eb2129a72aacc832c0405438d8d6a617beebe2cd7fc2c96eeb4d5" },
-            { theater: "Los Feliz 3", date: "2026-04-04", time: "1:30 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-04%2B13%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-88aa7695e983af01a6f9e94b9c0a2136b5aeab174bbd6809748f02a3be59ae0c" },
-            { theater: "Los Feliz 3", date: "2026-04-04", time: "4:15 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-04%2B16%3A15&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-be7999d8575fec624ac71a3af5827e3a6ca5324066473eb41a953238d1151721" },
-            { theater: "Los Feliz 3", date: "2026-04-04", time: "7:00 PM", eventType: "Live Q&A with Cast & Filmmakers", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-04%2B19%3A00&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-eeefdb4dabd6f6e1faef8f548f2e7fad61523503a8a91f54118595d49d0892ae" },
-            { theater: "Los Feliz 3", date: "2026-04-04", time: "9:30 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-04%2B21%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-b82437a486568da000948af40753f02912dada864f774c5645bf5a1dd48829a0" },
-            { theater: "Los Feliz 3", date: "2026-04-05", time: "1:30 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-05%2B13%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-5e073f81ae04797bc8cf9b916b35ecea5dc0f75a3b42192737d6343bb157f7c8" },
-            { theater: "Los Feliz 3", date: "2026-04-05", time: "4:15 PM", eventType: "Live Q&A with Cast & Filmmakers (Sold Out)", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-05%2B16%3A15&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-9cc9adbc1bc029b80ef00c3e2cbe73295a7f4d639bff23e9bee6939d54c04feb" },
-            { theater: "Los Feliz 3", date: "2026-04-05", time: "7:00 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-05%2B19%3A00&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-cddd6f41c105d09f7e3fe2f6ab0dfc95efcc45fd7d7b6780b449f4f4190911cf" },
-            { theater: "Los Feliz 3", date: "2026-04-05", time: "9:30 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-05%2B21%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-fc5d1330553fd63f0afdd5448f3d7f36f869afbd8bc5fe2e1bf03dd3c916aeeb" },
-            { theater: "Los Feliz 3", date: "2026-04-06", time: "1:30 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-06%2B13%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-316dfd0f4021a6952617fc190234e8250af509950441bba2878885e4fb942807" },
-            { theater: "Los Feliz 3", date: "2026-04-06", time: "4:15 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-06%2B16%3A15&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-9781028e1e3df18a3bf30b2e47f50035e7c34fb8842b2c8fc9e9d1b6fd2e0409" },
-            { theater: "Los Feliz 3", date: "2026-04-06", time: "7:00 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-06%2B19%3A00&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-c808be160c2f5aa1a751e47f6596ba2a7a4d0a706665b5b2555f19e8a0d7c8df" },
-            { theater: "Los Feliz 3", date: "2026-04-06", time: "9:30 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-06%2B21%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-2da1db2b1ada00cb77dcfb8c06d5cb47450cf9517bdb892a0491165409139e63" },
-            { theater: "Los Feliz 3", date: "2026-04-07", time: "1:30 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-07%2B13%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-b627c34d987539cf41474a947b2e8ce4b5325f36fd679c00e4f92b77d198f2ae" },
-            { theater: "Los Feliz 3", date: "2026-04-07", time: "4:15 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-07%2B16%3A15&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-ad873a6ea35f73aad42fd09adceca9d2c441b5c55635c9d8c9b5d6cfb2a940c3" },
-            { theater: "Los Feliz 3", date: "2026-04-07", time: "7:00 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-07%2B19%3A00&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-6cbd09831c96f86190ebcdc0bc2f2775cf928a09bbcafe601249f7d9d35a290f" },
-            { theater: "Los Feliz 3", date: "2026-04-07", time: "9:30 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-07%2B21%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-9b9cf8a550b2522114d30767131cbff35c9e99b00b3bdb9cb8d4faea2d2ca120" },
+            // April 8 - Los Feliz 3
             { theater: "Los Feliz 3", date: "2026-04-08", time: "1:30 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-08%2B13%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-6f67059eac339908d018bf02635b66e635d7a9469af93d098af032b06c091447" },
             { theater: "Los Feliz 3", date: "2026-04-08", time: "4:15 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-08%2B16%3A15&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-23ab788d07a2b4c7458f0cbd76d2cc9f47a1391678ff1ef3ddfbca31adff7dc6" },
             { theater: "Los Feliz 3", date: "2026-04-08", time: "7:00 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-08%2B19%3A00&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-b1e95512800b98367d81fae1c5a05cd59d329aceef383f2fda3a2bc9bd8065b2" },
             { theater: "Los Feliz 3", date: "2026-04-08", time: "9:30 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-08%2B21%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-47fd6d2b23b75f8ee95cdbd4227af4f85f97ee3a4466d92ec9ea5e4f52eaebc4" },
+            // April 8 - Yale Film Festival Special Event
+            { theater: "HQ LO2", date: "2026-04-08", time: "7:00 PM", eventType: "Yale Student Film Festival Screening and Q&A with Oscar Boyson and Jaeden Martell", ticketLink: "https://film.yale.edu/events/2026-04-08-screening-our-hero-balthazar-w-qa-with-director-actor" },
+            // April 9 - Los Feliz 3
             { theater: "Los Feliz 3", date: "2026-04-09", time: "1:30 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-09%2B13%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-62c0ea7d5f7af850b869c1fabb60dde21a3c1e58f2087fab93e6ae3265278a1d" },
             { theater: "Los Feliz 3", date: "2026-04-09", time: "4:15 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-09%2B16%3A15&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-4c8bd08b868b9754c4a576bc30b45a5ea8fd2ca1bed41ac88afc6970a3bf5737" },
             { theater: "Los Feliz 3", date: "2026-04-09", time: "7:00 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-09%2B19%3A00&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-c58f8d342f04fab4e6f4e1a31d2c0401e50a52d958ae0d1d5bcefaaa782564d0" },
-            { theater: "Los Feliz 3", date: "2026-04-09", time: "9:30 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-09%2B21%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-7b76a277ece2c12f86d993a3c863ec3178daafa98249348b2f6d4afe12113319" }
+            { theater: "Los Feliz 3", date: "2026-04-09", time: "9:30 PM", eventType: "General Admission", ticketLink: "https://tickets.fandango.com/transaction/ticketing/mobile/jump.aspx?sdate=2026-04-09%2B21%3A30&from=mov_det_showtimes&source=desktop&mid=244581&tid=AACOO&dfam=webbrowser&showtimehashcode=v2-7b76a277ece2c12f86d993a3c863ec3178daafa98249348b2f6d4afe12113319" },
+            // April 10 - Special Events
+            { theater: "Angelika Village East", date: "2026-04-10", time: "TBC", eventType: "Q&A with Jaeden Martell and Ricky Camilleri", ticketLink: "" },
+            { theater: "Cedar Lee Theatre", date: "2026-04-10", time: "7:25 PM", eventType: "Cleveland International Film Festival - Ohio Premiere - Q&A with Oscar Boyson", ticketLink: "https://www.clevelandfilm.org/films/our-hero-balthazar-2026/" },
+            // April 11 - Special Events
+            { theater: "Angelika Village East", date: "2026-04-11", time: "TBC", eventType: "Q&A with Pippa Knowles and special guests", ticketLink: "" },
+            { theater: "Playhouse Square Campus", date: "2026-04-11", time: "5:05 PM", eventType: "Cleveland International Film Festival - Q&A with Oscar Boyson", ticketLink: "https://www.clevelandfilm.org/films/our-hero-balthazar-2026/" },
+            // April 14 - Phoenix Film Festival
+            { theater: "Phoenix Film Foundation", date: "2026-04-14", time: "6:40 PM", eventType: "Phoenix Film Festival Screening and Q&A with Oscar Boyson", ticketLink: "https://vivenu.com/event/6-40pm-our-hero-balthazar-k0ih5i" },
+            // April 15 - Phoenix Film Festival
+            { theater: "Phoenix Film Foundation", date: "2026-04-15", time: "7:05 PM", eventType: "Phoenix Film Festival Screening and Q&A with Oscar Boyson", ticketLink: "https://vivenu.com/event/7-05pm-our-hero-balthazar-copy-ge504g" },
+            // April 16 - TIFF Next Wave Toronto Premiere
+            { theater: "Cinema 3 - Piers Handling Cinema", date: "2026-04-16", time: "8:30 PM", eventType: "TIFF Next Wave 2026 - Toronto Premiere - Introduction and Q&A with Oscar Boyson and Jaeden Martell. Asa Butterfield joins virtually", ticketLink: "https://tiff.net/events/our-hero-balthazar" }
         ];
 
         // Theater to city mapping
@@ -348,7 +365,13 @@
             "AMC The Americana at Brand 18": "Los Angeles",
             "AMC Burbank Town Center 8": "Los Angeles",
             "Alamo Drafthouse DTLA": "Los Angeles",
-            "Los Feliz 3": "Los Angeles"
+            "Los Feliz 3": "Los Angeles",
+            "HQ LO2": "New Haven",
+            "Angelika Village East": "New York",
+            "Cedar Lee Theatre": "Cleveland",
+            "Playhouse Square Campus": "Cleveland",
+            "Phoenix Film Foundation": "Phoenix",
+            "Cinema 3 - Piers Handling Cinema": "Toronto"
         };
 
         // Theater logo paths
@@ -1939,96 +1962,200 @@
     </script>
     <section id="events" class="v2-section v2-events">
         <h2 class="v2-section-title">SPECIAL EVENTS</h2>
-        <div class="v2-list">
-            <div class="v2-list-item">
-                <span class="date">THU, MAR 26</span>
-                <span class="event-name">Special Screening with Live Intro by Cast &amp; Filmmakers</span>
-                <span class="location">Regal Union Square</span>
-                <a href="https://www.regmovies.com/movies/our-hero-balthazar-live-intro-wcast-filmmakers-ho00021029?id=287484&amp;site=1320&amp;date=03-26-2026"
-                    target="_blank" class="list-ticket-btn">GET TICKETS</a>
+
+        <!-- Tabs Navigation -->
+        <div class="events-tabs-container">
+            <div class="events-tabs-nav">
+                <button class="events-tab-btn active" onclick="switchEventsTab(this, 'upcoming-events')">
+                    Upcoming <span class="events-tab-count">8</span>
+                </button>
+                <button class="events-tab-btn" onclick="switchEventsTab(this, 'past-events')">
+                    Past <span class="events-tab-count">11</span>
+                </button>
             </div>
-            <div class="v2-list-item opt2-ribbon-container">
-                <span class="date">FRI, MAR 27</span>
-                <span class="event-name">Q&amp;A with Oscar Boyson, Asa Butterfield, Jaeden Martell, Pippa Knowles, and
-                    special guests. Showtime: 7:00 pm ET</span>
-                <span class="location">Regal Union Square</span>
-                <div class="list-ticket-btn" style="visibility: hidden;">GET TICKETS</div>
-                <div class="opt2-ribbon">SOLD OUT</div>
+
+            <!-- Upcoming Events Tab -->
+            <div id="upcoming-events" class="events-tab-content active">
+                <div class="v2-list">
+                    <!-- THU, APR 16 - TIFF Next Wave Toronto Premiere -->
+                    <div class="v2-list-item">
+                        <span class="date">THU, APR 16</span>
+                        <span class="event-name">TIFF Next Wave 2026 Toronto Premiere. Screening with Introduction and Q&amp;A with filmmaker Oscar Boyson and actor Jaeden Martell. Actor Asa Butterfield will join the Q&amp;A virtually. Showtime: 8:30 pm ET</span>
+                        <span class="location">Cinema 3 - Piers Handling Cinema</span>
+                        <a href="https://tiff.net/events/our-hero-balthazar" target="_blank" class="list-ticket-btn">GET TICKETS</a>
+                    </div>
+                    <!-- WED, APR 15 - Phoenix Film Festival -->
+                    <div class="v2-list-item">
+                        <span class="date">WED, APR 15</span>
+                        <span class="event-name">Phoenix Film Festival Screening and Q&amp;A with Oscar Boyson. Showtime: 7:05 pm MST</span>
+                        <span class="location">Phoenix Film Foundation</span>
+                        <a href="https://vivenu.com/event/7-05pm-our-hero-balthazar-copy-ge504g" target="_blank" class="list-ticket-btn">GET TICKETS</a>
+                    </div>
+                    <!-- TUE, APR 14 - Phoenix Film Festival -->
+                    <div class="v2-list-item">
+                        <span class="date">TUE, APR 14</span>
+                        <span class="event-name">Phoenix Film Festival Screening and Q&amp;A with Oscar Boyson. Showtime: 6:40 pm MST</span>
+                        <span class="location">Phoenix Film Foundation</span>
+                        <a href="https://vivenu.com/event/6-40pm-our-hero-balthazar-k0ih5i" target="_blank" class="list-ticket-btn">GET TICKETS</a>
+                    </div>
+                    <!-- SAT, APR 11 - Cleveland International Film Festival -->
+                    <div class="v2-list-item">
+                        <span class="date">SAT, APR 11</span>
+                        <span class="event-name">Cleveland International Film Festival Screening and Q&amp;A with Oscar Boyson. Showtime: 5:05 pm ET</span>
+                        <span class="location">Playhouse Square Campus</span>
+                        <a href="https://www.clevelandfilm.org/films/our-hero-balthazar-2026/" target="_blank" class="list-ticket-btn">GET TICKETS</a>
+                    </div>
+                    <!-- SAT, APR 11 - Angelika Village East -->
+                    <div class="v2-list-item">
+                        <span class="date">SAT, APR 11</span>
+                        <span class="event-name">Q&amp;A with Pippa Knowles and special guests. Time TBC</span>
+                        <span class="location">Angelika Village East</span>
+                        <div class="list-ticket-btn">GET TICKETS SOON</div>
+                    </div>
+                    <!-- FRI, APR 10 - Cleveland International Film Festival Ohio Premiere -->
+                    <div class="v2-list-item">
+                        <span class="date">FRI, APR 10</span>
+                        <span class="event-name">Ohio Premiere. Cleveland International Film Festival Screening and Q&amp;A with Oscar Boyson. Showtime: 7:25 pm ET</span>
+                        <span class="location">Cedar Lee Theatre</span>
+                        <a href="https://www.clevelandfilm.org/films/our-hero-balthazar-2026/" target="_blank" class="list-ticket-btn">GET TICKETS</a>
+                    </div>
+                    <!-- FRI, APR 10 - Angelika Village East -->
+                    <div class="v2-list-item">
+                        <span class="date">FRI, APR 10</span>
+                        <span class="event-name">Q&amp;A with Jaeden Martell and Ricky Camilleri. Time TBC</span>
+                        <span class="location">Angelika Village East</span>
+                        <div class="list-ticket-btn">GET TICKETS SOON</div>
+                    </div>
+                    <!-- WED, APR 8 - Yale Student Film Festival -->
+                    <div class="v2-list-item">
+                        <span class="date">WED, APR 8</span>
+                        <span class="event-name">Yale Student Film Festival Screening and Q&amp;A with Oscar Boyson and Jaeden Martell. Showtime: 7:00 pm ET</span>
+                        <span class="location">HQ LO2</span>
+                        <a href="https://film.yale.edu/events/2026-04-08-screening-our-hero-balthazar-w-qa-with-director-actor" target="_blank" class="list-ticket-btn">LEARN MORE</a>
+                    </div>
+                </div>
             </div>
-            <div class="v2-list-item">
-                <span class="date">FRI, MAR 27</span>
-                <span class="event-name">Q&amp;A with Oscar Boyson, Asa Butterfield, Jaeden Martell, and special guests.
-                    Showtime: 8:00 pm ET</span>
-                <span class="location">Regal Union Square</span>
-                <a href="https://www.regmovies.com/movies/our-hero-balthazar-live-qa-w-cast-filmmakers-ho00020997?id=290432&amp;site=1320&amp;date=03-27-2026"
-                    target="_blank" class="list-ticket-btn">GET TICKETS</a>
-            </div>
-            <div class="v2-list-item">
-                <span class="date">SAT, MAR 28</span>
-                <span class="event-name">Q&amp;A with Oscar Boyson, Asa Butterfield, Jaeden Martell, Pippa Knowles, and special guests.
-                    Moderated by Gabe Miller (The Industry Substack). Showtime: 7:00 pm ET</span>
-                <span class="location">Regal Union Square</span>
-                <a href="https://www.regmovies.com/movies/our-hero-balthazar-live-qa-w-cast-filmmakers-ho00020997?id=287492&amp;site=1320&amp;date=03-28-2026"
-                    target="_blank" class="list-ticket-btn">GET TICKETS</a>
-            </div>
-            <div class="v2-list-item">
-                <span class="date">SAT, MAR 28</span>
-                <span class="event-name">Q&amp;A with Oscar Boyson, Asa Butterfield, Jaeden Martell, and special guests.
-                    Moderated by Noah Kulwin (Blowback Podcast). Showtime: 8:00 pm ET</span>
-                <span class="location">Regal Union Square</span>
-                <a href="https://www.regmovies.com/movies/our-hero-balthazar-live-qa-w-cast-filmmakers-ho00020997?id=290433&amp;site=1320&amp;date=03-28-2026"
-                    target="_blank" class="list-ticket-btn">GET TICKETS</a>
-            </div>
-            <div class="v2-list-item">
-                <span class="date">SUN, MAR 29</span>
-                <span class="event-name">Q&amp;A with Oscar Boyson, Asa Butterfield, Jaeden Martell, Pippa Knowles, and special guests.
-                    Moderated by Jack Dylan Grazer (It, Shazam!). Showtime: 3:00 pm ET</span>
-                <span class="location">Regal Union Square</span>
-                <a href="https://www.regmovies.com/movies/our-hero-balthazar-live-qa-w-cast-filmmakers-ho00020997?id=287493&amp;site=1320&amp;date=03-29-2026"
-                    target="_blank" class="list-ticket-btn">GET TICKETS</a>
-            </div>
-            <div class="v2-list-item">
-                <span class="date">FRI, APR 3</span>
-                <span class="event-name">Q&amp;A with Oscar Boyson, Asa Butterfield, Jaeden Martell, Pippa Knowles, and
-                    special guests. Moderated by Kyle Mooney (SNL). Showtime: 7:00 pm PT</span>
-                <span class="location">AMC The Americana at Brand 18</span>
-                <a href="https://www.amctheatres.com/movies/our-hero-balthazar-live-q-a-with-cast-filmmakers-83146/showtimes?date=2026-04-03&theatre=amc-the-americana-at-brand-18"
-                    target="_blank" class="list-ticket-btn">GET TICKETS</a>
-            </div>
-            <div class="v2-list-item opt2-ribbon-container" style="padding-right: 20px;">
-                <div class="opt2-ribbon">SOLD OUT</div>
-                <span class="date">SAT, APR 4</span>
-                <span class="event-name">Q&amp;A with Oscar Boyson, Asa Butterfield, Jaeden Martell, Pippa Knowles, and special guests.
-                    Moderated by Jody Hill (Superbad, The Righteous Gemstones, Vice Principals). Showtime: 7:00 pm PT</span>
-                <span class="location">Alamo Drafthouse DTLA</span>
-                <div class="list-ticket-btn" style="visibility: hidden;">GET TICKETS</div>
-            </div>
-            <div class="v2-list-item">
-                <span class="date">SAT, APR 4</span>
-                <span class="event-name">Q&amp;A with Oscar Boyson, Asa Butterfield, Jaeden Martell, Pippa Knowles, and special guests.
-                    Showtime: 7:45 pm PT</span>
-                <span class="location">Alamo Drafthouse DTLA</span>
-                <a href="https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109775"
-                    target="_blank" class="list-ticket-btn">GET TICKETS</a>
-            </div>
-            <div class="v2-list-item opt2-ribbon-container" style="padding-right: 20px;">
-                <div class="opt2-ribbon">SOLD OUT</div>
-                <span class="date">SUN, APR 5</span>
-                <span class="event-name">Q&amp;A with Oscar Boyson, Asa Butterfield, Jaeden Martell, Pippa Knowles, and special guests.
-                    Showtime: 7:00 pm PT</span>
-                <span class="location">Alamo Drafthouse DTLA</span>
-                <div class="list-ticket-btn" style="visibility: hidden;">GET TICKETS</div>
-            </div>
-            <div class="v2-list-item">
-                <span class="date">SUN, APR 5</span>
-                <span class="event-name">Q&amp;A with Oscar Boyson, Asa Butterfield, Jaeden Martell, Pippa Knowles, and special guests.
-                    Moderated by Alice Maio Mackay (T Blockers, So Vam, Book Club). Showtime: 7:45 pm PT</span>
-                <span class="location">Alamo Drafthouse DTLA</span>
-                <a href="https://drafthouse.com/los-angeles/show/our-hero-balthazar?cinemaId=1701&sessionId=109776"
-                    target="_blank" class="list-ticket-btn">GET TICKETS</a>
+
+            <!-- Past Events Tab -->
+            <div id="past-events" class="events-tab-content">
+                <div class="v2-list">
+                    <!-- SUN, APR 5 - Alamo 7:45pm (SOLD OUT) -->
+                    <div class="v2-list-item opt2-ribbon-container past-event">
+                        <div class="opt2-ribbon">SOLD OUT</div>
+                        <span class="date">SUN, APR 5</span>
+                        <span class="event-name">Q&amp;A with Oscar Boyson, Asa Butterfield, Jaeden Martell, Pippa Knowles, and special guests.
+                            Moderated by Alice Maio Mackay (T Blockers, So Vam, Book Club). Showtime: 7:45 pm PT</span>
+                        <span class="location">Alamo Drafthouse DTLA</span>
+                        <div class="list-ticket-btn" style="visibility: hidden;">GET TICKETS</div>
+                    </div>
+                    <!-- SUN, APR 5 - Alamo 7:00pm (SOLD OUT) -->
+                    <div class="v2-list-item opt2-ribbon-container past-event">
+                        <div class="opt2-ribbon">SOLD OUT</div>
+                        <span class="date">SUN, APR 5</span>
+                        <span class="event-name">Q&amp;A with Oscar Boyson, Asa Butterfield, Jaeden Martell, Pippa Knowles, and special guests.
+                            Showtime: 7:00 pm PT</span>
+                        <span class="location">Alamo Drafthouse DTLA</span>
+                        <div class="list-ticket-btn" style="visibility: hidden;">GET TICKETS</div>
+                    </div>
+                    <!-- SAT, APR 4 - Alamo 7:45pm (SOLD OUT) -->
+                    <div class="v2-list-item opt2-ribbon-container past-event">
+                        <div class="opt2-ribbon">SOLD OUT</div>
+                        <span class="date">SAT, APR 4</span>
+                        <span class="event-name">Q&amp;A with Oscar Boyson, Asa Butterfield, Jaeden Martell, Pippa Knowles, and special guests.
+                            Showtime: 7:45 pm PT</span>
+                        <span class="location">Alamo Drafthouse DTLA</span>
+                        <div class="list-ticket-btn" style="visibility: hidden;">GET TICKETS</div>
+                    </div>
+                    <!-- SAT, APR 4 - Alamo 7:00pm (SOLD OUT) -->
+                    <div class="v2-list-item opt2-ribbon-container past-event">
+                        <div class="opt2-ribbon">SOLD OUT</div>
+                        <span class="date">SAT, APR 4</span>
+                        <span class="event-name">Q&amp;A with Oscar Boyson, Asa Butterfield, Jaeden Martell, Pippa Knowles, and special guests.
+                            Moderated by Jody Hill (Superbad, The Righteous Gemstones, Vice Principals). Showtime: 7:00 pm PT</span>
+                        <span class="location">Alamo Drafthouse DTLA</span>
+                        <div class="list-ticket-btn" style="visibility: hidden;">GET TICKETS</div>
+                    </div>
+                    <!-- FRI, APR 3 - AMC Americana (SOLD OUT) -->
+                    <div class="v2-list-item opt2-ribbon-container past-event">
+                        <div class="opt2-ribbon">SOLD OUT</div>
+                        <span class="date">FRI, APR 3</span>
+                        <span class="event-name">Q&amp;A with Oscar Boyson, Asa Butterfield, Jaeden Martell, Pippa Knowles, and
+                            special guests. Moderated by Kyle Mooney (SNL). Showtime: 7:00 pm PT</span>
+                        <span class="location">AMC The Americana at Brand 18</span>
+                        <div class="list-ticket-btn" style="visibility: hidden;">GET TICKETS</div>
+                    </div>
+                    <!-- SUN, MAR 29 (SOLD OUT) -->
+                    <div class="v2-list-item opt2-ribbon-container past-event">
+                        <div class="opt2-ribbon">SOLD OUT</div>
+                        <span class="date">SUN, MAR 29</span>
+                        <span class="event-name">Q&amp;A with Oscar Boyson, Asa Butterfield, Jaeden Martell, Pippa Knowles, and special guests.
+                            Moderated by Jack Dylan Grazer (It, Shazam!). Showtime: 3:00 pm ET</span>
+                        <span class="location">Regal Union Square</span>
+                        <div class="list-ticket-btn" style="visibility: hidden;">GET TICKETS</div>
+                    </div>
+                    <!-- SAT, MAR 28 - 8:00pm (SOLD OUT) -->
+                    <div class="v2-list-item opt2-ribbon-container past-event">
+                        <div class="opt2-ribbon">SOLD OUT</div>
+                        <span class="date">SAT, MAR 28</span>
+                        <span class="event-name">Q&amp;A with Oscar Boyson, Asa Butterfield, Jaeden Martell, and special guests.
+                            Moderated by Noah Kulwin (Blowback Podcast). Showtime: 8:00 pm ET</span>
+                        <span class="location">Regal Union Square</span>
+                        <div class="list-ticket-btn" style="visibility: hidden;">GET TICKETS</div>
+                    </div>
+                    <!-- SAT, MAR 28 - 7:00pm (SOLD OUT) -->
+                    <div class="v2-list-item opt2-ribbon-container past-event">
+                        <div class="opt2-ribbon">SOLD OUT</div>
+                        <span class="date">SAT, MAR 28</span>
+                        <span class="event-name">Q&amp;A with Oscar Boyson, Asa Butterfield, Jaeden Martell, Pippa Knowles, and special guests.
+                            Moderated by Gabe Miller (The Industry Substack). Showtime: 7:00 pm ET</span>
+                        <span class="location">Regal Union Square</span>
+                        <div class="list-ticket-btn" style="visibility: hidden;">GET TICKETS</div>
+                    </div>
+                    <!-- FRI, MAR 27 - 8:00pm (SOLD OUT) -->
+                    <div class="v2-list-item opt2-ribbon-container past-event">
+                        <div class="opt2-ribbon">SOLD OUT</div>
+                        <span class="date">FRI, MAR 27</span>
+                        <span class="event-name">Q&amp;A with Oscar Boyson, Asa Butterfield, Jaeden Martell, and special guests.
+                            Showtime: 8:00 pm ET</span>
+                        <span class="location">Regal Union Square</span>
+                        <div class="list-ticket-btn" style="visibility: hidden;">GET TICKETS</div>
+                    </div>
+                    <!-- FRI, MAR 27 - 7:00pm (SOLD OUT) -->
+                    <div class="v2-list-item opt2-ribbon-container past-event">
+                        <div class="opt2-ribbon">SOLD OUT</div>
+                        <span class="date">FRI, MAR 27</span>
+                        <span class="event-name">Q&amp;A with Oscar Boyson, Asa Butterfield, Jaeden Martell, Pippa Knowles, and
+                            special guests. Showtime: 7:00 pm ET</span>
+                        <span class="location">Regal Union Square</span>
+                        <div class="list-ticket-btn" style="visibility: hidden;">GET TICKETS</div>
+                    </div>
+                    <!-- THU, MAR 26 (SOLD OUT) -->
+                    <div class="v2-list-item opt2-ribbon-container past-event">
+                        <div class="opt2-ribbon">SOLD OUT</div>
+                        <span class="date">THU, MAR 26</span>
+                        <span class="event-name">Special Screening with Live Intro by Cast &amp; Filmmakers</span>
+                        <span class="location">Regal Union Square</span>
+                        <div class="list-ticket-btn" style="visibility: hidden;">GET TICKETS</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- Events Tabs JavaScript -->
+    <script>
+        function switchEventsTab(btn, tabId) {
+            // Remove active from all buttons
+            document.querySelectorAll('.events-tab-btn').forEach(b => b.classList.remove('active'));
+            // Add active to clicked button
+            btn.classList.add('active');
+
+            // Hide all tab content
+            document.querySelectorAll('.events-tab-content').forEach(c => c.classList.remove('active'));
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+        }
+    </script>
 
     <section id="logline"
         style="padding: 8rem 4vw; background: #ff3600; color: #000; border-bottom: 1px solid rgba(0,0,0,0.1);">
