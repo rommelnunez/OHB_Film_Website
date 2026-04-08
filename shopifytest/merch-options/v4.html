@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merch Section Design Options V4 - Simple</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #111;
+            color: #fff;
+            min-height: 100vh;
+        }
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #000;
+            padding: 1rem 2rem;
+            display: flex;
+            gap: 1rem;
+            z-index: 1000;
+            flex-wrap: wrap;
+        }
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid #333;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .nav a:hover {
+            background: #ff3600;
+            border-color: #ff3600;
+        }
+        .container {
+            padding-top: 80px;
+        }
+        .option {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            border-bottom: 1px solid #333;
+            position: relative;
+        }
+        .option-label {
+            position: absolute;
+            top: 100px;
+            left: 2rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #666;
+            z-index: 10;
+        }
+
+        /* ========== OPTION 11: SIMPLE STACKED ========== */
+        #option11 {
+            background: #000;
+        }
+        .simple-stacked {
+            text-align: center;
+            max-width: 400px;
+        }
+        .simple-stacked h2 {
+            font-size: 0.875rem;
+            letter-spacing: 0.2em;
+            color: #ff3600;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+        .simple-stacked .product-img {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto 2rem;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .simple-stacked .product-img img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .simple-stacked .product-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        .simple-stacked .sizes {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .simple-stacked .size-btn {
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border: 1px solid #333;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .simple-stacked .size-btn:hover,
+        .simple-stacked .size-btn.active {
+            border-color: #ff3600;
+            color: #ff3600;
+        }
+        .simple-stacked .buy-btn {
+            background: #ff3600;
+            color: #fff;
+            border: none;
+            padding: 1rem 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .simple-stacked .buy-btn:hover {
+            background: #e63100;
+        }
+
+        /* ========== OPTION 12: SIDE BY SIDE ========== */
+        #option12 {
+            background: #0a0a0a;
+        }
+        .side-by-side {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            max-width: 900px;
+        }
+        .side-by-side .product-img {
+            width: 350px;
+            height: 350px;
+            background: #111;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .side-by-side .product-img img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .side-by-side .product-info {
+            flex: 1;
+        }
+        .side-by-side h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        .side-by-side h2 span {
+            color: #ff3600;
+        }
+        .side-by-side .product-name {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .side-by-side .sizes {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .side-by-side .size-btn {
+            width: 50px;
+            height: 50px;
+            background: transparent;
+            border: 2px solid #333;
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .side-by-side .size-btn:hover,
+        .side-by-side .size-btn.active {
+            border-color: #fff;
+            background: #fff;
+            color: #000;
+        }
+        .side-by-side .buy-btn {
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .side-by-side .buy-btn:hover {
+            background: #ff3600;
+            color: #fff;
+        }
+
+        /* ========== OPTION 13: MINIMAL CARD ========== */
+        #option13 {
+            background: #fff;
+            color: #000;
+        }
+        .minimal-card {
+            background: #fff;
+            border: 1px solid #000;
+            max-width: 400px;
+            text-align: center;
+        }
+        .minimal-card .card-header {
+            background: #000;
+            color: #fff;
+            padding: 1rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        .minimal-card .card-body {
+            padding: 2rem;
+        }
+        .minimal-card .product-img {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .minimal-card .product-img img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .minimal-card .product-name {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+        .minimal-card .sizes {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .minimal-card .size-btn {
+            width: 40px;
+            height: 40px;
+            background: #fff;
+            border: 1px solid #000;
+            color: #000;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .minimal-card .size-btn:hover,
+        .minimal-card .size-btn.active {
+            background: #000;
+            color: #fff;
+        }
+        .minimal-card .buy-btn {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 1rem 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .minimal-card .buy-btn:hover {
+            background: #ff3600;
+        }
+
+        /* ========== OPTION 14: BOLD BANNER ========== */
+        #option14 {
+            background: #ff3600;
+            color: #000;
+        }
+        .bold-banner {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            max-width: 1000px;
+        }
+        .bold-banner .text-side {
+            flex: 1;
+        }
+        .bold-banner h2 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 0.95;
+            margin-bottom: 2rem;
+        }
+        .bold-banner .buy-btn {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .bold-banner .buy-btn:hover {
+            background: #fff;
+            color: #000;
+        }
+        .bold-banner .product-side {
+            background: #000;
+            padding: 2rem;
+        }
+        .bold-banner .product-img {
+            width: 280px;
+            height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        .bold-banner .product-img img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .bold-banner .sizes {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .bold-banner .size-btn {
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border: 2px solid #333;
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .bold-banner .size-btn:hover,
+        .bold-banner .size-btn.active {
+            border-color: #ff3600;
+            background: #ff3600;
+        }
+
+        /* ========== OPTION 15: INLINE STRIP ========== */
+        #option15 {
+            background: #000;
+        }
+        .inline-strip {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            padding: 2rem 3rem;
+            border: 1px solid #333;
+            max-width: 900px;
+        }
+        .inline-strip .product-img {
+            width: 120px;
+            height: 120px;
+            background: #111;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .inline-strip .product-img img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .inline-strip .text-content {
+            flex: 1;
+        }
+        .inline-strip h2 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+        .inline-strip .product-name {
+            font-size: 0.875rem;
+            color: #666;
+        }
+        .inline-strip .sizes {
+            display: flex;
+            gap: 0.25rem;
+        }
+        .inline-strip .size-btn {
+            width: 36px;
+            height: 36px;
+            background: transparent;
+            border: 1px solid #333;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .inline-strip .size-btn:hover,
+        .inline-strip .size-btn.active {
+            border-color: #ff3600;
+            color: #ff3600;
+        }
+        .inline-strip .buy-btn {
+            background: #ff3600;
+            color: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .inline-strip .buy-btn:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        @media (max-width: 768px) {
+            .side-by-side, .bold-banner, .inline-strip {
+                flex-direction: column;
+                text-align: center;
+            }
+            .side-by-side .sizes,
+            .bold-banner .sizes,
+            .inline-strip .sizes {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="#option11">11. Stacked</a>
+        <a href="#option12">12. Side by Side</a>
+        <a href="#option13">13. Minimal Card</a>
+        <a href="#option14">14. Bold Banner</a>
+        <a href="#option15">15. Inline Strip</a>
+        <a href="v3.html" style="border-color: #666;">← V3</a>
+    </nav>
+
+    <div class="container">
+        <!-- Option 11: Simple Stacked -->
+        <section id="option11" class="option">
+            <span class="option-label">Option 11: Simple Stacked</span>
+            <div class="simple-stacked">
+                <h2>Get The Official Merch</h2>
+                <div class="product-img">
+                    <div id="shopify-img-11" class="img-placeholder">Loading...</div>
+                </div>
+                <p class="product-name">Official Movie T Shirt</p>
+                <div class="sizes">
+                    <button class="size-btn" data-size="S">S</button>
+                    <button class="size-btn active" data-size="M">M</button>
+                    <button class="size-btn" data-size="L">L</button>
+                    <button class="size-btn" data-size="XL">XL</button>
+                </div>
+                <button class="buy-btn" onclick="checkout()">BUY NOW</button>
+            </div>
+        </section>
+
+        <!-- Option 12: Side by Side -->
+        <section id="option12" class="option">
+            <span class="option-label">Option 12: Side by Side</span>
+            <div class="side-by-side">
+                <div class="product-img">
+                    <div id="shopify-img-12" class="img-placeholder">Loading...</div>
+                </div>
+                <div class="product-info">
+                    <h2>GET THE <span>OFFICIAL</span> MERCH</h2>
+                    <p class="product-name">Official Movie T Shirt</p>
+                    <div class="sizes">
+                        <button class="size-btn" data-size="S">S</button>
+                        <button class="size-btn active" data-size="M">M</button>
+                        <button class="size-btn" data-size="L">L</button>
+                        <button class="size-btn" data-size="XL">XL</button>
+                    </div>
+                    <button class="buy-btn" onclick="checkout()">BUY NOW</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Option 13: Minimal Card -->
+        <section id="option13" class="option">
+            <span class="option-label" style="color:#999;">Option 13: Minimal Card</span>
+            <div class="minimal-card">
+                <div class="card-header">Get The Official Merch</div>
+                <div class="card-body">
+                    <div class="product-img">
+                        <div id="shopify-img-13" class="img-placeholder" style="color:#999;">Loading...</div>
+                    </div>
+                    <p class="product-name">Official Movie T Shirt</p>
+                    <div class="sizes">
+                        <button class="size-btn" data-size="S">S</button>
+                        <button class="size-btn active" data-size="M">M</button>
+                        <button class="size-btn" data-size="L">L</button>
+                        <button class="size-btn" data-size="XL">XL</button>
+                    </div>
+                    <button class="buy-btn" onclick="checkout()">BUY NOW</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Option 14: Bold Banner -->
+        <section id="option14" class="option">
+            <span class="option-label" style="color:#000;">Option 14: Bold Banner</span>
+            <div class="bold-banner">
+                <div class="text-side">
+                    <h2>GET THE OFFICIAL MERCH</h2>
+                    <button class="buy-btn" onclick="checkout()">BUY NOW</button>
+                </div>
+                <div class="product-side">
+                    <div class="product-img">
+                        <div id="shopify-img-14" class="img-placeholder">Loading...</div>
+                    </div>
+                    <div class="sizes">
+                        <button class="size-btn" data-size="S">S</button>
+                        <button class="size-btn active" data-size="M">M</button>
+                        <button class="size-btn" data-size="L">L</button>
+                        <button class="size-btn" data-size="XL">XL</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Option 15: Inline Strip -->
+        <section id="option15" class="option">
+            <span class="option-label">Option 15: Inline Strip</span>
+            <div class="inline-strip">
+                <div class="product-img">
+                    <div id="shopify-img-15" class="img-placeholder">Loading...</div>
+                </div>
+                <div class="text-content">
+                    <h2>GET THE OFFICIAL MERCH</h2>
+                    <p class="product-name">Official Movie T Shirt</p>
+                </div>
+                <div class="sizes">
+                    <button class="size-btn" data-size="S">S</button>
+                    <button class="size-btn active" data-size="M">M</button>
+                    <button class="size-btn" data-size="L">L</button>
+                    <button class="size-btn" data-size="XL">XL</button>
+                </div>
+                <button class="buy-btn" onclick="checkout()">BUY NOW</button>
+            </div>
+        </section>
+    </div>
+
+    <script type="text/javascript">
+    // Size button interactions
+    document.querySelectorAll('.size-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const parent = this.closest('.sizes');
+            parent.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    // Shopify integration
+    var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+    var client;
+    var productData;
+
+    function loadScript() {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = scriptURL;
+        script.onload = initShopify;
+        document.head.appendChild(script);
+    }
+
+    function initShopify() {
+        client = ShopifyBuy.buildClient({
+            domain: 'e2q7dk-hc.myshopify.com',
+            storefrontAccessToken: 'd41616f300a21e34f4edd68d8f23b4e8',
+        });
+
+        ShopifyBuy.UI.onReady(client).then(function (ui) {
+            client.product.fetchAll().then(function(products) {
+                if (products.length > 0) {
+                    productData = products.find(p => p.title.toLowerCase().includes('shirt')) || products[0];
+                    updateProductDisplay(productData);
+                }
+            });
+        });
+    }
+
+    function updateProductDisplay(product) {
+        if (!product) return;
+
+        var imgUrl = product.images && product.images[0] ? product.images[0].src : '';
+
+        document.querySelectorAll('[id^="shopify-img-"]').forEach(function(el) {
+            if (imgUrl) {
+                el.innerHTML = '<img src="' + imgUrl + '" alt="' + product.title + '" style="max-width:100%;max-height:100%;object-fit:contain;">';
+            }
+        });
+
+        document.querySelectorAll('.product-name').forEach(function(el) {
+            el.textContent = product.title;
+        });
+
+        // Update size buttons with variants
+        if (product.variants && product.variants.length > 0) {
+            var sizes = product.variants.map(v => v.title).filter(t => t !== 'Default Title');
+            if (sizes.length > 0) {
+                document.querySelectorAll('.sizes').forEach(function(container) {
+                    var btn = container.querySelector('button');
+                    if (!btn) return;
+                    var btnClass = btn.className.replace(' active', '');
+                    container.innerHTML = sizes.map((size, i) =>
+                        '<button class="' + btnClass + (i === 0 ? ' active' : '') + '" data-variant="' + product.variants[i].id + '">' + size + '</button>'
+                    ).join('');
+                });
+
+                document.querySelectorAll('.size-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const parent = this.closest('.sizes');
+                        parent.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                    });
+                });
+            }
+        }
+    }
+
+    function checkout() {
+        if (!productData) {
+            alert('Loading product...');
+            return;
+        }
+
+        var activeBtn = document.querySelector('.size-btn.active[data-variant]');
+        var variantId = activeBtn ? activeBtn.dataset.variant : productData.variants[0].id;
+
+        client.checkout.create().then(function(checkout) {
+            client.checkout.addLineItems(checkout.id, [{
+                variantId: variantId,
+                quantity: 1
+            }]).then(function(checkout) {
+                window.location.href = checkout.webUrl;
+            });
+        });
+    }
+
+    if (window.ShopifyBuy) {
+        initShopify();
+    } else {
+        loadScript();
+    }
+    </script>
+</body>
+</html>

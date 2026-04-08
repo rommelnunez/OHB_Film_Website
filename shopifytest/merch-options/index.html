@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merch Section Design Options</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #111;
+            color: #fff;
+            min-height: 100vh;
+        }
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #000;
+            padding: 1rem 2rem;
+            display: flex;
+            gap: 1rem;
+            z-index: 1000;
+            flex-wrap: wrap;
+        }
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid #333;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .nav a:hover, .nav a.active {
+            background: #ff3600;
+            border-color: #ff3600;
+        }
+        .container {
+            padding-top: 80px;
+        }
+        .option {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            border-bottom: 1px solid #333;
+        }
+        .option-label {
+            position: absolute;
+            top: 100px;
+            left: 2rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #666;
+        }
+        h2 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        /* Option 1: Hero Banner */
+        #option1 {
+            background: #ff3600;
+            position: relative;
+        }
+        .hero-banner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            width: 100%;
+            align-items: center;
+        }
+        .hero-banner .text-side h2 {
+            color: #000;
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 0.9;
+        }
+        .hero-banner .text-side p {
+            color: #000;
+            margin-top: 1rem;
+            font-size: 1.25rem;
+            opacity: 0.8;
+        }
+        .hero-banner .product-side {
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Option 2: Split Screen */
+        #option2 {
+            background: #000;
+            position: relative;
+            overflow: hidden;
+        }
+        .split-screen {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 100%;
+            min-height: 80vh;
+        }
+        .split-left {
+            background: #ff3600;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+        }
+        .split-left h2 {
+            color: #000;
+            font-size: clamp(2rem, 6vw, 5rem);
+            line-height: 0.95;
+        }
+        .split-left .subtitle {
+            color: #000;
+            font-size: 1rem;
+            margin-top: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .split-right {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+        }
+
+        /* Option 3: Film Strip */
+        #option3 {
+            background: #1a1a1a;
+            position: relative;
+        }
+        .film-strip {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+        .marquee {
+            background: #000;
+            border: 3px solid #ff3600;
+            padding: 1rem 2rem;
+            display: inline-block;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .marquee::before, .marquee::after {
+            content: '★';
+            color: #ff3600;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+        }
+        .marquee::before { left: -2rem; }
+        .marquee::after { right: -2rem; }
+        .marquee h2 {
+            color: #ff3600;
+            font-size: 2rem;
+            letter-spacing: 0.2em;
+        }
+        .ticket-frame {
+            background: #fff;
+            color: #000;
+            padding: 2rem;
+            border-radius: 8px;
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .ticket-frame::before, .ticket-frame::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 20px;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent 10px,
+                #1a1a1a 10px,
+                #1a1a1a 20px
+            );
+        }
+        .ticket-frame::before { left: 0; border-radius: 8px 0 0 8px; }
+        .ticket-frame::after { right: 0; border-radius: 0 8px 8px 0; }
+        .ticket-content {
+            padding: 0 1.5rem;
+        }
+        .ticket-header {
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: #666;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px dashed #ddd;
+        }
+
+        /* Option 4: Minimal Gallery */
+        #option4 {
+            background: #0a0a0a;
+        }
+        .minimal-gallery {
+            max-width: 500px;
+            width: 100%;
+        }
+        .gallery-card {
+            background: #fff;
+            border-radius: 2px;
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #ff3600;
+            color: #fff;
+            font-size: 0.625rem;
+            padding: 0.25rem 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+        }
+        .gallery-card .product-title {
+            color: #000;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 1.5rem;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .section-header h2 {
+            font-size: 1rem;
+            letter-spacing: 0.2em;
+            color: #666;
+        }
+
+        /* Option 5: Bold Takeover */
+        #option5 {
+            background: #000;
+            position: relative;
+            overflow: hidden;
+        }
+        .bold-takeover {
+            position: relative;
+            max-width: 1000px;
+            width: 100%;
+            text-align: center;
+        }
+        .takeover-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            pointer-events: none;
+        }
+        .takeover-text h2 {
+            font-size: clamp(4rem, 15vw, 12rem);
+            color: transparent;
+            -webkit-text-stroke: 2px #ff3600;
+            line-height: 0.8;
+            opacity: 0.7;
+        }
+        .takeover-product {
+            position: relative;
+            z-index: 2;
+            padding: 4rem;
+        }
+        .grain-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        /* Shopify embed placeholder */
+        .shopify-placeholder {
+            width: 250px;
+            height: 350px;
+            background: #222;
+            border: 2px dashed #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 0.875rem;
+            text-align: center;
+            padding: 1rem;
+        }
+        .ticket-frame .shopify-placeholder,
+        .gallery-card .shopify-placeholder {
+            background: #f5f5f5;
+            border-color: #ddd;
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            .hero-banner, .split-screen {
+                grid-template-columns: 1fr;
+            }
+            .split-left {
+                clip-path: none;
+            }
+            .nav {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="#option1">1. Hero Banner</a>
+        <a href="#option2">2. Split Screen</a>
+        <a href="#option3">3. Film Strip</a>
+        <a href="#option4">4. Minimal Gallery</a>
+        <a href="#option5">5. Bold Takeover</a>
+    </nav>
+
+    <div class="container">
+        <!-- Option 1: Hero Banner -->
+        <section id="option1" class="option">
+            <span class="option-label">Option 1: Hero Banner</span>
+            <div class="hero-banner">
+                <div class="text-side">
+                    <h2>MERCH</h2>
+                    <p>Official film merchandise</p>
+                </div>
+                <div class="product-side">
+                    <div id="product-1" class="shopify-placeholder">Shopify Product Embed</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Option 2: Split Screen -->
+        <section id="option2" class="option">
+            <span class="option-label">Option 2: Split Screen</span>
+            <div class="split-screen">
+                <div class="split-left">
+                    <h2>WEAR<br>THE<br>STORY</h2>
+                    <p class="subtitle">Official Merch</p>
+                </div>
+                <div class="split-right">
+                    <div id="product-2" class="shopify-placeholder">Shopify Product Embed</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Option 3: Film Strip -->
+        <section id="option3" class="option">
+            <span class="option-label">Option 3: Film Strip / Theatrical</span>
+            <div class="film-strip">
+                <div class="marquee">
+                    <h2>★ MERCH ★</h2>
+                </div>
+                <div class="ticket-frame">
+                    <div class="ticket-content">
+                        <div class="ticket-header">Official Film Merchandise</div>
+                        <div id="product-3" class="shopify-placeholder">Shopify Product Embed</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Option 4: Minimal Gallery -->
+        <section id="option4" class="option">
+            <span class="option-label">Option 4: Minimal Gallery Card</span>
+            <div class="minimal-gallery">
+                <div class="section-header">
+                    <h2>OFFICIAL MERCH</h2>
+                </div>
+                <div class="gallery-card">
+                    <div class="badge">Limited Edition</div>
+                    <div id="product-4" class="shopify-placeholder">Shopify Product Embed</div>
+                    <p class="product-title">Our Hero, Balthazar</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Option 5: Bold Takeover -->
+        <section id="option5" class="option">
+            <span class="option-label">Option 5: Bold Takeover</span>
+            <div class="bold-takeover">
+                <div class="grain-overlay"></div>
+                <div class="takeover-text">
+                    <h2>GET<br>YOURS</h2>
+                </div>
+                <div class="takeover-product">
+                    <div id="product-5" class="shopify-placeholder">Shopify Product Embed</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Shopify Buy Button Script -->
+    <script type="text/javascript">
+    (function () {
+        var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+        if (window.ShopifyBuy) {
+            if (window.ShopifyBuy.UI) {
+                ShopifyBuyInit();
+            } else {
+                loadScript();
+            }
+        } else {
+            loadScript();
+        }
+        function loadScript() {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = scriptURL;
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+            script.onload = ShopifyBuyInit;
+        }
+        function ShopifyBuyInit() {
+            var client = ShopifyBuy.buildClient({
+                domain: 'e2q7dk-hc.myshopify.com',
+                storefrontAccessToken: 'd41616f300a21e34f4edd68d8f23b4e8',
+            });
+
+            var productIds = ['product-1', 'product-2', 'product-3', 'product-4', 'product-5'];
+
+            productIds.forEach(function(id) {
+                var node = document.getElementById(id);
+                if (node) {
+                    node.innerHTML = '';
+                    node.classList.remove('shopify-placeholder');
+
+                    ShopifyBuy.UI.onReady(client).then(function (ui) {
+                        ui.createComponent('product', {
+                            id: '9687624253670',
+                            node: node,
+                            moneyFormat: '%24%7B%7Bamount%7D%7D',
+                            options: {
+                                "product": {
+                                    "styles": {
+                                        "product": {
+                                            "text-align": "center"
+                                        },
+                                        "title": {
+                                            "color": (id === 'product-3' || id === 'product-4') ? "#000" : "#fff",
+                                            "font-family": "'Inter', sans-serif",
+                                            "font-weight": "700"
+                                        },
+                                        "price": {
+                                            "color": (id === 'product-3' || id === 'product-4') ? "#000" : "#fff",
+                                            "font-family": "'Inter', sans-serif",
+                                            "font-weight": "700"
+                                        },
+                                        "button": {
+                                            "color": "#ffffff",
+                                            "font-weight": "600",
+                                            "text-transform": "uppercase",
+                                            "font-size": "0.75rem",
+                                            ":hover": {
+                                                "color": "#000000",
+                                                "background-color": "transparent"
+                                            },
+                                            "background-color": "#000000",
+                                            ":focus": {
+                                                "background-color": "#000000"
+                                            },
+                                            "border-radius": "0",
+                                            "border": "1px solid #000",
+                                            "padding": "0.5rem 1rem"
+                                        }
+                                    },
+                                    "buttonDestination": "checkout",
+                                    "text": {
+                                        "button": "Buy now"
+                                    }
+                                },
+                                "cart": {
+                                    "styles": {
+                                        "button": {
+                                            "color": "#ffffff",
+                                            "background-color": "#000000",
+                                            ":hover": {
+                                                "color": "#000000",
+                                                "background-color": "transparent"
+                                            },
+                                            "border-radius": "0",
+                                            "border": "1px solid #000"
+                                        }
+                                    },
+                                    "popup": false
+                                },
+                                "toggle": {
+                                    "styles": {
+                                        "toggle": {
+                                            "background-color": "#000",
+                                            ":hover": {
+                                                "background-color": "#333"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    });
+                }
+            });
+        }
+    })();
+    </script>
+</body>
+</html>
