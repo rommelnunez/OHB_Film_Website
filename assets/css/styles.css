@@ -6,6 +6,50 @@
     font-display: swap;
 }
 
+/* ===================================
+   ACCESSIBILITY
+   =================================== */
+
+/* Skip to Content Link */
+.skip-to-content {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    z-index: 10000;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 0 0 4px 4px;
+    transition: top 0.2s ease;
+}
+
+.skip-to-content:focus {
+    top: 0;
+}
+
+/* Focus-visible styles for keyboard navigation */
+*:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+.btn-ticket:focus-visible,
+.lightbox-close:focus-visible {
+    outline: 2px solid #ff3600;
+    outline-offset: 2px;
+}
+
+/* Reset hamburger button styles (changed from div to button) */
+.hamburger {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
 /* V2 Styles - Marty Supreme Inspired */
 
 :root {

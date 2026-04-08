@@ -69,6 +69,27 @@
       "url": "https://ourherobalthazar.com/"
     }
     </script>
+
+    <!-- Schema.org: WebSite (enables sitelinks search box in Google) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Our Hero, Balthazar - Official Movie Website",
+      "url": "https://ourherobalthazar.com/"
+    }
+    </script>
+
+    <!-- Schema.org: Organization (distributor — helps Knowledge Panel) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "WG Pictures",
+      "url": "https://ourherobalthazar.com/",
+      "logo": "https://ourherobalthazar.com/assets/images/favicon.svg"
+    }
+    </script>
     <link rel="canonical" href="https://ourherobalthazar.com/">
 
     <!-- Open Graph / Facebook -->
@@ -113,22 +134,25 @@
 </head>
 
 <body>
+    <!-- Skip to Content (Accessibility) -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
     <!-- Visually hidden H1 for better SEO (search engines ignore display:none) -->
     <h1
         style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;">
         Our Hero, Balthazar - Official Movie Website</h1>
 
     <!-- Sticky Header -->
-    <header class="v2-header">
+    <header class="v2-header" role="banner">
         <div class="header-left">
             <!-- Title removed as requested -->
-            <div class="hamburger">
+            <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-nav">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </button>
         </div>
-        <nav class="header-nav">
+        <nav class="header-nav" id="main-nav" role="navigation" aria-label="Main navigation">
             <a href="#hero">Trailer</a>
             <a href="#tickets" class="btn-ticket" style="margin-left: 1rem;">Get Tickets</a>
             <a href="#cast">Cast & Filmmakers</a>
@@ -136,6 +160,9 @@
         </nav>
         <!-- Removed header-right to unify z-index context -->
     </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
 
     <!-- Ticket Calendar Section -->
     <section id="tickets" class="ticket-calendar">
@@ -2543,8 +2570,8 @@
     </footer>
 
     <!-- Lightbox -->
-    <div id="lightbox" class="lightbox-overlay">
-        <span class="lightbox-close">&times;</span>
+    <div id="lightbox" class="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Image viewer">
+        <button class="lightbox-close" aria-label="Close image viewer">&times;</button>
         <div class="lightbox-content">
             <img class="lightbox-image" src="" alt="Poster Full Screen">
             <div class="dual-poster-container" style="display: none;">
@@ -2554,8 +2581,8 @@
     </div>
 
     <!-- Video Lightbox -->
-    <div id="video-lightbox" class="lightbox-overlay">
-        <span class="lightbox-close video-lightbox-close">&times;</span>
+    <div id="video-lightbox" class="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Video player">
+        <button class="lightbox-close video-lightbox-close" aria-label="Close video player">&times;</button>
         <div class="video-lightbox-container"></div>
     </div>
 
@@ -2944,6 +2971,7 @@
         });
         */
     </script>
+    </main>
 </body>
 
 </html>

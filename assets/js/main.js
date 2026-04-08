@@ -53,6 +53,11 @@ document.querySelectorAll('.header-nav a').forEach(link => {
   link.addEventListener('click', closeAllLightboxes);
 });
 
+// 4. Escape Key Close (Accessibility)
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeAllLightboxes();
+});
+
 // ===================================
 // SMOOTH SCROLL NAVIGATION
 // ===================================
@@ -214,9 +219,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (hamburger && headerNav && v2Header) {
     hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
+      const isOpen = hamburger.classList.toggle('active');
       headerNav.classList.toggle('active');
       v2Header.classList.toggle('nav-active');
+      hamburger.setAttribute('aria-expanded', isOpen);
     });
 
     //  Close nav when link clicked
@@ -225,6 +231,7 @@ document.addEventListener('DOMContentLoaded', function () {
         hamburger.classList.remove('active');
         headerNav.classList.remove('active');
         v2Header.classList.remove('nav-active');
+        hamburger.setAttribute('aria-expanded', 'false');
       });
     });
   }

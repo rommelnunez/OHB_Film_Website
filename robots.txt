@@ -1,0 +1,20 @@
+# robots.txt for ourherobalthazar.com
+User-agent: *
+Allow: /
+
+# Block test/archive directories from indexing
+Disallow: /v2/
+Disallow: /v3/
+Disallow: /v4/
+Disallow: /_archive_ticketlaunchday/
+Disallow: /amctest/
+Disallow: /layoutoptions/
+Disallow: /shopifytest/
+Disallow: /logline_options.html
+Disallow: /brain/
+Disallow: /scripts/
+Disallow: /wp-theme/
+Disallow: /Dropbox Assets/
+
+# Sitemap location
+Sitemap: https://ourherobalthazar.com/sitemap.xml
