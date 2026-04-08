@@ -2040,272 +2040,6 @@
                 </div>
             </div>
 
-            <!-- Merch Section - A24 Style Grid -->
-            <style>
-                .merch-section {
-                    margin-top: 3rem;
-                    padding: 2rem 0;
-                }
-                .merch-header {
-                    margin-bottom: 2rem;
-                }
-                .merch-header h3 {
-                    font-family: 'Neue Haas Grotesk Text Pro 75 Bold', 'Inter', sans-serif;
-                    font-size: 3rem;
-                    font-weight: 900;
-                    text-transform: uppercase;
-                    line-height: 0.9;
-                    color: #000;
-                }
-                .merch-grid {
-                    display: grid;
-                    grid-template-columns: repeat(4, 1fr);
-                    gap: 1.5rem;
-                }
-                .merch-item {
-                    display: flex;
-                    flex-direction: column;
-                }
-                .merch-item-image {
-                    aspect-ratio: 1;
-                    background: #e8e8e8;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    margin-bottom: 0.75rem;
-                    overflow: hidden;
-                }
-                .merch-item-image img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
-                .merch-item-name {
-                    font-family: 'Neue Haas Grotesk Text Pro 75 Bold', 'Inter', sans-serif;
-                    font-size: 0.875rem;
-                    font-weight: 700;
-                    line-height: 1.3;
-                    color: #000;
-                    margin-bottom: 0.75rem;
-                }
-                .merch-item-price {
-                    font-family: 'Neue Haas Grotesk Text Pro 75 Bold', 'Inter', sans-serif;
-                    font-size: 0.875rem;
-                    color: #000;
-                    margin-bottom: 1rem;
-                }
-                .merch-sizes {
-                    display: flex;
-                    gap: 0.5rem;
-                    margin-bottom: 1rem;
-                }
-                .merch-size-btn {
-                    width: 40px;
-                    height: 40px;
-                    background: transparent;
-                    border: 1px solid #000;
-                    color: #000;
-                    font-family: 'Neue Haas Grotesk Text Pro 75 Bold', 'Inter', sans-serif;
-                    font-weight: 700;
-                    font-size: 0.75rem;
-                    cursor: pointer;
-                    transition: all 0.2s;
-                }
-                .merch-size-btn:hover,
-                .merch-size-btn.active {
-                    background: #000;
-                    color: #fff;
-                }
-                .merch-buy-btn {
-                    background: #000;
-                    color: #fff;
-                    border: 1px solid #000;
-                    padding: 0.75rem 1.5rem;
-                    font-family: 'Neue Haas Grotesk Text Pro 75 Bold', 'Inter', sans-serif;
-                    font-weight: 700;
-                    font-size: 0.75rem;
-                    text-transform: uppercase;
-                    cursor: pointer;
-                    transition: all 0.2s;
-                }
-                .merch-buy-btn:hover {
-                    background: transparent;
-                    color: #000;
-                }
-                .merch-item.coming-soon {
-                    opacity: 0.4;
-                    pointer-events: none;
-                }
-                .merch-item.coming-soon .merch-item-image {
-                    background: #ddd;
-                }
-                @media (max-width: 900px) {
-                    .merch-grid {
-                        grid-template-columns: repeat(2, 1fr);
-                    }
-                    .merch-header h3 {
-                        font-size: 2rem;
-                    }
-                }
-                @media (max-width: 500px) {
-                    .merch-grid {
-                        grid-template-columns: 1fr;
-                    }
-                }
-            </style>
-            <div id="merch" class="merch-section">
-                <div class="merch-header">
-                    <h3>Official Merch</h3>
-                </div>
-                <div class="merch-grid">
-                    <div class="merch-item">
-                        <div class="merch-item-image">
-                            <div id="merch-product-img" style="color:#999;font-size:11px;">Loading...</div>
-                        </div>
-                        <p class="merch-item-name">Official Movie T Shirt</p>
-                        <p class="merch-item-price">$25</p>
-                        <div class="merch-sizes" id="merch-sizes">
-                            <button class="merch-size-btn active" data-size="S">S</button>
-                            <button class="merch-size-btn" data-size="M">M</button>
-                            <button class="merch-size-btn" data-size="L">L</button>
-                            <button class="merch-size-btn" data-size="XL">XL</button>
-                        </div>
-                        <button class="merch-buy-btn" onclick="goToMerchCheckout()">Buy Now</button>
-                    </div>
-                    <div class="merch-item coming-soon">
-                        <div class="merch-item-image">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-                        </div>
-                        <p class="merch-item-name">Poster</p>
-                        <p class="merch-item-price">TBA</p>
-                    </div>
-                    <div class="merch-item coming-soon">
-                        <div class="merch-item-image">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-                        </div>
-                        <p class="merch-item-name">Hat</p>
-                        <p class="merch-item-price">TBA</p>
-                    </div>
-                    <div class="merch-item coming-soon">
-                        <div class="merch-item-image">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-                        </div>
-                        <p class="merch-item-name">Tote Bag</p>
-                        <p class="merch-item-price">TBA</p>
-                    </div>
-                </div>
-            </div>
-            <script type="text/javascript">
-            (function() {
-                var merchClient;
-                var merchProduct;
-                var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
-
-                // Size button click handlers
-                document.querySelectorAll('.merch-size-btn').forEach(function(btn) {
-                    btn.addEventListener('click', function() {
-                        document.querySelectorAll('.merch-size-btn').forEach(function(b) {
-                            b.classList.remove('active');
-                        });
-                        this.classList.add('active');
-                    });
-                });
-
-                function loadMerchScript() {
-                    if (window.ShopifyBuy) {
-                        initMerchShopify();
-                    } else {
-                        var script = document.createElement('script');
-                        script.async = true;
-                        script.src = scriptURL;
-                        script.onload = initMerchShopify;
-                        document.head.appendChild(script);
-                    }
-                }
-
-                function initMerchShopify() {
-                    merchClient = ShopifyBuy.buildClient({
-                        domain: 'e2q7dk-hc.myshopify.com',
-                        storefrontAccessToken: 'd41616f300a21e34f4edd68d8f23b4e8',
-                    });
-
-                    ShopifyBuy.UI.onReady(merchClient).then(function(ui) {
-                        merchClient.product.fetchAll().then(function(products) {
-                            if (products.length > 0) {
-                                merchProduct = products.find(function(p) {
-                                    return p.title.toLowerCase().includes('shirt');
-                                }) || products[0];
-
-                                // Update image
-                                var imgUrl = merchProduct.images && merchProduct.images[0] ? merchProduct.images[0].src : '';
-                                var imgEl = document.getElementById('merch-product-img');
-                                if (imgUrl && imgEl) {
-                                    imgEl.innerHTML = '<img src="' + imgUrl + '" alt="' + merchProduct.title + '">';
-                                }
-
-                                // Update name
-                                var nameEl = document.querySelector('.merch-item:not(.coming-soon) .merch-item-name');
-                                if (nameEl) nameEl.textContent = merchProduct.title;
-
-                                // Update price
-                                var priceEl = document.querySelector('.merch-item:not(.coming-soon) .merch-item-price');
-                                if (priceEl && merchProduct.variants && merchProduct.variants[0]) {
-                                    var price = merchProduct.variants[0].price;
-                                    var amount = price.amount || price;
-                                    priceEl.textContent = '$' + parseFloat(amount).toFixed(0);
-                                }
-
-                                // Update size buttons with actual variants
-                                if (merchProduct.variants && merchProduct.variants.length > 0) {
-                                    var sizes = merchProduct.variants.map(function(v) { return v.title; }).filter(function(t) { return t !== 'Default Title'; });
-                                    if (sizes.length > 0) {
-                                        var sizesContainer = document.getElementById('merch-sizes');
-                                        if (sizesContainer) {
-                                            sizesContainer.innerHTML = sizes.map(function(size, i) {
-                                                return '<button class="merch-size-btn' + (i === 0 ? ' active' : '') + '" data-variant="' + merchProduct.variants[i].id + '">' + size + '</button>';
-                                            }).join('');
-
-                                            // Re-attach click handlers
-                                            document.querySelectorAll('.merch-size-btn').forEach(function(btn) {
-                                                btn.addEventListener('click', function() {
-                                                    document.querySelectorAll('.merch-size-btn').forEach(function(b) {
-                                                        b.classList.remove('active');
-                                                    });
-                                                    this.classList.add('active');
-                                                });
-                                            });
-                                        }
-                                    }
-                                }
-                            }
-                        });
-                    });
-                }
-
-                window.goToMerchCheckout = function() {
-                    if (!merchProduct || !merchClient) {
-                        alert('Loading product...');
-                        return;
-                    }
-
-                    // Get selected variant
-                    var activeBtn = document.querySelector('.merch-size-btn.active[data-variant]');
-                    var variantId = activeBtn ? activeBtn.dataset.variant : merchProduct.variants[0].id;
-
-                    merchClient.checkout.create().then(function(checkout) {
-                        merchClient.checkout.addLineItems(checkout.id, [{
-                            variantId: variantId,
-                            quantity: 1
-                        }]).then(function(checkout) {
-                            window.location.href = checkout.webUrl;
-                        });
-                    });
-                };
-
-                loadMerchScript();
-            })();
-            </script>
-
             <!-- Past Events Tab -->
             <div id="past-events" class="events-tab-content">
                 <div class="v2-list">
@@ -2426,6 +2160,274 @@
             document.getElementById(tabId).classList.add('active');
         }
     </script>
+
+    <!-- Merch Section - A24 Style Grid -->
+    <section id="merch" style="background: #ff3600; padding: 4rem 4vw;">
+        <style>
+            .merch-section {
+                max-width: 1400px;
+                margin: 0 auto;
+            }
+            .merch-header {
+                margin-bottom: 2rem;
+            }
+            .merch-header h3 {
+                font-family: 'Neue Haas Grotesk Text Pro 75 Bold', 'Inter', sans-serif;
+                font-size: 3rem;
+                font-weight: 900;
+                text-transform: uppercase;
+                line-height: 0.9;
+                color: #000;
+            }
+            .merch-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1.5rem;
+            }
+            .merch-item {
+                display: flex;
+                flex-direction: column;
+            }
+            .merch-item-image {
+                aspect-ratio: 1;
+                background: #e8e8e8;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 0.75rem;
+                overflow: hidden;
+            }
+            .merch-item-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .merch-item-name {
+                font-family: 'Neue Haas Grotesk Text Pro 75 Bold', 'Inter', sans-serif;
+                font-size: 0.875rem;
+                font-weight: 700;
+                line-height: 1.3;
+                color: #000;
+                margin-bottom: 0.75rem;
+            }
+            .merch-item-price {
+                font-family: 'Neue Haas Grotesk Text Pro 75 Bold', 'Inter', sans-serif;
+                font-size: 0.875rem;
+                color: #000;
+                margin-bottom: 1rem;
+            }
+            .merch-sizes {
+                display: flex;
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+            }
+            .merch-size-btn {
+                width: 40px;
+                height: 40px;
+                background: transparent;
+                border: 1px solid #000;
+                color: #000;
+                font-family: 'Neue Haas Grotesk Text Pro 75 Bold', 'Inter', sans-serif;
+                font-weight: 700;
+                font-size: 0.75rem;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+            .merch-size-btn:hover,
+            .merch-size-btn.active {
+                background: #000;
+                color: #fff;
+            }
+            .merch-buy-btn {
+                background: #000;
+                color: #fff;
+                border: 1px solid #000;
+                padding: 0.75rem 1.5rem;
+                font-family: 'Neue Haas Grotesk Text Pro 75 Bold', 'Inter', sans-serif;
+                font-weight: 700;
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+            .merch-buy-btn:hover {
+                background: transparent;
+                color: #000;
+            }
+            .merch-item.coming-soon {
+                opacity: 0.4;
+                pointer-events: none;
+            }
+            .merch-item.coming-soon .merch-item-image {
+                background: #ddd;
+            }
+            @media (max-width: 900px) {
+                .merch-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                .merch-header h3 {
+                    font-size: 2rem;
+                }
+            }
+            @media (max-width: 500px) {
+                .merch-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+        <div class="merch-section">
+            <div class="merch-header">
+                <h3>Official Merch</h3>
+            </div>
+            <div class="merch-grid">
+                <div class="merch-item">
+                    <div class="merch-item-image">
+                        <div id="merch-product-img" style="color:#999;font-size:11px;">Loading...</div>
+                    </div>
+                    <p class="merch-item-name">Official Movie T Shirt</p>
+                    <p class="merch-item-price">$25</p>
+                    <div class="merch-sizes" id="merch-sizes">
+                        <button class="merch-size-btn active" data-size="S">S</button>
+                        <button class="merch-size-btn" data-size="M">M</button>
+                        <button class="merch-size-btn" data-size="L">L</button>
+                        <button class="merch-size-btn" data-size="XL">XL</button>
+                    </div>
+                    <button class="merch-buy-btn" onclick="goToMerchCheckout()">Buy Now</button>
+                </div>
+                <div class="merch-item coming-soon">
+                    <div class="merch-item-image">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                    </div>
+                    <p class="merch-item-name">Poster</p>
+                    <p class="merch-item-price">TBA</p>
+                </div>
+                <div class="merch-item coming-soon">
+                    <div class="merch-item-image">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                    </div>
+                    <p class="merch-item-name">Hat</p>
+                    <p class="merch-item-price">TBA</p>
+                </div>
+                <div class="merch-item coming-soon">
+                    <div class="merch-item-image">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                    </div>
+                    <p class="merch-item-name">Tote Bag</p>
+                    <p class="merch-item-price">TBA</p>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+        (function() {
+            var merchClient;
+            var merchProduct;
+            var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+
+            // Size button click handlers
+            document.querySelectorAll('.merch-size-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.merch-size-btn').forEach(function(b) {
+                        b.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+
+            function loadMerchScript() {
+                if (window.ShopifyBuy) {
+                    initMerchShopify();
+                } else {
+                    var script = document.createElement('script');
+                    script.async = true;
+                    script.src = scriptURL;
+                    script.onload = initMerchShopify;
+                    document.head.appendChild(script);
+                }
+            }
+
+            function initMerchShopify() {
+                merchClient = ShopifyBuy.buildClient({
+                    domain: 'e2q7dk-hc.myshopify.com',
+                    storefrontAccessToken: 'd41616f300a21e34f4edd68d8f23b4e8',
+                });
+
+                ShopifyBuy.UI.onReady(merchClient).then(function(ui) {
+                    merchClient.product.fetchAll().then(function(products) {
+                        if (products.length > 0) {
+                            merchProduct = products.find(function(p) {
+                                return p.title.toLowerCase().includes('shirt');
+                            }) || products[0];
+
+                            // Update image
+                            var imgUrl = merchProduct.images && merchProduct.images[0] ? merchProduct.images[0].src : '';
+                            var imgEl = document.getElementById('merch-product-img');
+                            if (imgUrl && imgEl) {
+                                imgEl.innerHTML = '<img src="' + imgUrl + '" alt="' + merchProduct.title + '">';
+                            }
+
+                            // Update name
+                            var nameEl = document.querySelector('.merch-item:not(.coming-soon) .merch-item-name');
+                            if (nameEl) nameEl.textContent = merchProduct.title;
+
+                            // Update price
+                            var priceEl = document.querySelector('.merch-item:not(.coming-soon) .merch-item-price');
+                            if (priceEl && merchProduct.variants && merchProduct.variants[0]) {
+                                var price = merchProduct.variants[0].price;
+                                var amount = price.amount || price;
+                                priceEl.textContent = '$' + parseFloat(amount).toFixed(0);
+                            }
+
+                            // Update size buttons with actual variants
+                            if (merchProduct.variants && merchProduct.variants.length > 0) {
+                                var sizes = merchProduct.variants.map(function(v) { return v.title; }).filter(function(t) { return t !== 'Default Title'; });
+                                if (sizes.length > 0) {
+                                    var sizesContainer = document.getElementById('merch-sizes');
+                                    if (sizesContainer) {
+                                        sizesContainer.innerHTML = sizes.map(function(size, i) {
+                                            return '<button class="merch-size-btn' + (i === 0 ? ' active' : '') + '" data-variant="' + merchProduct.variants[i].id + '">' + size + '</button>';
+                                        }).join('');
+
+                                        // Re-attach click handlers
+                                        document.querySelectorAll('.merch-size-btn').forEach(function(btn) {
+                                            btn.addEventListener('click', function() {
+                                                document.querySelectorAll('.merch-size-btn').forEach(function(b) {
+                                                    b.classList.remove('active');
+                                                });
+                                                this.classList.add('active');
+                                            });
+                                        });
+                                    }
+                                }
+                            }
+                        }
+                    });
+                });
+            }
+
+            window.goToMerchCheckout = function() {
+                if (!merchProduct || !merchClient) {
+                    alert('Loading product...');
+                    return;
+                }
+
+                // Get selected variant
+                var activeBtn = document.querySelector('.merch-size-btn.active[data-variant]');
+                var variantId = activeBtn ? activeBtn.dataset.variant : merchProduct.variants[0].id;
+
+                merchClient.checkout.create().then(function(checkout) {
+                    merchClient.checkout.addLineItems(checkout.id, [{
+                        variantId: variantId,
+                        quantity: 1
+                    }]).then(function(checkout) {
+                        window.location.href = checkout.webUrl;
+                    });
+                });
+            };
+
+            loadMerchScript();
+        })();
+        </script>
+    </section>
 
     <section id="logline"
         style="padding: 8rem 4vw; background: #ff3600; color: #000; border-bottom: 1px solid rgba(0,0,0,0.1);">
