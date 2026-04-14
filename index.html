@@ -476,6 +476,7 @@
             "Los Feliz 3": "Los Angeles",
             "HQ LO2": "New Haven",
             "Angelika Village East": "New York",
+            "Village East by Angelika": "New York",
             "Cedar Lee Theatre": "Cleveland",
             "Playhouse Square Campus": "Cleveland",
             "Phoenix Film Foundation": "Phoenix",
@@ -487,7 +488,8 @@
             "Regal": "assets/images/theaters/regal.svg",
             "AMC": "assets/images/theaters/amc.svg",
             "Alamo": "assets/images/theaters/alamo.svg",
-            "Fandango": "assets/images/theaters/fandango.png"
+            "Fandango": "assets/images/theaters/fandango.png",
+            "Angelika": "assets/images/theaters/angelika.svg"
         };
 
         // State
@@ -505,6 +507,7 @@
             if (theaterName.toLowerCase().includes("amc")) return "AMC";
             if (theaterName.toLowerCase().includes("alamo")) return "Alamo";
             if (theaterName.toLowerCase().includes("los feliz")) return "Fandango";
+            if (theaterName.toLowerCase().includes("angelika")) return "Angelika";
             return null;
         }
 

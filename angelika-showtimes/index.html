@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angelika Showtimes Finder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+        }
+        .search-box {
+            background: #111;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid #333;
+        }
+        .search-box label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: 600;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #444;
+            border-radius: 6px;
+            background: #222;
+            color: #fff;
+            font-size: 16px;
+        }
+        .search-box input::placeholder {
+            color: #666;
+        }
+        .search-box button {
+            margin-top: 15px;
+            width: 100%;
+            padding: 12px;
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .search-box button:hover {
+            background: #ddd;
+        }
+        .search-box button:disabled {
+            background: #444;
+            color: #888;
+            cursor: not-allowed;
+        }
+        .status {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+        }
+        .status.error {
+            color: #ff4444;
+        }
+        .theater-section {
+            background: #111;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+        .theater-header {
+            background: #222;
+            padding: 15px 20px;
+            border-bottom: 1px solid #444;
+        }
+        .theater-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+        }
+        .movie-info {
+            padding: 20px;
+        }
+        .movie-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .movie-meta {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .showdates {
+            margin-top: 15px;
+        }
+        .date-section {
+            margin-bottom: 15px;
+        }
+        .date-label {
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .showtimes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .showtime-btn {
+            display: inline-block;
+            background: #222;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-size: 14px;
+            border: 1px solid #444;
+            text-decoration: none;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+        .showtime-btn:hover {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+        .showtime-btn .time {
+            font-weight: 600;
+            display: block;
+        }
+        .showtime-btn .type {
+            font-size: 12px;
+            color: #888;
+        }
+        .showtime-btn:hover .type {
+            color: #666;
+        }
+        .showtime-btn .seats {
+            font-size: 11px;
+            color: #888;
+            margin-top: 4px;
+        }
+        .showtime-btn:hover .seats {
+            color: #666;
+        }
+        .showtime-btn.soldout {
+            background: #1a1a1a;
+            color: #666;
+            border-color: #333;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        .showtime-btn.no-link {
+            cursor: default;
+        }
+        .showtime-btn.no-link:hover {
+            background: #222;
+            color: #fff;
+            border-color: #444;
+        }
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
+        .download-section {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .download-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .download-btn:hover {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+        .download-btn:disabled {
+            background: #222;
+            color: #555;
+            border-color: #333;
+            cursor: not-allowed;
+        }
+        .token-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #333;
+        }
+        .token-section summary {
+            cursor: pointer;
+            color: #888;
+            font-size: 14px;
+        }
+        .token-section textarea {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            background: #222;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: #fff;
+            font-family: monospace;
+            font-size: 12px;
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <img src="angelikalogo.svg" alt="Angelika Film Center" style="max-width: 200px; filter: invert(1);">
+        </div>
+        <h1>Showtimes Finder</h1>
+        <p class="subtitle">Search for film showtimes across Angelika Film Center locations</p>
+
+        <div class="search-box">
+            <label for="filmSearch">Film Title</label>
+            <input type="text" id="filmSearch" placeholder="e.g., Project Hail Mary" value="Project Hail Mary">
+            <button id="searchBtn" onclick="searchFilm()">Search All Theaters</button>
+
+            <details class="token-section">
+                <summary>API Token (required)</summary>
+                <textarea id="bearerToken" rows="4" placeholder="Paste your Bearer token here..."></textarea>
+            </details>
+        </div>
+
+        <div id="downloadSection" class="download-section" style="display: none;">
+            <button class="download-btn" onclick="downloadCSV()">Download CSV</button>
+        </div>
+
+        <div id="results"></div>
+    </div>
+
+    <script>
+        // Store results globally for CSV export
+        let lastSearchResults = [];
+        const THEATERS = {
+            '0000000004': { name: 'Village East by Angelika (NYC)', slug: 'villageeast' },
+            '0000000005': { name: 'Angelika New York (SoHo)', slug: 'nyc' },
+            '0000000006': { name: 'Angelika Mosaic (Fairfax, VA)', slug: 'mosaic' },
+            '0000000007': { name: 'Angelika Pop-Up at Union Market (DC)', slug: 'dc' },
+            '0000000009': { name: 'Angelika Film Center - Dallas', slug: 'dallas' }
+        };
+
+        const API_BASE = 'https://production-api.readingcinemas.com';
+
+        function getTicketUrl(theaterSlug, sessionId, scheduledFilmId) {
+            // Construct ticket URL: angelikafilmcenter.com/{theater}/sessions/{sessionId}/{ScheduledFilmId}
+            return `https://angelikafilmcenter.com/${theaterSlug}/sessions/${sessionId}/${scheduledFilmId}`;
+        }
+
+        async function fetchTheaterData(cinemaId, token, selectedDate = '') {
+            const url = `${API_BASE}/films?brandId=US&countryId=6&cinemaId=${cinemaId}&status=getShows&flag=nowshowing&selectedDate=${selectedDate}`;
+
+            const response = await fetch(url, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            return response.json();
+        }
+
+        async function fetchAllShowtimesForFilm(cinemaId, token, searchTerm) {
+            // First fetch to get the list of available dates
+            const initialData = await fetchTheaterData(cinemaId, token);
+
+            // Find the film in initial data
+            const term = searchTerm.toLowerCase();
+            const nowShowing = initialData.nowShowing?.data?.movies || [];
+            const advance = initialData.advanceTicket?.data?.advSessions || [];
+
+            let film = nowShowing.find(m => m.name.toLowerCase().includes(term));
+            let status = 'Now Showing';
+
+            if (!film) {
+                film = advance.find(m => m.name.toLowerCase().includes(term));
+                status = 'Advance Tickets';
+            }
+
+            if (!film) return null;
+
+            // Get today's date and two weeks from now
+            const today = new Date();
+            const todayStr = today.toISOString().split('T')[0];
+            const twoWeeksOut = new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000);
+            const twoWeeksStr = twoWeeksOut.toISOString().split('T')[0];
+
+            // Get available dates from the filter (limit to next 2 weeks)
+            const availableDates = initialData.nowShowing?.data?.filter?.session || [];
+            const futureDates = availableDates
+                .map(d => d.value)
+                .filter(d => d >= todayStr && d <= twoWeeksStr);
+
+            // Collect all showdates - need to fetch each date from the filter
+            let allShowdates = [];
+
+            // Fetch each date in the next 2 weeks to check if film is playing
+            for (const date of futureDates) {
+                try {
+                    const dateData = await fetchTheaterData(cinemaId, token, date);
+                    const dateNowShowing = dateData.nowShowing?.data?.movies || [];
+                    const dateAdvance = dateData.advanceTicket?.data?.advSessions || [];
+
+                    let dateFilm = dateNowShowing.find(m => m.name.toLowerCase().includes(term));
+                    if (!dateFilm) {
+                        dateFilm = dateAdvance.find(m => m.name.toLowerCase().includes(term));
+                    }
+
+                    if (dateFilm && dateFilm.showdates) {
+                        // Find the showdate for this specific date
+                        const showdate = dateFilm.showdates.find(sd => sd.date === date);
+                        if (showdate) {
+                            allShowdates.push(showdate);
+                        }
+                    }
+                } catch (e) {
+                    console.error(`Error fetching date ${date}:`, e);
+                }
+            }
+
+            // Sort by date
+            allShowdates.sort((a, b) => a.date.localeCompare(b.date));
+
+            return {
+                ...film,
+                showdates: allShowdates,
+                status
+            };
+        }
+
+        function formatTime(dateTimeStr) {
+            // API returns format like "2026-04-13T21:45:00-04" - fix timezone offset
+            // Add colon to timezone if missing (e.g., -04 -> -04:00)
+            let fixedStr = dateTimeStr;
+            if (/[+-]\d{2}$/.test(dateTimeStr)) {
+                fixedStr = dateTimeStr + ':00';
+            }
+            const date = new Date(fixedStr);
+            if (isNaN(date.getTime())) {
+                // Fallback: extract time directly from string
+                const match = dateTimeStr.match(/T(\d{2}):(\d{2})/);
+                if (match) {
+                    let hour = parseInt(match[1]);
+                    const min = match[2];
+                    const ampm = hour >= 12 ? 'PM' : 'AM';
+                    hour = hour % 12 || 12;
+                    return `${hour}:${min} ${ampm}`;
+                }
+                return dateTimeStr;
+            }
+            return date.toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            });
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr + 'T12:00:00');
+            return date.toLocaleDateString('en-US', {
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function findFilm(data, searchTerm) {
+            const term = searchTerm.toLowerCase();
+
+            // Search in now showing
+            const nowShowing = data.nowShowing?.data?.movies || [];
+            let found = nowShowing.find(m => m.name.toLowerCase().includes(term));
+            if (found) return { ...found, status: 'Now Showing' };
+
+            // Search in advance tickets
+            const advance = data.advanceTicket?.data?.advSessions || [];
+            found = advance.find(m => m.name.toLowerCase().includes(term));
+            if (found) return { ...found, status: 'Advance Tickets' };
+
+            return null;
+        }
+
+        function renderResults(results) {
+            const container = document.getElementById('results');
+
+            if (results.length === 0) {
+                container.innerHTML = '<div class="no-results">No showtimes found for this film at any Angelika location.</div>';
+                return;
+            }
+
+            let html = '';
+
+            for (const result of results) {
+                const { theater, theaterSlug, film } = result;
+
+                html += `
+                    <div class="theater-section">
+                        <div class="theater-header">
+                            <div class="theater-name">${theater}</div>
+                        </div>
+                        <div class="movie-info">
+                            <div class="movie-title">${film.name}</div>
+                            <div class="movie-meta">
+                                ${film.ratingDescription || 'NR'} | ${film.length || '?'} min | ${film.genre || film.gentre || ''} | ${film.status}
+                            </div>
+                            <div class="showdates" data-theater-slug="${theaterSlug}" data-movie-slug="${film.movieSlug}">
+                `;
+
+                if (film.showdates && film.showdates.length > 0) {
+                    for (const dateInfo of film.showdates) {
+                        html += `<div class="date-section">`;
+                        html += `<div class="date-label">${formatDate(dateInfo.date)}</div>`;
+                        html += `<div class="showtimes">`;
+
+                        for (const showtype of (dateInfo.showtypes || [])) {
+                            const showtimes = showtype.showtimes || [];
+
+                            // Handle both detailed showtimes (nowShowing) and count-only (advanceTicket)
+                            if (Array.isArray(showtimes) && showtimes.length > 0 && typeof showtimes[0] === 'object') {
+                                for (const st of showtimes) {
+                                    const soldoutClass = st.soldout ? 'soldout' : '';
+                                    const ticketUrl = getTicketUrl(theaterSlug, st.id, st.ScheduledFilmId);
+                                    html += `
+                                        <a href="${ticketUrl}" target="_blank" class="showtime-btn ${soldoutClass}">
+                                            <span class="time">${formatTime(st.date_time)}</span>
+                                            <span class="type">${showtype.type !== 'Standard' ? ' (' + showtype.type + ')' : ''}</span>
+                                            <div class="seats">${st.soldout ? 'SOLD OUT' : st.availableSeats + ' seats'}</div>
+                                        </a>
+                                    `;
+                                }
+                            } else {
+                                // Advance ticket - just show count (no link available)
+                                const count = typeof showtimes === 'number' ? showtimes : showtimes.length || '?';
+                                html += `
+                                    <div class="showtime-btn no-link">
+                                        <span class="time">${count} showtime${count !== 1 ? 's' : ''}</span>
+                                        <span class="type">${showtype.type !== 'Standard' ? ' (' + showtype.type + ')' : ''}</span>
+                                    </div>
+                                `;
+                            }
+                        }
+
+                        html += `</div></div>`;
+                    }
+                } else {
+                    html += `<div class="no-showtimes">Showtimes not yet available</div>`;
+                }
+
+                html += `</div></div></div>`;
+            }
+
+            container.innerHTML = html;
+        }
+
+        async function searchFilm() {
+            const searchTerm = document.getElementById('filmSearch').value.trim();
+            const token = document.getElementById('bearerToken').value.trim();
+            const resultsContainer = document.getElementById('results');
+            const searchBtn = document.getElementById('searchBtn');
+
+            if (!searchTerm) {
+                resultsContainer.innerHTML = '<div class="status error">Please enter a film title</div>';
+                return;
+            }
+
+            if (!token) {
+                resultsContainer.innerHTML = '<div class="status error">Please enter your API Bearer token (expand the token section below the search box)</div>';
+                return;
+            }
+
+            searchBtn.disabled = true;
+            searchBtn.textContent = 'Searching...';
+            resultsContainer.innerHTML = '<div class="status">Searching all Angelika theaters...</div>';
+
+            const results = [];
+
+            for (const [cinemaId, theaterInfo] of Object.entries(THEATERS)) {
+                try {
+                    resultsContainer.innerHTML = `<div class="status">Checking ${theaterInfo.name}... (fetching all dates)</div>`;
+                    const film = await fetchAllShowtimesForFilm(cinemaId, token, searchTerm);
+
+                    if (film) {
+                        results.push({ theater: theaterInfo.name, theaterSlug: theaterInfo.slug, film });
+                    }
+                } catch (error) {
+                    console.error(`Error fetching ${theaterName}:`, error);
+                    if (error.message.includes('401')) {
+                        resultsContainer.innerHTML = '<div class="status error">Token expired or invalid. Please get a fresh token from the Angelika website.</div>';
+                        searchBtn.disabled = false;
+                        searchBtn.textContent = 'Search All Theaters';
+                        return;
+                    }
+                }
+            }
+
+            // Store results for CSV export
+            lastSearchResults = results;
+
+            // Show/hide download button
+            const downloadSection = document.getElementById('downloadSection');
+            downloadSection.style.display = results.length > 0 ? 'block' : 'none';
+
+            renderResults(results);
+            searchBtn.disabled = false;
+            searchBtn.textContent = 'Search All Theaters';
+        }
+
+        // Allow Enter key to search
+        document.getElementById('filmSearch').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') searchFilm();
+        });
+
+        function generateCSV() {
+            // CSV format: Theater,Date,Time,Event Type,Ticket Link
+            const rows = ['Theater,Date,Time,Event Type,Ticket Link'];
+
+            for (const result of lastSearchResults) {
+                const { theater, theaterSlug, film } = result;
+
+                if (film.showdates && film.showdates.length > 0) {
+                    for (const dateInfo of film.showdates) {
+                        for (const showtype of (dateInfo.showtypes || [])) {
+                            const showtimes = showtype.showtimes || [];
+
+                            if (Array.isArray(showtimes) && showtimes.length > 0 && typeof showtimes[0] === 'object') {
+                                for (const st of showtimes) {
+                                    const time = formatTime(st.date_time);
+                                    const ticketUrl = getTicketUrl(theaterSlug, st.id, st.ScheduledFilmId);
+                                    const eventType = showtype.type === 'Standard' ? 'General Admission' : showtype.type;
+
+                                    // Escape any commas in fields
+                                    const escapedTheater = theater.includes(',') ? `"${theater}"` : theater;
+                                    const escapedEventType = eventType.includes(',') ? `"${eventType}"` : eventType;
+
+                                    rows.push(`${escapedTheater},${dateInfo.date},${time},${escapedEventType},${ticketUrl}`);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return rows.join('\n');
+        }
+
+        function downloadCSV() {
+            if (lastSearchResults.length === 0) {
+                alert('No results to download. Please search first.');
+                return;
+            }
+
+            const csv = generateCSV();
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+
+            const filmName = document.getElementById('filmSearch').value.trim().replace(/[^a-z0-9]/gi, '_');
+            const date = new Date().toISOString().split('T')[0];
+            const filename = `angelika_showtimes_${filmName}_${date}.csv`;
+
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', filename);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
