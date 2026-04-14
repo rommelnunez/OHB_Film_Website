@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading Cinemas Showtimes Finder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: #e63946;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        .search-section {
+            background: #2d2d44;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            background: #1a1a2e;
+            color: #eee;
+            font-size: 1rem;
+        }
+        textarea {
+            height: 80px;
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #e63946;
+        }
+        button {
+            background: #e63946;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #c1121f;
+        }
+        button:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        .download-btn {
+            background: #059669;
+            margin-top: 5px;
+        }
+        .download-btn:hover {
+            background: #047857;
+        }
+        .results {
+            margin-top: 20px;
+        }
+        .result-card {
+            background: #2d2d44;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid #e63946;
+        }
+        .theater-name {
+            font-weight: 600;
+            color: #e63946;
+            margin-bottom: 5px;
+        }
+        .showtime-info {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+        .date, .time {
+            color: #fff;
+            font-weight: 500;
+        }
+        .event-type {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        .ticket-link {
+            display: inline-block;
+            background: #e63946;
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+        .ticket-link:hover {
+            background: #c1121f;
+        }
+        .status {
+            text-align: center;
+            padding: 20px;
+            color: #aaa;
+        }
+        .error {
+            color: #f87171;
+            background: #3d2020;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .warning {
+            color: #fbbf24;
+            background: #3d3520;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .seats-left {
+            color: #10b981;
+            font-size: 0.85rem;
+            margin-left: 10px;
+        }
+        .cinema-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .cinema-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #1a1a2e;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+        .cinema-checkbox input {
+            width: auto;
+        }
+        .cinema-checkbox label {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #ddd;
+        }
+        .select-all-btn {
+            background: #4b5563;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            width: auto;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Reading Cinemas Showtimes Finder</h1>
+            <p class="subtitle">Search all US Reading Cinemas locations</p>
+        </header>
+
+        <div class="search-section">
+            <div class="warning">
+                <strong>Note:</strong> This API requires authentication. Get a Bearer token from the Reading Cinemas website (valid ~1 hour).
+            </div>
+
+            <div class="form-group">
+                <label for="token">Bearer Token</label>
+                <textarea id="token" placeholder="Paste your Bearer token here..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="filmSlug">Film Name (search term)</label>
+                <input type="text" id="filmSlug" value="our hero balthazar" placeholder="e.g., our hero balthazar">
+            </div>
+
+            <div class="form-group">
+                <label>Select Theaters</label>
+                <div style="margin-bottom: 10px;">
+                    <button class="select-all-btn" onclick="selectAllCinemas()">Select All</button>
+                    <button class="select-all-btn" onclick="deselectAllCinemas()">Deselect All</button>
+                </div>
+                <div id="cinemaList" class="cinema-list">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <button id="searchBtn" onclick="searchShowtimes()">Search Showtimes</button>
+            <button id="downloadBtn" class="download-btn" onclick="downloadCSV()" disabled>Download CSV</button>
+        </div>
+
+        <div id="results" class="results">
+            <div class="status">Enter your token and click Search</div>
+        </div>
+    </div>
+
+    <script>
+        // Reading Cinemas US locations (countryId=5)
+        const CINEMAS = {
+            '20': { name: 'Cal Oaks (Murrieta, CA)', slug: 'cal-oaks', city: 'Murrieta' },
+            '19': { name: 'Grossmont (La Mesa, CA)', slug: 'grossmont', city: 'La Mesa' },
+            '17': { name: 'Valley Plaza (Bakersfield, CA)', slug: 'valley-plaza', city: 'Bakersfield' },
+            '0000000003': { name: 'Manville (NJ)', slug: 'manville', city: 'Manville' }
+        };
+
+        const COUNTRY_ID = '5'; // US
+        const API_BASE = 'https://production-api.readingcinemas.com';
+
+        let lastSearchResults = [];
+
+        // Initialize cinema checkboxes
+        function initCinemaList() {
+            const container = document.getElementById('cinemaList');
+            container.innerHTML = Object.entries(CINEMAS).map(([id, cinema]) => `
+                <div class="cinema-checkbox">
+                    <input type="checkbox" id="cinema_${id}" value="${id}" checked>
+                    <label for="cinema_${id}">${cinema.name}</label>
+                </div>
+            `).join('');
+        }
+
+        function selectAllCinemas() {
+            document.querySelectorAll('#cinemaList input').forEach(cb => cb.checked = true);
+        }
+
+        function deselectAllCinemas() {
+            document.querySelectorAll('#cinemaList input').forEach(cb => cb.checked = false);
+        }
+
+        function getSelectedCinemas() {
+            return Array.from(document.querySelectorAll('#cinemaList input:checked')).map(cb => cb.value);
+        }
+
+        async function searchShowtimes() {
+            const token = document.getElementById('token').value.trim();
+            const filmSearch = document.getElementById('filmSlug').value.trim().toLowerCase();
+            const selectedCinemas = getSelectedCinemas();
+
+            if (!token) {
+                showError('Please enter a Bearer token');
+                return;
+            }
+
+            if (!filmSearch) {
+                showError('Please enter a film name to search');
+                return;
+            }
+
+            if (selectedCinemas.length === 0) {
+                showError('Please select at least one theater');
+                return;
+            }
+
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<div class="status">Searching...</div>';
+            document.getElementById('searchBtn').disabled = true;
+            document.getElementById('downloadBtn').disabled = true;
+
+            lastSearchResults = [];
+
+            try {
+                for (const cinemaId of selectedCinemas) {
+                    const cinema = CINEMAS[cinemaId];
+                    resultsDiv.innerHTML = `<div class="status">Searching ${cinema.name}...</div>`;
+
+                    // First get the list of films showing at this cinema
+                    const filmsUrl = `${API_BASE}/films?countryId=${COUNTRY_ID}&cinemaId=${cinemaId}&sort=true&status=getSessionData`;
+
+                    try {
+                        const response = await fetch(filmsUrl, {
+                            headers: {
+                                'Accept': 'application/json',
+                                'Authorization': `Bearer ${token}`,
+                                'Origin': 'https://readingcinemas.com',
+                                'Referer': 'https://readingcinemas.com/'
+                            }
+                        });
+
+                        if (!response.ok) {
+                            if (response.status === 401) {
+                                throw new Error('Token expired or invalid');
+                            }
+                            continue;
+                        }
+
+                        const data = await response.json();
+
+                        // Check if it's an array of sessions
+                        if (!Array.isArray(data)) {
+                            console.log(`Unexpected response for ${cinema.name}:`, data);
+                            continue;
+                        }
+
+                        // Filter for our movie
+                        for (const session of data) {
+                            const movieName = (session.movieName || '').toLowerCase();
+                            const movieSlug = (session.movieSlug || '').toLowerCase();
+
+                            if (!movieName.includes(filmSearch) && !movieSlug.includes(filmSearch.replace(/\s+/g, '-'))) {
+                                continue;
+                            }
+
+                            const showDateTime = session.showDateTime;
+                            if (!showDateTime) continue;
+
+                            // Parse datetime: "2026-04-17T17:30:00-04"
+                            const dateMatch = showDateTime.match(/(\d{4}-\d{2}-\d{2})T(\d{2}):(\d{2})/);
+                            if (!dateMatch) continue;
+
+                            const dateStr = dateMatch[1];
+                            let hours = parseInt(dateMatch[2]);
+                            const minutes = dateMatch[3];
+                            const ampm = hours >= 12 ? 'PM' : 'AM';
+                            if (hours > 12) hours -= 12;
+                            if (hours === 0) hours = 12;
+                            const timeStr = `${hours}:${minutes} ${ampm}`;
+
+                            // Build ticket URL
+                            const sessionId = session.sessionId;
+                            const movieId = session.movieId;
+                            const ticketUrl = `https://readingcinemas.com/${cinema.slug}/buy-tickets/${session.movieSlug || 'movie'}?sessionId=${sessionId}&visession=${sessionId}`;
+
+                            const availableSeats = parseInt(session.availableSeats) || 0;
+                            const totalSeats = parseInt(session.totalNumberOfSeats) || 0;
+
+                            lastSearchResults.push({
+                                theater: `Reading Cinemas ${cinema.name.split('(')[0].trim()}`,
+                                date: dateStr,
+                                time: timeStr,
+                                eventType: 'General Admission',
+                                ticketLink: ticketUrl,
+                                availableSeats: availableSeats,
+                                totalSeats: totalSeats,
+                                cinemaName: session.cinemaName
+                            });
+                        }
+                    } catch (e) {
+                        console.error(`Error fetching ${cinema.name}:`, e);
+                        if (e.message.includes('Token')) {
+                            showError(e.message);
+                            return;
+                        }
+                    }
+                }
+
+                // Sort by date and time
+                lastSearchResults.sort((a, b) => {
+                    const dateCompare = a.date.localeCompare(b.date);
+                    if (dateCompare !== 0) return dateCompare;
+                    return a.time.localeCompare(b.time);
+                });
+
+                displayResults();
+
+            } catch (error) {
+                showError(`Error: ${error.message}`);
+            } finally {
+                document.getElementById('searchBtn').disabled = false;
+            }
+        }
+
+        function displayResults() {
+            const resultsDiv = document.getElementById('results');
+
+            if (lastSearchResults.length === 0) {
+                resultsDiv.innerHTML = '<div class="status">No showtimes found</div>';
+                document.getElementById('downloadBtn').disabled = true;
+                return;
+            }
+
+            document.getElementById('downloadBtn').disabled = false;
+
+            let html = `<div class="status" style="margin-bottom: 15px;">Found ${lastSearchResults.length} showtimes</div>`;
+
+            for (const result of lastSearchResults) {
+                let seatsHtml = '';
+                if (result.availableSeats > 0) {
+                    seatsHtml = `<span class="seats-left">${result.availableSeats}/${result.totalSeats} seats</span>`;
+                }
+
+                html += `
+                    <div class="result-card">
+                        <div class="theater-name">${result.cinemaName || result.theater}</div>
+                        <div class="showtime-info">
+                            <span class="date">${formatDate(result.date)}</span>
+                            <span class="time">${result.time}</span>
+                            ${seatsHtml}
+                        </div>
+                        <div class="event-type">${result.eventType}</div>
+                        <a href="${result.ticketLink}" target="_blank" class="ticket-link">Buy Tickets</a>
+                    </div>
+                `;
+            }
+
+            resultsDiv.innerHTML = html;
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr + 'T00:00:00');
+            return date.toLocaleDateString('en-US', {
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+            });
+        }
+
+        function showError(message) {
+            document.getElementById('results').innerHTML = `<div class="error">${message}</div>`;
+            document.getElementById('searchBtn').disabled = false;
+        }
+
+        function generateCSV() {
+            const rows = ['Theater,Date,Time,Event Type,Ticket Link'];
+            for (const result of lastSearchResults) {
+                const theater = (result.cinemaName || result.theater).replace(/,/g, '');
+                rows.push(`${theater},${result.date},${result.time},${result.eventType},${result.ticketLink}`);
+            }
+            return rows.join('\n');
+        }
+
+        function downloadCSV() {
+            if (lastSearchResults.length === 0) return;
+
+            const csv = generateCSV();
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+
+            const filmSlug = document.getElementById('filmSlug').value.trim().replace(/\s+/g, '_');
+            const today = new Date().toISOString().split('T')[0];
+            const filename = `reading_showtimes_${filmSlug}_${today}.csv`;
+
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        // Initialize on load
+        initCinemaList();
+    </script>
+</body>
+</html>
