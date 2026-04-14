@@ -489,13 +489,17 @@
             <div class="token-grid">
                 <div class="token-field">
                     <label for="readingToken">Reading Cinemas / Angelika Token</label>
-                    <input type="password" id="readingToken" placeholder="Paste Bearer token...">
+                    <input type="text" id="readingToken" placeholder="Paste Bearer token...">
                     <span class="hint">Same token works for both (AWS Cognito, expires ~1hr)</span>
                 </div>
             </div>
         </div>
 
         <!-- Theater Chains -->
+        <div class="chain-selection-buttons" style="margin-bottom: 15px; display: flex; gap: 10px;">
+            <button onclick="selectAllChains()" style="padding: 8px 16px; background: #10b981; color: white; border: none; border-radius: 6px; cursor: pointer;">Select All</button>
+            <button onclick="deselectAllChains()" style="padding: 8px 16px; background: #6b7280; color: white; border: none; border-radius: 6px; cursor: pointer;">Deselect All</button>
+        </div>
         <div class="chains-grid">
             <!-- Alamo Drafthouse -->
             <div class="chain-card" id="card-alamo">
@@ -528,7 +532,7 @@
                     <span class="chain-name">Angelika Film Center</span>
                     <span class="chain-status needs-token">Needs Token</span>
                 </div>
-                <div class="chain-theaters">Village East (NYC), Dallas</div>
+                <div class="chain-theaters">Village East, SoHo (NYC), Mosaic (VA), Union Market (DC), Dallas</div>
                 <div class="chain-count">Found: <strong id="count-angelika">0</strong> showtimes</div>
                 <div class="chain-type api">Direct API - no server needed</div>
             </div>
@@ -697,8 +701,11 @@
             angelika: {
                 countryId: '6',
                 cinemas: {
-                    '0000000004': { name: 'Village East by Angelika', slug: 'villageeast' },
-                    '0000000009': { name: 'Angelika Film Center Dallas', slug: 'dallas' }
+                    '0000000004': { name: 'Village East by Angelika (NYC)', slug: 'villageeast' },
+                    '0000000005': { name: 'Angelika New York (SoHo)', slug: 'nyc' },
+                    '0000000006': { name: 'Angelika Mosaic (Fairfax, VA)', slug: 'mosaic' },
+                    '0000000007': { name: 'Angelika Pop-Up at Union Market (DC)', slug: 'dc' },
+                    '0000000009': { name: 'Angelika Film Center - Dallas', slug: 'dallas' }
                 }
             }
         };
@@ -1438,7 +1445,7 @@
             document.getElementById('syncResult').style.display = 'none';
         }
 
-        function selectAll() {
+        function selectAllChains() {
             document.getElementById('chain-alamo').checked = true;
             document.getElementById('chain-reading').checked = true;
             document.getElementById('chain-angelika').checked = true;
@@ -1449,6 +1456,15 @@
                 document.getElementById('chain-amc').checked = true;
                 document.getElementById('chain-fandango').checked = true;
             }
+        }
+
+        function deselectAllChains() {
+            document.getElementById('chain-alamo').checked = false;
+            document.getElementById('chain-reading').checked = false;
+            document.getElementById('chain-angelika').checked = false;
+            document.getElementById('chain-regal').checked = false;
+            document.getElementById('chain-amc').checked = false;
+            document.getElementById('chain-fandango').checked = false;
         }
 
         function clearResults() {
