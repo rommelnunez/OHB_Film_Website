@@ -200,7 +200,7 @@ def scrape_fandango():
 
 
 def parse_csv_to_set(csv_content):
-    """Parse CSV content and return a dict keyed by theater+date+time"""
+    """Parse CSV content and return a dict keyed by ticket link (the unique identifier)"""
     entries = {}
     lines = csv_content.strip().split('\n')
     for i, line in enumerate(lines):
@@ -215,7 +215,9 @@ def parse_csv_to_set(csv_content):
             time = parts[2]
             event_type = parts[3]
             ticket_link = ','.join(parts[4:])  # URL might have commas
-            key = f"{theater}|{date}|{time}"
+            # Use ticket link as key - it's the truly unique identifier
+            # This prevents duplicates from different theater name variations
+            key = ticket_link.strip()
             entries[key] = {
                 'theater': theater,
                 'date': date,
@@ -227,7 +229,7 @@ def parse_csv_to_set(csv_content):
 
 
 def merge_showtimes(existing_csv, new_csv):
-    """Merge new showtimes with existing ones, deduplicating by theater+date+time"""
+    """Merge new showtimes with existing ones, deduplicating by ticket link"""
     existing = parse_csv_to_set(existing_csv)
     new = parse_csv_to_set(new_csv)
 
