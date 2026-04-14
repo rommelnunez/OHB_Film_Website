@@ -294,7 +294,7 @@
                             if (dateStr > cutoffDateStr) continue;
 
                             const sessionId = session.sessionId;
-                            const ticketUrl = `https://drafthouse.com/${config.marketSlug}/show/${session.presentationSlug || filmSlug}?cinemaId=${cinemaId}`;
+                            const ticketUrl = `https://drafthouse.com/${config.marketSlug}/show/${session.presentationSlug || filmSlug}?cinemaId=${cinemaId}&sessionId=${sessionId}&date=${dateStr}`;
 
                             let eventType = 'General Admission';
                             if (presentationSlug.includes('baby')) {

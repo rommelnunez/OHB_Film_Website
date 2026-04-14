@@ -864,7 +864,8 @@
                         const cinemaInfo = CONFIG.alamo.cinemas[cinemaId];
                         const theaterName = cinemaInfo?.name || `Alamo Drafthouse ${cinemaId}`;
 
-                        const ticketUrl = `https://drafthouse.com/${market}/show/${session.presentationSlug || filmSlug}?cinemaId=${cinemaId}`;
+                        const sessionId = session.sessionId;
+                        const ticketUrl = `https://drafthouse.com/${market}/show/${session.presentationSlug || filmSlug}?cinemaId=${cinemaId}&sessionId=${sessionId}&date=${dateStr}`;
 
                         let eventType = 'General Admission';
                         if (presentationSlug.includes('baby')) eventType = 'Baby Day Show';
