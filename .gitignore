@@ -5,6 +5,8 @@ node_modules/
 *.pdf
 Screenshot*.png
 .claude/
-brain/
-_archive_ticketlaunchday/
+.venv/
 amckey.txt
+
+# Archived files (old versions, reference docs, etc.)
+_archive/
