@@ -250,8 +250,7 @@
                     try {
                         const response = await fetch(apiUrl, {
                             headers: {
-                                'Accept': 'application/json',
-                                'User-Agent': 'Mozilla/5.0'
+                                'Accept': 'application/json'
                             }
                         });
 
@@ -266,7 +265,7 @@
                             const presentationSlug = (session.presentationSlug || '').toLowerCase();
                             const legacySlug = (session.legacySlug || '').toLowerCase();
 
-                            if (!presentationSlug.includes(filmSlug) && !legacySlug.includes(filmSlug)) {
+                            if (!presentationSlug.includes(filmSlug.toLowerCase()) && !legacySlug.includes(filmSlug.toLowerCase())) {
                                 continue;
                             }
 
@@ -279,18 +278,23 @@
                             const showTimeClt = session.showTimeClt;
                             if (!showTimeClt) continue;
 
-                            const sessionDate = new Date(showTimeClt);
-                            if (sessionDate > cutoffDate) continue;
+                            // showTimeClt is in Central Time - parse it directly without timezone conversion
+                            // Format: "2026-04-17T21:45:00"
+                            const dateStr = showTimeClt.split('T')[0]; // "2026-04-17"
+                            const timePart = showTimeClt.split('T')[1]; // "21:45:00"
 
-                            const dateStr = sessionDate.toISOString().split('T')[0];
-                            const timeStr = sessionDate.toLocaleTimeString('en-US', {
-                                hour: 'numeric',
-                                minute: '2-digit',
-                                hour12: true
-                            });
+                            // Parse hours/minutes for display
+                            const [hours, minutes] = timePart.split(':').map(Number);
+                            const hour12 = hours % 12 || 12;
+                            const ampm = hours >= 12 ? 'PM' : 'AM';
+                            const timeStr = `${hour12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+
+                            // For date comparison, just compare the date strings
+                            const cutoffDateStr = cutoffDate.toISOString().split('T')[0];
+                            if (dateStr > cutoffDateStr) continue;
 
                             const sessionId = session.sessionId;
-                            const ticketUrl = `https://drafthouse.com/${config.marketSlug}/show/${session.presentationSlug || filmSlug}?date=${dateStr}&cinemaId=${cinemaId}&sessionId=${sessionId}`;
+                            const ticketUrl = `https://drafthouse.com/${config.marketSlug}/show/${session.presentationSlug || filmSlug}?cinemaId=${cinemaId}`;
 
                             let eventType = 'General Admission';
                             if (presentationSlug.includes('baby')) {
@@ -313,7 +317,6 @@
                         console.error(`Error fetching ${market}:`, e);
                     }
                 }
-
                 // Sort by date and time
                 lastSearchResults.sort((a, b) => {
                     const dateCompare = a.date.localeCompare(b.date);

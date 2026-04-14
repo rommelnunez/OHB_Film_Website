@@ -12,11 +12,15 @@ OHB_Film_Website/
 │   └── images/
 │       └── theaters/       # Theater chain logos (SVG/PNG)
 ├── scraper-dashboard/      # UNIFIED SCRAPER UI (run this!)
+│   ├── updatescreenings    # CLI shortcut to launch dashboard
+│   ├── index.html          # Web dashboard UI
+│   ├── server.py           # Python backend for Playwright scrapers
+│   └── requirements.txt    # Python dependencies
 ├── automatedshowtimescalendar/
 │   └── sync/               # Python CLI scrapers (Playwright-based)
-├── alamo-showtimes/        # Individual Alamo scraper (web UI)
-├── angelika-showtimes/     # Individual Angelika scraper (web UI)
-├── reading-showtimes/      # Individual Reading scraper (web UI)
+├── alamo-showtimes/        # Individual Alamo scraper (for testing/debugging)
+├── angelika-showtimes/     # Individual Angelika scraper (for testing/debugging)
+├── reading-showtimes/      # Individual Reading scraper (for testing/debugging)
 ├── docs/                   # Technical documentation
 ├── shopifytest/            # Merch integration test pages
 ├── ALR_website/            # Separate project (ALR website)
@@ -38,20 +42,26 @@ Showtimes are stored in TWO places that must stay in sync:
 
 ### Updating Showtimes
 
-**Recommended: Use the Scraper Dashboard**
+**Recommended: Use the Unified Scraper Dashboard**
+
 ```bash
+# Quick start (auto-installs deps, opens browser)
+./scraper-dashboard/updatescreenings
+
+# Or manually:
 cd scraper-dashboard
-python3 -m http.server 8000
-# Open http://localhost:8000
+pip install -r requirements.txt
+playwright install chromium
+python server.py
+# Opens at http://localhost:5050
 ```
 
-The dashboard scrapes Alamo, Reading, and Angelika theaters and exports CSV.
-
-**After scraping:**
-1. Download the CSV from the dashboard
-2. Copy new entries to `showtimes.csv`
-3. Add new entries to the `SHOWTIMES_DATA` array in `index.html`
-4. Commit and push
+The dashboard provides:
+- **One-click scraping** for all 6 theater chains
+- **Merge or Replace modes** - merge adds new showtimes while keeping existing ones
+- **Automatic sync** to both OHB and WG websites
+- **Load Existing** button to view current showtimes before syncing
+- **Server status indicator** shows if Playwright scrapers are available
 
 ### Theater Configuration
 
@@ -94,14 +104,51 @@ const THEATER_LOGOS = {
 
 ## Scraper Dashboard
 
-Location: `/scraper-dashboard/index.html`
+Location: `/scraper-dashboard/`
 
-### Supported Chains (Web UI)
-- **Alamo Drafthouse** - No auth required, uses public API
-- **Reading Cinemas** - Requires Bearer token (AWS Cognito)
-- **Angelika Film Center** - Same token as Reading (same API)
+### Architecture
 
-### Getting Bearer Tokens
+```
+┌─────────────────────────────────────────────────────────────┐
+│                   Web Dashboard (index.html)                 │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐          │
+│  │   Alamo     │  │   Reading   │  │  Angelika   │  Direct  │
+│  │  (fetch)    │  │   (fetch)   │  │   (fetch)   │   API    │
+│  └─────────────┘  └─────────────┘  └─────────────┘          │
+│                                                              │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐          │
+│  │   Regal     │  │    AMC      │  │  Fandango   │  Via     │
+│  │ (server.py) │  │ (server.py) │  │ (server.py) │  Server  │
+│  └──────┬──────┘  └──────┬──────┘  └──────┬──────┘          │
+└─────────┼────────────────┼────────────────┼─────────────────┘
+          │                │                │
+          ▼                ▼                ▼
+┌─────────────────────────────────────────────────────────────┐
+│                  Python Server (server.py)                   │
+│         Flask + Playwright (runs headless Chrome)           │
+│                                                              │
+│  Endpoints:                                                  │
+│    POST /api/scrape/regal    → Playwright scraper           │
+│    POST /api/scrape/amc      → Playwright scraper           │
+│    POST /api/scrape/fandango → Playwright scraper           │
+│    POST /api/sync            → Save CSV (merge/replace)     │
+│    GET  /api/csv/current     → Load existing showtimes      │
+│    GET  /api/status          → Server + Playwright status   │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Scraper Types
+
+| Chain | Type | Auth Required | Notes |
+|-------|------|---------------|-------|
+| Alamo Drafthouse | Direct API | No | Public REST API |
+| Reading Cinemas | Direct API | Yes (Bearer) | AWS Cognito token |
+| Angelika Film Center | Direct API | Yes (Bearer) | Same token as Reading |
+| Regal Cinemas | Playwright | No | Cloudflare protected |
+| AMC Theatres | Playwright | No | Cloudflare protected |
+| Fandango | Playwright | No | Cloudflare protected |
+
+### Getting Bearer Tokens (Reading/Angelika)
 1. Go to https://readingcinemas.com or https://angelikafilmcenter.com
 2. Open DevTools > Network tab
 3. Navigate to any movie's showtimes
@@ -109,15 +156,48 @@ Location: `/scraper-dashboard/index.html`
 5. Copy the `Authorization: Bearer ...` header
 6. Tokens expire after ~1 hour
 
-### Chains Requiring Python CLI
-These need Playwright (headless browser) due to Cloudflare protection:
-- **Regal** - Run: `python sync_showtimes.py --regal-only`
-- **AMC** - Run: `python sync_showtimes.py --amc-only`
-- **Fandango** - Run: `python sync_showtimes.py --fandango-only`
+### Running the Dashboard
 
-## Python CLI Scrapers
+**Quickest way (recommended):**
+```bash
+./scraper-dashboard/updatescreenings
+# Auto-installs deps, starts server at http://localhost:5050, opens browser
+```
+
+**Full functionality (all 6 chains + sync):**
+```bash
+cd scraper-dashboard
+pip install -r requirements.txt
+playwright install chromium
+python server.py
+# Open http://localhost:5050
+```
+
+**Basic mode (API chains only, no sync):**
+```bash
+cd scraper-dashboard
+python3 -m http.server 5050
+# Open http://localhost:5050
+# Regal/AMC/Fandango will show "Needs Server"
+```
+
+### Sync Feature
+
+The "Sync to Both Websites" button automatically writes the CSV to:
+1. `/Users/rommelnunez/Desktop/OHB_Film_Website/showtimes.csv`
+2. `/Users/rommelnunez/Desktop/wg-website/public/data/showtimes.csv`
+
+**Sync Modes:**
+- **Merge** (default): Adds new showtimes while keeping existing ones. Deduplicates by theater+date+time.
+- **Replace**: Completely overwrites existing CSV with new results.
+
+Both sites use the exact same CSV format, so they stay in sync.
+
+## Python CLI Scrapers (Legacy)
 
 Location: `/automatedshowtimescalendar/sync/`
+
+These are still available for command-line use, but the dashboard is preferred.
 
 ### Setup
 ```bash
@@ -160,7 +240,18 @@ python sync_showtimes.py --verbose           # Show progress
    "New Chain Theater Name": "City Name"
    ```
 
-5. **If chain has API**, add scraper to `scraper-dashboard/index.html`
+5. **If chain has API**, add scraper to:
+   - `scraper-dashboard/index.html` (JavaScript, for direct API)
+   - `scraper-dashboard/server.py` (Python, for Playwright-based)
+
+6. **Add theater config** to `server.py`:
+   ```python
+   NEWCHAIN_CONFIG = {
+       'theaters': [
+           {'id': '123', 'name': 'New Chain Theater Name'},
+       ]
+   }
+   ```
 
 ## Related Projects
 
@@ -171,11 +262,10 @@ Location: `/Users/rommelnunez/Desktop/wg-website`
 - Rebuilds on push via GitHub Actions
 
 ### Sync Strategy
-Both sites use the same CSV format. After scraping:
-1. Update `OHB_Film_Website/showtimes.csv`
-2. Update `OHB_Film_Website/index.html` SHOWTIMES_DATA array
-3. Copy CSV to `wg-website/public/data/showtimes.csv`
-4. Commit and push both repos
+Both sites use the same CSV format. The dashboard syncs automatically, or manually:
+1. Run scraper dashboard
+2. Click "Sync to Both Websites"
+3. Commit and push both repos
 
 ## Common Tasks
 
@@ -211,6 +301,8 @@ Just push to main branch - GitHub Pages auto-deploys.
 | `robots.txt` | SEO config |
 | `sitemap.xml` | SEO sitemap |
 | `.nojekyll` | Disable Jekyll processing |
+| `scraper-dashboard/server.py` | Unified scraper backend |
+| `scraper-dashboard/index.html` | Unified scraper UI |
 
 ## Notes
 
@@ -218,3 +310,4 @@ Just push to main branch - GitHub Pages auto-deploys.
 - Time format: "H:MM AM/PM" (e.g., "7:30 PM", "10:00 AM")
 - Date format: "YYYY-MM-DD" (e.g., "2026-04-17")
 - The ticket calendar filters out past dates automatically
+- The scraper dashboard requires Python 3.8+ and Node.js for Playwright
