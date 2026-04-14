@@ -44,9 +44,9 @@ AMC_CONFIG = {
     'movie_id': '83057',
     'movie_slug': 'our-hero-balthazar-83057',
     'theaters': [
-        {'slug': 'amc-burbank-town-center-8', 'name': 'AMC Burbank Town Center 8'},
-        {'slug': 'amc-century-city-15', 'name': 'AMC Century City 15'},
-        {'slug': 'amc-the-americana-at-brand-18', 'name': 'AMC The Americana at Brand 18'},
+        {'slug': 'amc-burbank-town-center-8', 'city': 'los-angeles', 'name': 'AMC Burbank Town Center 8'},
+        {'slug': 'amc-century-city-15', 'city': 'los-angeles', 'name': 'AMC Century City 15'},
+        {'slug': 'amc-the-americana-at-brand-18', 'city': 'los-angeles', 'name': 'AMC The Americana at Brand 18'},
     ]
 }
 
