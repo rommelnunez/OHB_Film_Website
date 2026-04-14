@@ -311,3 +311,25 @@ Just push to main branch - GitHub Pages auto-deploys.
 - Date format: "YYYY-MM-DD" (e.g., "2026-04-17")
 - The ticket calendar filters out past dates automatically
 - The scraper dashboard requires Python 3.8+ and Node.js for Playwright
+
+## CRITICAL: Scraper Rules
+
+**ALL SCRAPERS MUST ONLY RETURN SHOWTIMES FOR "OUR HERO, BALTHAZAR"**
+
+This is the film website for "Our Hero, Balthazar" - scrapers should NEVER return showtimes for other movies. When writing or modifying scrapers:
+
+1. **Always filter by movie** - Use movie-specific URLs or filter API responses by film title/ID
+2. **Hardcoded movie identifiers per chain:**
+   - AMC: `movie_slug = "our-hero-balthazar-83057"`, `movie_id = "83057"`
+   - Regal: `ho_code = "HO00020753"`
+   - Fandango: `movie_id = "244581"`
+   - Alamo: `film_slug = "our-hero-balthazar"`
+   - Reading/Angelika: Filter by `filmName` containing "Our Hero" or "Balthazar"
+
+3. **Verify output** - After scraping, confirm results are for the correct film, not all movies at a theater
+
+4. **AMC-specific**: Use the movie-specific URL format:
+   ```
+   /movies/{movie_slug}/showtimes/{movie_slug}/{date}/{theater_slug}/all
+   ```
+   NOT the theater showtimes page (which shows all movies)
