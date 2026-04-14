@@ -267,6 +267,18 @@
             return Array.from(document.querySelectorAll('#cinemaList input:checked')).map(cb => cb.value);
         }
 
+        // Generate dates for the next N days
+        function getNextDates(days = 14) {
+            const dates = [];
+            const today = new Date();
+            for (let i = 0; i < days; i++) {
+                const d = new Date(today);
+                d.setDate(today.getDate() + i);
+                dates.push(d.toISOString().split('T')[0]);
+            }
+            return dates;
+        }
+
         async function searchShowtimes() {
             const token = document.getElementById('token').value.trim();
             const filmSearch = document.getElementById('filmSlug').value.trim().toLowerCase();
@@ -293,88 +305,100 @@
             document.getElementById('downloadBtn').disabled = true;
 
             lastSearchResults = [];
+            const dates = getNextDates(14);
 
             try {
                 for (const cinemaId of selectedCinemas) {
                     const cinema = CINEMAS[cinemaId];
-                    resultsDiv.innerHTML = `<div class="status">Searching ${cinema.name}...</div>`;
 
-                    // First get the list of films showing at this cinema
-                    const filmsUrl = `${API_BASE}/films?countryId=${COUNTRY_ID}&cinemaId=${cinemaId}&sort=true&status=getSessionData`;
+                    for (const selectedDate of dates) {
+                        resultsDiv.innerHTML = `<div class="status">Searching ${cinema.name} - ${selectedDate}...</div>`;
 
-                    try {
-                        const response = await fetch(filmsUrl, {
-                            headers: {
-                                'Accept': 'application/json',
-                                'Authorization': `Bearer ${token}`,
-                                'Origin': 'https://readingcinemas.com',
-                                'Referer': 'https://readingcinemas.com/'
-                            }
-                        });
+                        // Use getShows endpoint with flag=nowshowing
+                        const filmsUrl = `${API_BASE}/films?countryId=${COUNTRY_ID}&cinemaId=${cinemaId}&status=getShows&flag=nowshowing&selectedDate=${selectedDate}`;
 
-                        if (!response.ok) {
-                            if (response.status === 401) {
-                                throw new Error('Token expired or invalid');
-                            }
-                            continue;
-                        }
+                        try {
+                            const response = await fetch(filmsUrl, {
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Authorization': `Bearer ${token}`,
+                                    'Origin': 'https://readingcinemas.com',
+                                    'Referer': 'https://readingcinemas.com/'
+                                }
+                            });
 
-                        const data = await response.json();
-
-                        // Check if it's an array of sessions
-                        if (!Array.isArray(data)) {
-                            console.log(`Unexpected response for ${cinema.name}:`, data);
-                            continue;
-                        }
-
-                        // Filter for our movie
-                        for (const session of data) {
-                            const movieName = (session.movieName || '').toLowerCase();
-                            const movieSlug = (session.movieSlug || '').toLowerCase();
-
-                            if (!movieName.includes(filmSearch) && !movieSlug.includes(filmSearch.replace(/\s+/g, '-'))) {
+                            if (!response.ok) {
+                                if (response.status === 401) {
+                                    throw new Error('Token expired or invalid');
+                                }
                                 continue;
                             }
 
-                            const showDateTime = session.showDateTime;
-                            if (!showDateTime) continue;
+                            const data = await response.json();
+                            const movies = data?.nowShowing?.data?.movies || [];
 
-                            // Parse datetime: "2026-04-17T17:30:00-04"
-                            const dateMatch = showDateTime.match(/(\d{4}-\d{2}-\d{2})T(\d{2}):(\d{2})/);
-                            if (!dateMatch) continue;
+                            // Filter for our movie
+                            for (const movie of movies) {
+                                const movieName = (movie.name || '').toLowerCase();
+                                const movieSlug = (movie.movieSlug || '').toLowerCase();
 
-                            const dateStr = dateMatch[1];
-                            let hours = parseInt(dateMatch[2]);
-                            const minutes = dateMatch[3];
-                            const ampm = hours >= 12 ? 'PM' : 'AM';
-                            if (hours > 12) hours -= 12;
-                            if (hours === 0) hours = 12;
-                            const timeStr = `${hours}:${minutes} ${ampm}`;
+                                if (!movieName.includes(filmSearch) && !movieSlug.includes(filmSearch.replace(/\s+/g, '-'))) {
+                                    continue;
+                                }
 
-                            // Build ticket URL
-                            const sessionId = session.sessionId;
-                            const movieId = session.movieId;
-                            const ticketUrl = `https://readingcinemas.com/${cinema.slug}/buy-tickets/${session.movieSlug || 'movie'}?sessionId=${sessionId}&visession=${sessionId}`;
+                                // Iterate through showdates > showtypes > showtimes
+                                for (const showdate of movie.showdates || []) {
+                                    for (const showtype of showdate.showtypes || []) {
+                                        for (const showtime of showtype.showtimes || []) {
+                                            const dateTime = showtime.date_time;
+                                            if (!dateTime) continue;
 
-                            const availableSeats = parseInt(session.availableSeats) || 0;
-                            const totalSeats = parseInt(session.totalNumberOfSeats) || 0;
+                                            // Parse datetime: "2026-04-17T17:30:00-04"
+                                            const dateMatch = dateTime.match(/(\d{4}-\d{2}-\d{2})T(\d{2}):(\d{2})/);
+                                            if (!dateMatch) continue;
 
-                            lastSearchResults.push({
-                                theater: `Reading Cinemas ${cinema.name.split('(')[0].trim()}`,
-                                date: dateStr,
-                                time: timeStr,
-                                eventType: 'General Admission',
-                                ticketLink: ticketUrl,
-                                availableSeats: availableSeats,
-                                totalSeats: totalSeats,
-                                cinemaName: session.cinemaName
-                            });
-                        }
-                    } catch (e) {
-                        console.error(`Error fetching ${cinema.name}:`, e);
-                        if (e.message.includes('Token')) {
-                            showError(e.message);
-                            return;
+                                            const dateStr = dateMatch[1];
+                                            let hours = parseInt(dateMatch[2]);
+                                            const minutes = dateMatch[3];
+                                            const ampm = hours >= 12 ? 'PM' : 'AM';
+                                            if (hours > 12) hours -= 12;
+                                            if (hours === 0) hours = 12;
+                                            const timeStr = `${hours}:${minutes} ${ampm}`;
+
+                                            // Build ticket URL
+                                            const sessionId = showtime.id;
+                                            const scheduledFilmId = showtime.ScheduledFilmId;
+                                            const ticketUrl = `https://readingcinemas.com/${cinema.slug}/sessions/${sessionId}/${scheduledFilmId}`;
+
+                                            const availableSeats = parseInt(showtime.availableSeats) || 0;
+                                            const totalSeats = parseInt(showtime.totalNumberOfSeats) || 0;
+
+                                            // Check for duplicates
+                                            const key = `${cinemaId}-${sessionId}`;
+                                            if (lastSearchResults.find(r => r._key === key)) continue;
+
+                                            lastSearchResults.push({
+                                                _key: key,
+                                                theater: `Reading Cinemas ${cinema.name.split('(')[0].trim()}`,
+                                                date: dateStr,
+                                                time: timeStr,
+                                                eventType: showtype.type || 'General Admission',
+                                                ticketLink: ticketUrl,
+                                                availableSeats: availableSeats,
+                                                totalSeats: totalSeats,
+                                                cinemaName: `Reading Cinemas ${cinema.name}`,
+                                                soldOut: showtime.soldout || false
+                                            });
+                                        }
+                                    }
+                                }
+                            }
+                        } catch (e) {
+                            console.error(`Error fetching ${cinema.name} for ${selectedDate}:`, e);
+                            if (e.message.includes('Token')) {
+                                showError(e.message);
+                                return;
+                            }
                         }
                     }
                 }
