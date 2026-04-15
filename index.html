@@ -393,9 +393,14 @@
                 });
         }
 
-        // Get unique cities
+        // Get unique cities (only from current/future showtimes)
         function getUniqueCities() {
-            const citySet = new Set(SHOWTIMES_DATA.map(s => getTheaterCity(s.theater)));
+            const currentPacificDate = getCurrentPacificDate();
+            const citySet = new Set(
+                SHOWTIMES_DATA
+                    .filter(s => s.date >= currentPacificDate)
+                    .map(s => getTheaterCity(s.theater))
+            );
             return Array.from(citySet).sort();
         }
 
