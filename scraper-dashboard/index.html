@@ -587,17 +587,23 @@
             <h2>Sync Options</h2>
             <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
                 <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #fff;">
-                    <input type="radio" name="syncMode" value="merge" checked style="width: 16px; height: 16px; accent-color: #fff;">
+                    <input type="radio" name="syncMode" value="merge" style="width: 16px; height: 16px; accent-color: #fff;">
                     <span><strong>Merge</strong> <span style="color: #666;">- Add new, keep existing</span></span>
                 </label>
                 <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #fff;">
+                    <input type="radio" name="syncMode" value="update_chains" checked style="width: 16px; height: 16px; accent-color: #fff;">
+                    <span><strong>Update Chains</strong> <span style="color: #666;">- Replace scraped chains, keep others</span></span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #fff;">
                     <input type="radio" name="syncMode" value="replace" style="width: 16px; height: 16px; accent-color: #fff;">
-                    <span><strong>Replace</strong> <span style="color: #666;">- Overwrite all</span></span>
+                    <span><strong>Replace All</strong> <span style="color: #666;">- Overwrite everything</span></span>
                 </label>
                 <button class="btn-sync" id="syncBtn" onclick="syncToWebsites()" disabled>Sync to Both Websites</button>
             </div>
             <p style="font-size: 0.75rem; color: #444; margin-top: 10px; font-weight: 300;">
-                Merge deduplicates by theater + date + time.
+                <strong>Merge:</strong> adds new, keeps all existing &nbsp;|&nbsp;
+                <strong>Update Chains:</strong> replaces data for scraped chains only &nbsp;|&nbsp;
+                <strong>Replace All:</strong> deletes everything, uses only scraped data
             </p>
         </div>
 
@@ -1276,15 +1282,21 @@
             const syncMode = document.querySelector('input[name="syncMode"]:checked').value;
             const csv = generateCSV();
 
+            // Get list of chains that were scraped (have results)
+            const scrapedChains = [...new Set(allResults.map(r => r.chain))];
+
             // Try server sync first
             if (serverConnected) {
                 log(`Syncing via server (${syncMode} mode)...`, 'info');
+                if (syncMode === 'update_chains') {
+                    log(`Updating chains: ${scrapedChains.join(', ')}`, 'info');
+                }
 
                 try {
                     const response = await fetch(`${CONFIG.serverUrl}/api/sync`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ csv, mode: syncMode })
+                        body: JSON.stringify({ csv, mode: syncMode, chains: scrapedChains })
                     });
 
                     const data = await response.json();

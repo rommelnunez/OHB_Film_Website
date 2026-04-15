@@ -253,17 +253,81 @@ def merge_showtimes(existing_csv, new_csv):
     return '\n'.join(lines), stats
 
 
+def detect_chain(theater_name):
+    """Detect which chain a theater belongs to based on its name"""
+    theater_lower = theater_name.lower()
+    if 'regal' in theater_lower:
+        return 'regal'
+    elif 'amc' in theater_lower:
+        return 'amc'
+    elif 'alamo' in theater_lower:
+        return 'alamo'
+    elif 'los feliz' in theater_lower:
+        return 'fandango'
+    elif 'reading' in theater_lower:
+        return 'reading'
+    elif 'angelika' in theater_lower or 'village east' in theater_lower or 'cinema 123' in theater_lower or 'tower theatre' in theater_lower:
+        return 'angelika'
+    return 'unknown'
+
+
+def update_chains_showtimes(existing_csv, new_csv, chains_to_update):
+    """
+    Replace showtimes for specified chains, keep showtimes from other chains.
+
+    Args:
+        existing_csv: Current CSV content
+        new_csv: New scraped CSV content
+        chains_to_update: List of chain names to replace (e.g., ['alamo', 'regal'])
+    """
+    existing = parse_csv_to_set(existing_csv)
+    new = parse_csv_to_set(new_csv)
+
+    # Keep existing entries that are NOT from the chains being updated
+    kept = {}
+    removed_count = 0
+    for key, entry in existing.items():
+        chain = detect_chain(entry['theater'])
+        if chain not in chains_to_update:
+            kept[key] = entry
+        else:
+            removed_count += 1
+
+    # Add all new entries
+    merged = {**kept, **new}
+
+    # Sort by date, then time
+    sorted_entries = sorted(merged.values(), key=lambda x: (x['date'], x['time']))
+
+    # Generate CSV
+    lines = ['Theater,Date,Time,Event Type,Ticket Link']
+    for entry in sorted_entries:
+        lines.append(f"{entry['theater']},{entry['date']},{entry['time']},{entry['eventType']},{entry['ticketLink']}")
+
+    stats = {
+        'total': len(sorted_entries),
+        'added': len(new),
+        'kept': len(kept),
+        'removed': removed_count,
+        'chains_updated': chains_to_update
+    }
+
+    return '\n'.join(lines), stats
+
+
 @app.route('/api/sync', methods=['POST'])
 def sync_csv():
     """
     Save CSV to OHB website and sync to WG website.
     Expects JSON body with:
       - 'csv': CSV content
-      - 'mode': 'merge' (default) or 'replace'
+      - 'mode': 'merge', 'update_chains', or 'replace'
+      - 'chains': list of chain names (required for update_chains mode)
     """
     data = request.json or {}
     csv_content = data.get('csv', '')
     mode = data.get('mode', 'merge')
+    chains = data.get('chains', [])
 
     if not csv_content:
         return jsonify({'error': 'No CSV content provided'}), 400
@@ -274,14 +338,19 @@ def sync_csv():
     }
     stats = None
 
-    # Handle merge mode
-    if mode == 'merge' and OHB_CSV_PATH.exists():
+    # Handle different sync modes
+    if OHB_CSV_PATH.exists():
         try:
             with open(OHB_CSV_PATH, 'r') as f:
                 existing_csv = f.read()
-            csv_content, stats = merge_showtimes(existing_csv, csv_content)
+
+            if mode == 'merge':
+                csv_content, stats = merge_showtimes(existing_csv, csv_content)
+            elif mode == 'update_chains' and chains:
+                csv_content, stats = update_chains_showtimes(existing_csv, csv_content, chains)
+            # 'replace' mode: use csv_content as-is
         except Exception as e:
-            print(f"Error merging: {e}, falling back to replace mode")
+            print(f"Error processing: {e}, falling back to replace mode")
 
     # Save to OHB
     try:
