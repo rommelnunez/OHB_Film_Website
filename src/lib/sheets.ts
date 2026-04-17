@@ -69,17 +69,17 @@ interface EntryData {
 async function ensureSheetExists(
   spreadsheetId: string,
   sheetName: string
-): Promise<boolean> {
-  try {
-    const sheets = getGoogleSheetsClient();
+): Promise<void> {
+  const sheets = getGoogleSheetsClient();
 
-    // Check if sheet already exists
-    const spreadsheet = await sheets.spreadsheets.get({ spreadsheetId });
-    const existingSheet = spreadsheet.data.sheets?.find(
-      (s) => s.properties?.title === sheetName
-    );
+  const spreadsheet = await sheets.spreadsheets.get({ spreadsheetId });
+  const availableTabs = spreadsheet.data.sheets?.map((s) => s.properties?.title).join(', ');
+  const existingSheet = spreadsheet.data.sheets?.find(
+    (s) => s.properties?.title === sheetName
+  );
 
-    if (!existingSheet) {
+  if (!existingSheet) {
+    console.log(`Tab "${sheetName}" not found in ${spreadsheetId}. Available: ${availableTabs}. Creating.`);
       // Create new sheet
       await sheets.spreadsheets.batchUpdate({
         spreadsheetId,
@@ -116,12 +116,6 @@ async function ensureSheetExists(
         },
       });
     }
-
-    return true;
-  } catch (error) {
-    console.error('Error ensuring sheet exists:', error);
-    return false;
-  }
 }
 
 export type AppendResult = { ok: true } | { ok: false; error: string };
@@ -140,10 +134,7 @@ export async function appendEntryToSheet(
   try {
     const sheets = getGoogleSheetsClient();
 
-    const tabReady = await ensureSheetExists(spreadsheetId, sheetName);
-    if (!tabReady) {
-      return { ok: false, error: `Failed to ensure tab "${sheetName}" exists` };
-    }
+    await ensureSheetExists(spreadsheetId, sheetName);
 
     const timestamp = new Date().toISOString();
 
@@ -172,7 +163,7 @@ export async function appendEntryToSheet(
   } catch (error) {
     const err = error as Error & { code?: number; status?: number };
     const code = err.code ?? err.status ?? '';
-    const msg = `${code ? `[${code}] ` : ''}${err.message}`;
+    const msg = `${code ? `[${code}] ` : ''}${err.message} (spreadsheet=${spreadsheetId}, tab="${sheetName}")`;
     console.error('Error appending to Google Sheet:', msg);
     return { ok: false, error: msg };
   }
