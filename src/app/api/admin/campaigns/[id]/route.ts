@@ -6,8 +6,8 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'ohb-admin-2026';
 function checkAuth(request: NextRequest): boolean {
   const authHeader = request.headers.get('authorization');
   if (!authHeader) return false;
-  const password = authHeader.replace('Bearer ', '');
-  return password === ADMIN_PASSWORD;
+  const password = authHeader.replace('Bearer ', '').trim();
+  return password === ADMIN_PASSWORD.trim();
 }
 
 // GET single campaign with entries

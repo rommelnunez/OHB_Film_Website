@@ -40,9 +40,10 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // New campaign form
+  // Campaign form (create or edit)
   const [showForm, setShowForm] = useState(false);
-  const [formData, setFormData] = useState({
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const emptyForm = {
     slug: '',
     name: '',
     description: '',
@@ -52,7 +53,37 @@ export default function AdminPage() {
     winner_count: 10,
     eligible_cities: 'New York, Los Angeles',
     is_active: false,
-  });
+  };
+  const [formData, setFormData] = useState(emptyForm);
+
+  const toLocalInput = (iso: string | null) => {
+    if (!iso) return '';
+    const d = new Date(iso);
+    const pad = (n: number) => String(n).padStart(2, '0');
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  };
+
+  const startEditing = (campaign: Campaign) => {
+    setEditingId(campaign.id);
+    setFormData({
+      slug: campaign.slug,
+      name: campaign.name,
+      description: campaign.description || '',
+      starts_at: toLocalInput(campaign.starts_at),
+      ends_at: toLocalInput(campaign.ends_at),
+      prize_description: campaign.prize_description,
+      winner_count: campaign.winner_count,
+      eligible_cities: campaign.eligible_cities.join(', '),
+      is_active: campaign.is_active,
+    });
+    setShowForm(true);
+  };
+
+  const cancelForm = () => {
+    setShowForm(false);
+    setEditingId(null);
+    setFormData(emptyForm);
+  };
 
   const authHeaders = {
     'Content-Type': 'application/json',
@@ -92,18 +123,28 @@ export default function AdminPage() {
     }
   };
 
-  const createCampaign = async (e: React.FormEvent) => {
+  const submitCampaign = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch('/api/admin/campaigns', {
-        method: 'POST',
+      const payload = {
+        ...formData,
+        ends_at: formData.ends_at || null,
+        eligible_cities: formData.eligible_cities
+          .split(',')
+          .map((c) => c.trim())
+          .filter(Boolean),
+      };
+
+      const url = editingId
+        ? `/api/admin/campaigns/${editingId}`
+        : '/api/admin/campaigns';
+      const method = editingId ? 'PATCH' : 'POST';
+
+      const res = await fetch(url, {
+        method,
         headers: authHeaders,
-        body: JSON.stringify({
-          ...formData,
-          ends_at: formData.ends_at || null, // Allow null end date
-          eligible_cities: formData.eligible_cities.split(',').map((c) => c.trim()),
-        }),
+        body: JSON.stringify(payload),
       });
 
       if (!res.ok) {
@@ -111,21 +152,10 @@ export default function AdminPage() {
         throw new Error(data.error);
       }
 
-      setShowForm(false);
-      setFormData({
-        slug: '',
-        name: '',
-        description: '',
-        starts_at: '',
-        ends_at: '',
-        prize_description: '2 free tickets to Our Hero, Balthazar',
-        winner_count: 10,
-        eligible_cities: 'New York, Los Angeles',
-        is_active: false,
-      });
+      cancelForm();
       fetchCampaigns();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to create campaign');
+      setError(err instanceof Error ? err.message : 'Failed to save campaign');
     } finally {
       setLoading(false);
     }
@@ -206,7 +236,10 @@ export default function AdminPage() {
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h1 className="heading text-2xl text-white">Campaign Admin</h1>
-          <button onClick={() => setShowForm(!showForm)} className="btn-primary">
+          <button
+            onClick={() => (showForm ? cancelForm() : setShowForm(true))}
+            className="btn-primary"
+          >
             {showForm ? 'Cancel' : 'New Campaign'}
           </button>
         </div>
@@ -216,8 +249,10 @@ export default function AdminPage() {
         {/* New Campaign Form */}
         {showForm && (
           <div className="bg-[#111] p-6 mb-8">
-            <h2 className="heading text-xl text-white mb-4">Create Campaign</h2>
-            <form onSubmit={createCampaign} className="grid grid-cols-2 gap-4">
+            <h2 className="heading text-xl text-white mb-4">
+              {editingId ? 'Edit Campaign' : 'Create Campaign'}
+            </h2>
+            <form onSubmit={submitCampaign} className="grid grid-cols-2 gap-4">
               <div>
                 <label className="text-gray-400 text-sm">Slug (URL-friendly)</label>
                 <input
@@ -310,7 +345,7 @@ export default function AdminPage() {
               </div>
               <div className="col-span-2">
                 <button type="submit" className="btn-primary" disabled={loading}>
-                  {loading ? 'Creating...' : 'Create Campaign'}
+                  {loading ? 'Saving...' : editingId ? 'Save Changes' : 'Create Campaign'}
                 </button>
               </div>
             </form>
@@ -350,12 +385,18 @@ export default function AdminPage() {
                 <p>{campaign.entries?.[0]?.count || 0} entries</p>
               </div>
 
-              <div className="flex gap-2">
+              <div className="flex gap-2 flex-wrap">
                 <button
                   onClick={() => fetchCampaignDetails(campaign.id)}
                   className="text-white text-sm underline"
                 >
                   View Entries
+                </button>
+                <button
+                  onClick={() => startEditing(campaign)}
+                  className="text-white text-sm underline"
+                >
+                  Edit
                 </button>
                 <button
                   onClick={() => toggleCampaignActive(campaign)}
