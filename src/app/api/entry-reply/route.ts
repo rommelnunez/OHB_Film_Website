@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
 
     const { data: entry, error: fetchError } = await supabaseAdmin
       .from('entries')
-      .select('*, campaign:campaigns(*)')
+      .select('*')
       .eq('reply_token', token)
       .single();
 
@@ -114,7 +114,7 @@ export async function POST(request: NextRequest) {
       })
       .eq('reply_token', token)
       .is('replied_at', null)
-      .select('*, campaign:campaigns(*)')
+      .select('*')
       .single();
 
     if (updateError || !updated) {
@@ -124,10 +124,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const fulfillmentTo = resolveFulfillmentTo(updated.campaign?.fulfillment_email);
-    const fulfillmentCc = resolveFulfillmentCc(
-      updated.campaign?.fulfillment_cc_emails
-    );
+    const { data: campaign } = await supabaseAdmin
+      .from('campaigns')
+      .select('*')
+      .eq('id', updated.campaign_id)
+      .single();
+
+    const fulfillmentTo = resolveFulfillmentTo(campaign?.fulfillment_email);
+    const fulfillmentCc = resolveFulfillmentCc(campaign?.fulfillment_cc_emails);
     const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://ourherobalthazar.com';
 
     // Fire-and-forget email; do not block the reply response on email delivery
@@ -138,7 +142,7 @@ export async function POST(request: NextRequest) {
       entrantEmail: updated.email,
       entrantPhone: updated.phone || '',
       city: updated.city,
-      campaignName: updated.campaign?.name || 'Our Hero, Balthazar',
+      campaignName: campaign?.name || 'Our Hero, Balthazar',
       requestedTickets,
       requestedShowtimes: verified,
       adminUrl: `${appUrl}/admin`,

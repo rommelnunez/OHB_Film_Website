@@ -25,11 +25,12 @@ export async function PATCH(
 
     const { data: entry, error: fetchError } = await supabaseAdmin
       .from('entries')
-      .select('*, campaign:campaigns(*)')
+      .select('*')
       .eq('id', id)
       .single();
 
     if (fetchError || !entry) {
+      console.error('Error fetching entry for select:', fetchError);
       return NextResponse.json({ error: 'Entry not found' }, { status: 404 });
     }
 
@@ -46,25 +47,35 @@ export async function PATCH(
         reply_token: replyToken,
       })
       .eq('id', id)
-      .select('*, campaign:campaigns(*)')
+      .select('*')
       .single();
 
-    if (updateError) {
+    if (updateError || !updated) {
       console.error('Error updating entry on select:', updateError);
       return NextResponse.json({ error: 'Failed to update entry' }, { status: 500 });
     }
 
+    const { data: campaign, error: campaignError } = await supabaseAdmin
+      .from('campaigns')
+      .select('*')
+      .eq('id', updated.campaign_id)
+      .single();
+
+    if (campaignError) {
+      console.error('Error fetching campaign for select:', campaignError);
+    }
+
     const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://ourherobalthazar.com';
     const replyUrl = `${appUrl}/freetickets/reply/${replyToken}`;
-    const replyToEmail = resolveFulfillmentTo(updated.campaign?.fulfillment_email);
+    const replyToEmail = resolveFulfillmentTo(campaign?.fulfillment_email);
     const campaignType: 'giveaway' | 'raffle' =
-      updated.campaign?.campaign_type === 'raffle' ? 'raffle' : 'giveaway';
+      campaign?.campaign_type === 'raffle' ? 'raffle' : 'giveaway';
 
     const emailSent = await sendSelectionEmail({
       to: updated.email,
       name: updated.name,
       city: updated.city,
-      campaignName: updated.campaign?.name || 'Our Hero, Balthazar',
+      campaignName: campaign?.name || 'Our Hero, Balthazar',
       campaignType,
       replyUrl,
       replyToEmail,

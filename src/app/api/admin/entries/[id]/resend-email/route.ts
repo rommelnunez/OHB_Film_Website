@@ -25,11 +25,12 @@ export async function POST(
 
     const { data: entry, error } = await supabaseAdmin
       .from('entries')
-      .select('*, campaign:campaigns(*)')
+      .select('*')
       .eq('id', id)
       .single();
 
     if (error || !entry) {
+      console.error('Error fetching entry for resend:', error);
       return NextResponse.json({ error: 'Entry not found' }, { status: 404 });
     }
 
@@ -58,17 +59,27 @@ export async function POST(
       }
     }
 
+    const { data: campaign, error: campaignError } = await supabaseAdmin
+      .from('campaigns')
+      .select('*')
+      .eq('id', entry.campaign_id)
+      .single();
+
+    if (campaignError) {
+      console.error('Error fetching campaign for resend:', campaignError);
+    }
+
     const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://ourherobalthazar.com';
     const replyUrl = `${appUrl}/freetickets/reply/${entry.reply_token}`;
-    const replyToEmail = resolveFulfillmentTo(entry.campaign?.fulfillment_email);
+    const replyToEmail = resolveFulfillmentTo(campaign?.fulfillment_email);
     const campaignType: 'giveaway' | 'raffle' =
-      entry.campaign?.campaign_type === 'raffle' ? 'raffle' : 'giveaway';
+      campaign?.campaign_type === 'raffle' ? 'raffle' : 'giveaway';
 
     const emailSent = await sendSelectionEmail({
       to: entry.email,
       name: entry.name,
       city: entry.city,
-      campaignName: entry.campaign?.name || 'Our Hero, Balthazar',
+      campaignName: campaign?.name || 'Our Hero, Balthazar',
       campaignType,
       replyUrl,
       replyToEmail,

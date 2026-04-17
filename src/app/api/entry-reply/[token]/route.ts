@@ -15,7 +15,7 @@ export async function GET(
 
     const { data: entry, error } = await supabaseAdmin
       .from('entries')
-      .select('*, campaign:campaigns(name, campaign_type)')
+      .select('*')
       .eq('reply_token', token)
       .single();
 
@@ -38,6 +38,12 @@ export async function GET(
       );
     }
 
+    const { data: campaign } = await supabaseAdmin
+      .from('campaigns')
+      .select('name, campaign_type')
+      .eq('id', entry.campaign_id)
+      .single();
+
     let showtimes;
     try {
       showtimes = await getShowtimesForCity(entry.city);
@@ -53,9 +59,8 @@ export async function GET(
       firstName: (entry.name || '').split(' ')[0],
       name: entry.name,
       city: entry.city,
-      campaignName: entry.campaign?.name || 'Our Hero, Balthazar',
-      campaignType:
-        entry.campaign?.campaign_type === 'raffle' ? 'raffle' : 'giveaway',
+      campaignName: campaign?.name || 'Our Hero, Balthazar',
+      campaignType: campaign?.campaign_type === 'raffle' ? 'raffle' : 'giveaway',
       showtimes,
     });
   } catch (error) {
