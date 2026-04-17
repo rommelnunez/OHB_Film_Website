@@ -152,9 +152,15 @@ export async function appendEntryToSheet(
       ],
     ];
 
-    await sheets.spreadsheets.values.append({
+    const colA = await sheets.spreadsheets.values.get({
       spreadsheetId,
-      range: `'${sheetName}'!A:I`,
+      range: `'${sheetName}'!A:A`,
+    });
+    const nextRow = Math.max((colA.data.values?.length || 0) + 1, 59);
+
+    await sheets.spreadsheets.values.update({
+      spreadsheetId,
+      range: `'${sheetName}'!A${nextRow}:I${nextRow}`,
       valueInputOption: 'USER_ENTERED',
       requestBody: { values },
     });
