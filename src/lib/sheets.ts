@@ -20,8 +20,8 @@ function getGoogleSheetsClient() {
 
   // Prefer individual env vars (more reliable with Vercel's newline handling)
   if (process.env.GOOGLE_SHEETS_CLIENT_EMAIL && process.env.GOOGLE_SHEETS_PRIVATE_KEY) {
-    clientEmail = process.env.GOOGLE_SHEETS_CLIENT_EMAIL;
-    privateKey = process.env.GOOGLE_SHEETS_PRIVATE_KEY;
+    clientEmail = process.env.GOOGLE_SHEETS_CLIENT_EMAIL.trim();
+    privateKey = process.env.GOOGLE_SHEETS_PRIVATE_KEY.trim();
     // Only replace if escaped (key should have real newlines from Vercel CLI)
     if (privateKey.includes('\\n') && !privateKey.includes('\n')) {
       privateKey = privateKey.replace(/\\n/g, '\n');

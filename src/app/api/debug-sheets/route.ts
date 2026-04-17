@@ -22,8 +22,8 @@ export async function GET() {
 
   if (hasEmail && hasKey) {
     authMethod = 'individual env vars';
-    clientEmail = process.env.GOOGLE_SHEETS_CLIENT_EMAIL!;
-    privateKey = process.env.GOOGLE_SHEETS_PRIVATE_KEY!;
+    clientEmail = process.env.GOOGLE_SHEETS_CLIENT_EMAIL!.trim();
+    privateKey = process.env.GOOGLE_SHEETS_PRIVATE_KEY!.trim();
     keyLength = privateKey.length;
     keyStart = privateKey.substring(0, 40);
     keyEnd = privateKey.substring(privateKey.length - 40);
