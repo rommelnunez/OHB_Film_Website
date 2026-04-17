@@ -45,7 +45,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify hCaptcha
+    console.log('Verifying captcha token:', captchaToken?.substring(0, 20) + '...');
     const captchaValid = await verifyCaptcha(captchaToken);
+    console.log('Captcha valid:', captchaValid);
     if (!captchaValid) {
       return NextResponse.json(
         { error: 'Please complete the captcha verification.', code: 'CAPTCHA_FAILED' },
