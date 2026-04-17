@@ -44,14 +44,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Verify hCaptcha - temporarily disabled, token still required on frontend
-    // const captchaValid = await verifyCaptcha(captchaToken);
-    // if (!captchaValid) {
-    //   return NextResponse.json(
-    //     { error: 'Please complete the captcha verification.', code: 'CAPTCHA_FAILED' },
-    //     { status: 400 }
-    //   );
-    // }
+    // Verify hCaptcha
+    const captchaResult = await verifyCaptcha(captchaToken);
+    if (!captchaResult.success) {
+      console.error('Captcha failed:', captchaResult.error);
+      return NextResponse.json(
+        { error: 'Please complete the captcha verification.', code: 'CAPTCHA_FAILED', details: captchaResult.error },
+        { status: 400 }
+      );
+    }
 
     // Get campaign
     const { data: campaign, error: campaignError } = await supabaseAdmin
@@ -193,30 +194,39 @@ export async function POST(request: NextRequest) {
   }
 }
 
-async function verifyCaptcha(token: string): Promise<boolean> {
+async function verifyCaptcha(token: string): Promise<{ success: boolean; error?: string }> {
   const secret = process.env.HCAPTCHA_SECRET_KEY;
   if (!secret) {
     console.warn('HCAPTCHA_SECRET_KEY not set, skipping verification');
-    return true; // Allow in development
+    return { success: true }; // Allow in development
   }
 
   try {
-    const params = new URLSearchParams();
-    params.append('response', token);
-    params.append('secret', secret);
-    params.append('sitekey', 'c7181926-2938-473a-9b14-f66022ec6684');
+    const formData = new URLSearchParams();
+    formData.append('response', token);
+    formData.append('secret', secret);
 
-    const response = await fetch('https://api.hcaptcha.com/siteverify', {
+    const response = await fetch('https://hcaptcha.com/siteverify', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: params.toString(),
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: formData,
     });
 
     const data = await response.json();
-    console.log('hCaptcha verification response:', JSON.stringify(data));
-    return data.success === true;
+    console.log('hCaptcha response:', JSON.stringify(data));
+
+    if (data.success) {
+      return { success: true };
+    } else {
+      return {
+        success: false,
+        error: data['error-codes']?.join(', ') || 'Unknown error'
+      };
+    }
   } catch (error) {
     console.error('Captcha verification error:', error);
-    return false;
+    return { success: false, error: String(error) };
   }
 }
