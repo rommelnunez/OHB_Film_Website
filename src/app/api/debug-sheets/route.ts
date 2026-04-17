@@ -22,14 +22,24 @@ export async function GET() {
       parseResult = 'success';
       clientEmail = creds.client_email || 'missing';
       keyLength = creds.private_key?.length || 0;
-      keyStart = creds.private_key?.substring(0, 30) || '';
-      keyEnd = creds.private_key?.substring(creds.private_key.length - 30) || '';
+      keyStart = creds.private_key?.substring(0, 40) || '';
+      keyEnd = creds.private_key?.substring(creds.private_key.length - 40) || '';
+      // Check if newlines are literal or escaped
+      const hasRealNewline = creds.private_key?.includes('\n');
+      const hasEscapedNewline = creds.private_key?.includes('\\n');
+
+      // Check for double-escaped newlines
+      let privateKey = creds.private_key;
+      if (privateKey.includes('\\n') && !privateKey.includes('\n')) {
+        // Double-escaped newlines - fix them
+        privateKey = privateKey.replace(/\\n/g, '\n');
+      }
 
       // Try to actually use the API
       const auth = new google.auth.GoogleAuth({
         credentials: {
           client_email: creds.client_email,
-          private_key: creds.private_key,
+          private_key: privateKey,
         },
         scopes: ['https://www.googleapis.com/auth/spreadsheets'],
       });
@@ -63,6 +73,8 @@ export async function GET() {
     keyLength,
     keyStart,
     keyEnd,
+    hasRealNewline: keyStart.includes('\n'),
+    hasEscapedNewline: keyStart.includes('\\n'),
     testResult,
   });
 }
