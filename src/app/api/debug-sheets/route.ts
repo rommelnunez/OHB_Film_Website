@@ -13,6 +13,7 @@ export async function GET() {
   let keyStart = '';
   let keyEnd = '';
   let testResult = 'not attempted';
+  let writeTestResult = 'not attempted';
   let jsonLength = process.env.GOOGLE_SERVICE_ACCOUNT_JSON?.length || 0;
   let jsonStart = process.env.GOOGLE_SERVICE_ACCOUNT_JSON?.substring(0, 50) || '';
 
@@ -64,6 +65,34 @@ export async function GET() {
 
       const spreadsheet = await sheets.spreadsheets.get({ spreadsheetId });
       testResult = `success - found ${spreadsheet.data.sheets?.length} sheets: ${spreadsheet.data.sheets?.map(s => s.properties?.title).join(', ')}`;
+
+      try {
+        const debugTab = '__debug';
+        const hasDebugTab = spreadsheet.data.sheets?.some(
+          (s) => s.properties?.title === debugTab
+        );
+        if (!hasDebugTab) {
+          await sheets.spreadsheets.batchUpdate({
+            spreadsheetId,
+            requestBody: {
+              requests: [{ addSheet: { properties: { title: debugTab } } }],
+            },
+          });
+        }
+        await sheets.spreadsheets.values.append({
+          spreadsheetId,
+          range: `'${debugTab}'!A:B`,
+          valueInputOption: 'USER_ENTERED',
+          requestBody: {
+            values: [[new Date().toISOString(), 'debug-sheets write test']],
+          },
+        });
+        writeTestResult = 'success';
+      } catch (we: unknown) {
+        const werror = we as Error & { code?: number; status?: number };
+        const code = werror.code ?? werror.status ?? '';
+        writeTestResult = `error${code ? ` (${code})` : ''}: ${werror.message}`;
+      }
     } catch (e: unknown) {
       const error = e as Error;
       testResult = `error: ${error.message}`;
@@ -87,5 +116,6 @@ export async function GET() {
     hasRealNewline: keyStart.includes('\n'),
     hasEscapedNewline: keyStart.includes('\\n'),
     testResult,
+    writeTestResult,
   });
 }

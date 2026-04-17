@@ -124,25 +124,26 @@ async function ensureSheetExists(
   }
 }
 
+export type AppendResult = { ok: true } | { ok: false; error: string };
+
 export async function appendEntryToSheet(
   spreadsheetId: string,
   sheetName: string,
   entry: EntryData
-): Promise<boolean> {
+): Promise<AppendResult> {
   console.log('appendEntryToSheet called:', { spreadsheetId, sheetName, entry });
 
   if (!isConfigured()) {
-    console.warn('Google Sheets not configured, skipping sync');
-    return true;
+    return { ok: false, error: 'Google Sheets not configured' };
   }
 
   try {
-    console.log('Getting Google Sheets client...');
     const sheets = getGoogleSheetsClient();
-    console.log('Google Sheets client obtained');
 
-    // Ensure the tab exists first
-    await ensureSheetExists(spreadsheetId, sheetName);
+    const tabReady = await ensureSheetExists(spreadsheetId, sheetName);
+    if (!tabReady) {
+      return { ok: false, error: `Failed to ensure tab "${sheetName}" exists` };
+    }
 
     const timestamp = new Date().toISOString();
 
@@ -156,11 +157,10 @@ export async function appendEntryToSheet(
         entry.zip || '',
         entry.tasksCompleted || 0,
         entry.totalEntries,
-        '', // Winner? column (empty by default)
+        '',
       ],
     ];
 
-    // Quote sheet name to handle special characters
     await sheets.spreadsheets.values.append({
       spreadsheetId,
       range: `'${sheetName}'!A:I`,
@@ -168,11 +168,13 @@ export async function appendEntryToSheet(
       requestBody: { values },
     });
 
-    return true;
+    return { ok: true };
   } catch (error) {
-    console.error('Error appending to Google Sheet:', error);
-    console.error('Full error details:', JSON.stringify(error, Object.getOwnPropertyNames(error)));
-    return false;
+    const err = error as Error & { code?: number; status?: number };
+    const code = err.code ?? err.status ?? '';
+    const msg = `${code ? `[${code}] ` : ''}${err.message}`;
+    console.error('Error appending to Google Sheet:', msg);
+    return { ok: false, error: msg };
   }
 }
 

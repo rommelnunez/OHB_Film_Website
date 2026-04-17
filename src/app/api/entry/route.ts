@@ -144,9 +144,11 @@ export async function POST(request: NextRequest) {
 
     // Sync to Google Sheet - use env var as default, campaign can override
     const sheetId = campaign.google_sheet_id || process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
+    let syncedToSheet = false;
+    let sheetError: string | undefined;
     if (sheetId) {
       try {
-        const sheetSuccess = await appendEntryToSheet(
+        const result = await appendEntryToSheet(
           sheetId,
           campaign.google_sheet_tab || campaign.slug,
           {
@@ -157,15 +159,22 @@ export async function POST(request: NextRequest) {
             totalEntries: 1,
           }
         );
-        if (sheetSuccess) {
+        if (result.ok) {
+          syncedToSheet = true;
           await supabaseAdmin
             .from('entries')
             .update({ synced_to_sheet_at: new Date().toISOString() })
             .eq('id', entry.id);
+        } else {
+          sheetError = result.error;
+          console.error('Failed to sync to Google Sheet:', result.error);
         }
-      } catch (sheetError) {
+      } catch (e) {
+        sheetError = e instanceof Error ? e.message : String(e);
         console.error('Failed to sync to Google Sheet:', sheetError);
       }
+    } else {
+      sheetError = 'No spreadsheet ID configured for this campaign';
     }
 
     // Send confirmation email
@@ -192,6 +201,8 @@ export async function POST(request: NextRequest) {
       success: true,
       message: "You're entered!",
       entryId: entry.id,
+      syncedToSheet,
+      sheetError,
     });
   } catch (error) {
     console.error('Error processing entry:', error);
