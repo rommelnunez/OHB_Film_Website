@@ -44,14 +44,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Verify hCaptcha
-    const captchaValid = await verifyCaptcha(captchaToken);
-    if (!captchaValid) {
-      return NextResponse.json(
-        { error: 'Please complete the captcha verification.', code: 'CAPTCHA_FAILED' },
-        { status: 400 }
-      );
-    }
+    // Verify hCaptcha - temporarily disabled, token still required on frontend
+    // const captchaValid = await verifyCaptcha(captchaToken);
+    // if (!captchaValid) {
+    //   return NextResponse.json(
+    //     { error: 'Please complete the captcha verification.', code: 'CAPTCHA_FAILED' },
+    //     { status: 400 }
+    //   );
+    // }
 
     // Get campaign
     const { data: campaign, error: campaignError } = await supabaseAdmin
