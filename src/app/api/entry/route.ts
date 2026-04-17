@@ -184,6 +184,7 @@ export async function POST(request: NextRequest) {
         name,
         city,
         campaignName: campaign.name,
+        campaignType: campaign.campaign_type === 'raffle' ? 'raffle' : 'giveaway',
         endDate: campaign.ends_at
           ? new Date(campaign.ends_at).toLocaleDateString('en-US', {
               weekday: 'long',

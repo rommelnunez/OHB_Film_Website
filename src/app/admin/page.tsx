@@ -7,6 +7,7 @@ interface Campaign {
   slug: string;
   name: string;
   description: string | null;
+  campaign_type: 'giveaway' | 'raffle' | string;
   starts_at: string;
   ends_at: string | null;
   prize_description: string;
@@ -47,6 +48,7 @@ export default function AdminPage() {
     slug: '',
     name: '',
     description: '',
+    campaign_type: 'giveaway' as 'giveaway' | 'raffle',
     starts_at: '',
     ends_at: '',
     prize_description: '2 free tickets to Our Hero, Balthazar',
@@ -69,6 +71,7 @@ export default function AdminPage() {
       slug: campaign.slug,
       name: campaign.name,
       description: campaign.description || '',
+      campaign_type: campaign.campaign_type === 'raffle' ? 'raffle' : 'giveaway',
       starts_at: toLocalInput(campaign.starts_at),
       ends_at: toLocalInput(campaign.ends_at),
       prize_description: campaign.prize_description,
@@ -285,6 +288,36 @@ export default function AdminPage() {
                   className="input"
                 />
               </div>
+              <div className="col-span-2">
+                <label className="text-gray-400 text-sm">Campaign Type</label>
+                <div className="flex gap-4 mt-2">
+                  <label className="checkbox-container text-white">
+                    <input
+                      type="radio"
+                      name="campaign_type"
+                      value="giveaway"
+                      checked={formData.campaign_type === 'giveaway'}
+                      onChange={() => setFormData({ ...formData, campaign_type: 'giveaway' })}
+                    />
+                    <span>Giveaway (while supplies last)</span>
+                  </label>
+                  <label className="checkbox-container text-white">
+                    <input
+                      type="radio"
+                      name="campaign_type"
+                      value="raffle"
+                      checked={formData.campaign_type === 'raffle'}
+                      onChange={() => setFormData({ ...formData, campaign_type: 'raffle' })}
+                    />
+                    <span>Raffle / Contest (winners drawn)</span>
+                  </label>
+                </div>
+                <p className="text-gray-500 text-xs mt-1">
+                  {formData.campaign_type === 'giveaway'
+                    ? 'Entrants are notified by email if tickets are still available.'
+                    : 'Winners are selected from entries after the campaign ends.'}
+                </p>
+              </div>
               <div>
                 <label className="text-gray-400 text-sm">Start Date</label>
                 <input
@@ -315,13 +348,20 @@ export default function AdminPage() {
                 />
               </div>
               <div>
-                <label className="text-gray-400 text-sm">Winner Count</label>
+                <label className="text-gray-400 text-sm">
+                  {formData.campaign_type === 'giveaway' ? 'Available Slots' : 'Winner Count'}
+                </label>
                 <input
                   type="number"
                   value={formData.winner_count}
                   onChange={(e) => setFormData({ ...formData, winner_count: parseInt(e.target.value) })}
                   className="input"
                 />
+                <p className="text-gray-500 text-xs mt-1">
+                  {formData.campaign_type === 'giveaway'
+                    ? 'Number of people who will receive tickets (first-come, first-served).'
+                    : 'Number of winners drawn from entries.'}
+                </p>
               </div>
               <div className="col-span-2">
                 <label className="text-gray-400 text-sm">Eligible Cities (comma-separated)</label>
@@ -364,7 +404,10 @@ export default function AdminPage() {
               <div className="flex justify-between items-start mb-2">
                 <div>
                   <h3 className="heading text-lg text-white">{campaign.name}</h3>
-                  <p className="text-gray-500 text-sm">/{campaign.slug}</p>
+                  <p className="text-gray-500 text-sm">
+                    /{campaign.slug} ·{' '}
+                    {campaign.campaign_type === 'raffle' ? 'Raffle' : 'Giveaway'}
+                  </p>
                 </div>
                 <span
                   className={`px-2 py-1 text-xs ${

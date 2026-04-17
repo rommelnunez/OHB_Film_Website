@@ -25,17 +25,19 @@ export default function RulesPage() {
               <h2 className="heading text-xl text-white mb-3">2. How to Enter</h2>
               <ul className="list-disc pl-5 space-y-2">
                 <li>Complete the entry form with valid information</li>
-                <li>Provide a valid email address for winner notification</li>
+                <li>Provide a valid email address for ticket notification</li>
                 <li>Confirm age and acceptance of these rules</li>
-                <li>Complete the captcha verification</li>
+                <li>Complete the captcha verification (when enabled)</li>
               </ul>
             </section>
 
             <section>
               <h2 className="heading text-xl text-white mb-3">3. Entry Period</h2>
               <p>
-                Each campaign has specific start and end dates displayed on the entry page.
-                All entries must be received before the stated end time.
+                Each campaign has a specific start date displayed on the entry page.
+                Giveaway campaigns run while supplies last and may close once all tickets
+                have been claimed. Raffle campaigns additionally have an end date, and all
+                entries must be received before the stated end time.
               </p>
             </section>
 
@@ -50,20 +52,35 @@ export default function RulesPage() {
             </section>
 
             <section>
-              <h2 className="heading text-xl text-white mb-3">5. Winner Selection</h2>
+              <h2 className="heading text-xl text-white mb-3">5. Campaign Types</h2>
               <ul className="list-disc pl-5 space-y-2">
-                <li>Winners will be selected at random from all eligible entries</li>
-                <li>Number of winners varies by campaign (see campaign page)</li>
-                <li>Odds of winning depend on the number of eligible entries received</li>
+                <li>
+                  <strong className="text-white">Giveaway (while supplies last):</strong> Tickets are
+                  distributed on a first-come, first-served basis to eligible entrants until the
+                  available supply is exhausted.
+                </li>
+                <li>
+                  <strong className="text-white">Raffle / Contest:</strong> Winners are selected at
+                  random from all eligible entries after the campaign's stated end time. Odds depend
+                  on the number of eligible entries received.
+                </li>
+                <li>The campaign page will indicate which type of campaign is active.</li>
               </ul>
             </section>
 
             <section>
-              <h2 className="heading text-xl text-white mb-3">6. Winner Notification</h2>
+              <h2 className="heading text-xl text-white mb-3">6. Notification</h2>
               <ul className="list-disc pl-5 space-y-2">
-                <li>Winners will be notified via email within 72 hours of the campaign end date</li>
-                <li>Winners must respond within 48 hours to claim their prize</li>
-                <li>Failure to respond may result in forfeiture and selection of an alternate winner</li>
+                <li>
+                  For giveaways, eligible entrants will be notified by email when tickets are
+                  available for them, while supplies last.
+                </li>
+                <li>
+                  For raffles, winners will be notified via email within 72 hours of the campaign
+                  end date.
+                </li>
+                <li>Recipients must respond within 48 hours to claim their tickets</li>
+                <li>Failure to respond may result in forfeiture and offering the tickets to another eligible entrant</li>
               </ul>
             </section>
 

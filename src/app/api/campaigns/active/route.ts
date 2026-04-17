@@ -36,6 +36,7 @@ export async function GET() {
       slug: campaign.slug,
       name: campaign.name,
       description: campaign.description,
+      campaign_type: campaign.campaign_type === 'raffle' ? 'raffle' : 'giveaway',
       prize_description: campaign.prize_description,
       eligible_cities: campaign.eligible_cities,
       starts_at: campaign.starts_at,

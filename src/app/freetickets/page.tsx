@@ -8,6 +8,7 @@ interface Campaign {
   slug: string;
   name: string;
   description: string | null;
+  campaign_type: 'giveaway' | 'raffle';
   prize_description: string;
   eligible_cities: string[];
   starts_at: string;
@@ -166,23 +167,33 @@ export default function FreeTicketsPage() {
   }
 
   if (submitted) {
+    const isGiveaway = campaign.campaign_type !== 'raffle';
+    const successHeading = isGiveaway ? "You're Signed Up!" : "You're Entered!";
+    const notifyTail = isGiveaway
+      ? 'if tickets are available for you.'
+      : 'if you win.';
+    const infoLabel = isGiveaway ? 'Next step' : 'Winners';
+    const infoBody = isGiveaway
+      ? "Tickets are first-come, first-served while supplies last. You'll hear from us by email if you're eligible."
+      : "We'll notify you when winners are selected";
+
     return (
       <div className="min-h-screen bg-black flex items-center justify-center p-4">
         <div className="max-w-md w-full text-center">
           <div className="bg-[#ff3600] p-8 mb-8">
-            <h1 className="heading text-4xl text-white">You're Entered!</h1>
+            <h1 className="heading text-4xl text-white">{successHeading}</h1>
           </div>
 
           <div className="bg-[#111] p-8">
             <p className="text-white text-lg mb-6">
-              Thanks for entering, <strong>{name}</strong>!
+              Thanks for signing up, <strong>{name}</strong>!
             </p>
 
             <p className="text-gray-400 mb-6">
-              We'll email you at <strong className="text-white">{email}</strong> if you win.
+              We'll email you at <strong className="text-white">{email}</strong> {notifyTail}
             </p>
 
-            {campaign.ends_at ? (
+            {campaign.ends_at && !isGiveaway ? (
               <div className="border-l-4 border-[#ff3600] pl-4 text-left mb-6">
                 <p className="text-sm text-gray-400">
                   <strong className="text-white">Winners announced:</strong>
@@ -198,9 +209,9 @@ export default function FreeTicketsPage() {
             ) : (
               <div className="border-l-4 border-[#ff3600] pl-4 text-left mb-6">
                 <p className="text-sm text-gray-400">
-                  <strong className="text-white">Winners:</strong>
+                  <strong className="text-white">{infoLabel}:</strong>
                   <br />
-                  We'll notify you when winners are selected
+                  {infoBody}
                 </p>
               </div>
             )}
@@ -214,20 +225,31 @@ export default function FreeTicketsPage() {
     );
   }
 
+  const isGiveaway = campaign.campaign_type !== 'raffle';
+  const heroHeading = isGiveaway ? 'Free Tickets to' : 'Win Free Tickets to';
+  const formHeading = isGiveaway ? 'Claim Your Tickets' : 'Enter to Win';
+  const submitLabel = isGiveaway ? 'Sign Me Up' : 'Enter to Win';
+
   return (
     <div className="min-h-screen bg-black">
       {/* Hero Section */}
       <div className="bg-[#ff3600] py-12 px-4">
         <div className="max-w-2xl mx-auto text-center">
           <h1 className="heading text-3xl md:text-5xl text-white mb-4">
-            Win Free Tickets to
+            {heroHeading}
             <br />
             Our Hero, Balthazar
           </h1>
 
           <p className="text-white/90 text-lg mb-6">{campaign.prize_description}</p>
 
-          {campaign.ends_at && countdown && (
+          {isGiveaway && (
+            <p className="text-white/80 text-sm uppercase tracking-widest">
+              While supplies last
+            </p>
+          )}
+
+          {campaign.ends_at && countdown && !isGiveaway && (
             <div className="inline-block bg-black/20 px-6 py-3">
               <p className="text-white/80 text-sm">Ends in</p>
               <p className="text-white text-2xl font-bold tracking-wider">{countdown}</p>
@@ -239,7 +261,7 @@ export default function FreeTicketsPage() {
       {/* Form Section */}
       <div className="max-w-md mx-auto p-4 py-12">
         <div className="bg-[#111] p-8">
-          <h2 className="heading text-2xl text-white mb-6">Enter to Win</h2>
+          <h2 className="heading text-2xl text-white mb-6">{formHeading}</h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -337,14 +359,26 @@ export default function FreeTicketsPage() {
               disabled={submitting}
               className="btn-primary w-full"
             >
-              {submitting ? 'Submitting...' : 'Enter to Win'}
+              {submitting ? 'Submitting...' : submitLabel}
             </button>
           </form>
         </div>
 
         <p className="text-center text-gray-500 text-sm mt-6">
-          {campaign.winner_count && <>{campaign.winner_count} winners will be selected.<br /></>}
-          Winners notified by email.
+          {isGiveaway ? (
+            <>
+              Tickets are first-come, first-served while supplies last.
+              <br />
+              Eligible entrants will be notified by email.
+            </>
+          ) : (
+            <>
+              {campaign.winner_count ? (
+                <>{campaign.winner_count} winners will be selected.<br /></>
+              ) : null}
+              Winners notified by email.
+            </>
+          )}
         </p>
       </div>
 

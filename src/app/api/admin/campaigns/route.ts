@@ -93,12 +93,15 @@ export async function POST(request: NextRequest) {
         .eq('is_active', true);
     }
 
+    const campaignType = body.campaign_type === 'raffle' ? 'raffle' : 'giveaway';
+
     const { data: campaign, error } = await supabaseAdmin
       .from('campaigns')
       .insert({
         slug: body.slug,
         name: body.name,
         description: body.description || null,
+        campaign_type: campaignType,
         starts_at: body.starts_at,
         ends_at: body.ends_at,
         prize_description: body.prize_description || '2 free tickets to Our Hero, Balthazar',
