@@ -28,10 +28,9 @@ export async function GET() {
       const hasRealNewline = creds.private_key?.includes('\n');
       const hasEscapedNewline = creds.private_key?.includes('\\n');
 
-      // Check for double-escaped newlines
+      // Fix escaped newlines (common Vercel env var issue)
       let privateKey = creds.private_key;
-      if (privateKey.includes('\\n') && !privateKey.includes('\n')) {
-        // Double-escaped newlines - fix them
+      if (privateKey && privateKey.includes('\\n')) {
         privateKey = privateKey.replace(/\\n/g, '\n');
       }
 

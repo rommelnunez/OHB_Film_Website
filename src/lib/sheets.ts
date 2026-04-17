@@ -24,6 +24,10 @@ function getGoogleSheetsClient() {
       const creds = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
       clientEmail = creds.client_email;
       privateKey = creds.private_key;
+      // Fix escaped newlines if present (Vercel env var issue)
+      if (privateKey && privateKey.includes('\\n')) {
+        privateKey = privateKey.replace(/\\n/g, '\n');
+      }
       console.log('Using GOOGLE_SERVICE_ACCOUNT_JSON');
     } catch (e) {
       console.error('Failed to parse GOOGLE_SERVICE_ACCOUNT_JSON:', e);
