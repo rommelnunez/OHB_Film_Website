@@ -201,13 +201,18 @@ async function verifyCaptcha(token: string): Promise<boolean> {
   }
 
   try {
+    const params = new URLSearchParams();
+    params.append('response', token);
+    params.append('secret', secret);
+
     const response = await fetch('https://hcaptcha.com/siteverify', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `response=${token}&secret=${secret}`,
+      body: params.toString(),
     });
 
     const data = await response.json();
+    console.log('hCaptcha verification response:', JSON.stringify(data));
     return data.success === true;
   } catch (error) {
     console.error('Captcha verification error:', error);
