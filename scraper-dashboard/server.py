@@ -20,14 +20,14 @@ from pathlib import Path
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 
-# Add parent directory to path for scraper imports
-sys.path.insert(0, str(Path(__file__).parent.parent / 'automatedshowtimescalendar' / 'sync'))
+# Add scrapers directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent / 'scrapers'))
 
 app = Flask(__name__, static_folder='.')
 CORS(app)
 
 # Configuration
-OHB_CSV_PATH = Path(__file__).parent.parent / 'showtimes.csv'
+OHB_CSV_PATH = Path(__file__).parent.parent / 'public' / 'showtimes.csv'
 WG_CSV_PATH = Path('/Users/rommelnunez/Desktop/wg-website/public/data/showtimes.csv')
 
 # Theater configurations for Playwright scrapers

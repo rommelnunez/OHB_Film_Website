@@ -1,113 +1,108 @@
 # OHB Film Website - Claude Code Documentation
 
-This is the official website for "Our Hero, Balthazar" film, hosted on GitHub Pages at ourbalthazar.com.
+This is the official website for "Our Hero, Balthazar" film, deployed on Vercel at ourherobalthazar.com.
+
+## Project Overview
+
+A Next.js 15 application that combines:
+1. **Static Film Website** - Main promotional site served at `/` (from `public/index.html`)
+2. **Giveaway Platform** - Entry form at `/freetickets` with Supabase, Resend, Google Sheets, hCaptcha
+3. **Admin Portal** - Campaign management at `/admin`
+4. **Showtimes Scraper** - Unified dashboard for scraping theater showtimes
 
 ## Directory Structure
 
 ```
 OHB_Film_Website/
-├── index.html              # Main website (single-page app)
-├── showtimes.csv           # Backup/reference of all showtimes
-├── assets/                 # Images, fonts, styles
-│   └── images/
-│       └── theaters/       # Theater chain logos (SVG/PNG)
-├── scraper-dashboard/      # UNIFIED SCRAPER UI (run this!)
-│   ├── updatescreenings    # CLI shortcut to launch dashboard
-│   ├── index.html          # Web dashboard UI
-│   ├── server.py           # Python backend for Playwright scrapers
-│   └── requirements.txt    # Python dependencies
-├── automatedshowtimescalendar/
-│   └── sync/               # Python CLI scrapers (Playwright-based)
-├── alamo-showtimes/        # Individual Alamo scraper (for testing/debugging)
-├── angelika-showtimes/     # Individual Angelika scraper (for testing/debugging)
-├── reading-showtimes/      # Individual Reading scraper (for testing/debugging)
-├── docs/                   # Technical documentation
-├── shopifytest/            # Merch integration test pages
-├── ALR_website/            # Separate project (ALR website)
-└── _archive/               # Old/unused files (gitignored)
+├── src/                        # Next.js app source
+│   ├── app/
+│   │   ├── freetickets/       # Giveaway entry form
+│   │   ├── admin/             # Admin portal (password protected)
+│   │   └── api/               # API routes (entry, campaigns, etc.)
+│   └── lib/                   # Utilities (supabase, email, sheets)
+├── public/                    # Static assets served at root
+│   ├── index.html             # Main OHB website (served at /)
+│   ├── showtimes.csv          # Current showtimes data
+│   ├── assets/                # Images, fonts, theater logos
+│   ├── robots.txt
+│   └── sitemap.xml
+├── scraper-dashboard/         # SHOWTIMES SCRAPER (standalone)
+│   ├── updatescreenings       # CLI to launch dashboard
+│   ├── server.py              # Python/Flask backend
+│   ├── index.html             # Web dashboard UI
+│   ├── scrapers/              # Playwright scrapers
+│   │   ├── regal.py
+│   │   ├── amc.py
+│   │   ├── fandango.py
+│   │   └── alamo.py
+│   └── requirements.txt
+├── supabase/                  # Database migrations
+├── _archive/                  # Old files (gitignored)
+│   └── pre-giveaway-merge/    # Original static site files
+├── .env.local                 # Environment variables (not committed)
+├── next.config.ts             # Rewrites / as public/index.html
+└── package.json               # Next.js dependencies
 ```
 
-## How Showtimes Work
+## URLs
 
-### Data Storage
-Showtimes are stored in TWO places that must stay in sync:
+| Path | Description |
+|------|-------------|
+| `/` | Static OHB film website (from public/index.html) |
+| `/freetickets` | Giveaway entry form |
+| `/freetickets/rules` | Giveaway rules page |
+| `/admin` | Admin portal (password: `ADMIN_PASSWORD` env var) |
 
-1. **`index.html`** - The `SHOWTIMES_DATA` JavaScript array (lines ~234-525)
-   - This is what the live site actually displays
-   - Must be updated manually or via the scraper dashboard
+## Giveaway Platform
 
-2. **`showtimes.csv`** - Backup/reference file
-   - Format: `Theater,Date,Time,Event Type,Ticket Link`
-   - Used for record-keeping and importing to other sites
+### Working Integrations
+| Service | Status | Notes |
+|---------|--------|-------|
+| Supabase | Active | Database for campaigns/entries |
+| Resend | Active | Confirmation emails, domain verified |
+| Google Sheets | Active | Auto-creates tabs per campaign |
+| hCaptcha | Active | Bot protection |
 
-### Updating Showtimes
+### Environment Variables
+See `.env.example` for required variables. Copy to `.env.local` and fill in values.
 
-**Recommended: Use the Unified Scraper Dashboard**
+Required:
+- `NEXT_PUBLIC_SUPABASE_URL` - Supabase project URL
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Supabase anon key
+- `SUPABASE_SERVICE_ROLE_KEY` - Supabase service role key
+- `NEXT_PUBLIC_HCAPTCHA_SITE_KEY` - hCaptcha site key
+- `HCAPTCHA_SECRET_KEY` - hCaptcha secret key
+- `RESEND_API_KEY` - Resend API key for emails
+- `GOOGLE_SHEETS_CLIENT_EMAIL` - Google service account email
+- `GOOGLE_SHEETS_PRIVATE_KEY` - Google service account private key
+- `GOOGLE_SHEETS_SPREADSHEET_ID` - Target Google Sheets ID
+- `NEXT_PUBLIC_APP_URL` - Production URL (https://ourherobalthazar.com)
+- `ADMIN_PASSWORD` - Admin portal password
 
+### Database Schema (Supabase)
+- `campaigns` - slug, name, starts_at, ends_at (nullable), eligible_cities, google_sheet_id, google_sheet_tab, is_active
+- `entries` - campaign_id, name, email, phone, city, age_confirmed, synced_to_sheet_at
+- `task_completions` - (unused, for future engagement campaigns)
+
+### Admin Portal Features
+- Password-protected login
+- List all campaigns with entry counts
+- Create new campaigns (slug, name, dates, cities, etc.)
+- Activate/deactivate campaigns (only one active at a time)
+- View entries per campaign
+- Delete campaigns
+
+## Showtimes Scraper Dashboard
+
+**Location:** `/scraper-dashboard/`
+
+### Quick Start
 ```bash
-# Quick start (auto-installs deps, opens browser)
 ./scraper-dashboard/updatescreenings
-
-# Or manually:
-cd scraper-dashboard
-pip install -r requirements.txt
-playwright install chromium
-python server.py
-# Opens at http://localhost:5050
+# Auto-installs deps, starts server at http://localhost:5050, opens browser
 ```
-
-The dashboard provides:
-- **One-click scraping** for all 6 theater chains
-- **Merge or Replace modes** - merge adds new showtimes while keeping existing ones
-- **Automatic sync** to both OHB and WG websites
-- **Load Existing** button to view current showtimes before syncing
-- **Server status indicator** shows if Playwright scrapers are available
-
-### Theater Configuration
-
-**SHOWTIMES_DATA entry format:**
-```javascript
-{
-    theater: "Theater Name",
-    date: "YYYY-MM-DD",
-    time: "H:MM PM",
-    eventType: "General Admission",
-    ticketLink: "https://..."
-}
-```
-
-**THEATER_CITIES mapping** (line ~507 in index.html):
-```javascript
-const THEATER_CITIES = {
-    "Regal Union Square": "New York",
-    "AMC The Americana at Brand 18": "Los Angeles",
-    "Alamo Drafthouse Sloan's Lake": "Denver",
-    "Reading Cinemas Manville (NJ)": "New Jersey",
-    // ... etc
-};
-```
-
-**THEATER_LOGOS mapping** (line ~525 in index.html):
-```javascript
-const THEATER_LOGOS = {
-    "Regal": "assets/images/theaters/regal.svg",
-    "AMC": "assets/images/theaters/amc.svg",
-    "Alamo": "assets/images/theaters/alamo.svg",
-    "Reading": "assets/images/theaters/reading.svg",
-    // ... etc
-};
-```
-
-**getTheaterBrand function** (line ~544 in index.html):
-- Maps theater names to logo keys
-- Add new chains here when needed
-
-## Scraper Dashboard
-
-Location: `/scraper-dashboard/`
 
 ### Architecture
-
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                   Web Dashboard (index.html)                 │
@@ -138,7 +133,6 @@ Location: `/scraper-dashboard/`
 ```
 
 ### Scraper Types
-
 | Chain | Type | Auth Required | Notes |
 |-------|------|---------------|-------|
 | Alamo Drafthouse | Direct API | No | Public REST API |
@@ -148,110 +142,55 @@ Location: `/scraper-dashboard/`
 | AMC Theatres | Playwright | No | Cloudflare protected |
 | Fandango | Playwright | No | Cloudflare protected |
 
-### Getting Bearer Tokens (Reading/Angelika)
-1. Go to https://readingcinemas.com or https://angelikafilmcenter.com
-2. Open DevTools > Network tab
-3. Navigate to any movie's showtimes
-4. Find request to `production-api.readingcinemas.com`
-5. Copy the `Authorization: Bearer ...` header
-6. Tokens expire after ~1 hour
-
-### Running the Dashboard
-
-**Quickest way (recommended):**
-```bash
-./scraper-dashboard/updatescreenings
-# Auto-installs deps, starts server at http://localhost:5050, opens browser
-```
-
-**Full functionality (all 6 chains + sync):**
-```bash
-cd scraper-dashboard
-pip install -r requirements.txt
-playwright install chromium
-python server.py
-# Open http://localhost:5050
-```
-
-**Basic mode (API chains only, no sync):**
-```bash
-cd scraper-dashboard
-python3 -m http.server 5050
-# Open http://localhost:5050
-# Regal/AMC/Fandango will show "Needs Server"
-```
-
 ### Sync Feature
+The dashboard syncs CSV to:
+1. `/public/showtimes.csv` (this repo)
+2. `/Users/rommelnunez/Desktop/wg-website/public/data/showtimes.csv` (WG site)
 
-The "Sync to Both Websites" button automatically writes the CSV to:
-1. `/Users/rommelnunez/Desktop/OHB_Film_Website/showtimes.csv`
-2. `/Users/rommelnunez/Desktop/wg-website/public/data/showtimes.csv`
+## Showtimes Data
 
-**Sync Modes:**
-- **Merge** (default): Adds new showtimes while keeping existing ones. Deduplicates by theater+date+time.
-- **Replace**: Completely overwrites existing CSV with new results.
+### Storage
+Showtimes are stored in TWO places:
+1. **`public/index.html`** - `SHOWTIMES_DATA` JavaScript array (what the live site displays)
+2. **`public/showtimes.csv`** - Backup/reference file
 
-Both sites use the exact same CSV format, so they stay in sync.
-
-## Python CLI Scrapers (Legacy)
-
-Location: `/automatedshowtimescalendar/sync/`
-
-These are still available for command-line use, but the dashboard is preferred.
-
-### Setup
-```bash
-cd automatedshowtimescalendar/sync
-pip install playwright
-playwright install chromium
+### Data Format
+```javascript
+// SHOWTIMES_DATA entry format
+{
+    theater: "Theater Name",
+    date: "YYYY-MM-DD",
+    time: "H:MM PM",
+    eventType: "General Admission",
+    ticketLink: "https://..."
+}
 ```
 
-### Usage
+### CRITICAL: Scraper Rules
+**ALL SCRAPERS MUST ONLY RETURN SHOWTIMES FOR "OUR HERO, BALTHAZAR"**
+
+Hardcoded movie identifiers per chain:
+- AMC: `movie_slug = "our-hero-balthazar-83057"`, `movie_id = "83057"`
+- Regal: `ho_code = "HO00020753"`
+- Fandango: `movie_id = "244581"`
+- Alamo: `film_slug = "our-hero-balthazar"`
+- Reading/Angelika: Filter by `filmName` containing "Our Hero" or "Balthazar"
+
+## Development
+
+### Local Dev
 ```bash
-python sync_showtimes.py --days 14           # All chains, 14 days ahead
-python sync_showtimes.py --alamo-only        # Fast test (no Playwright)
-python sync_showtimes.py --skip-regal        # Skip specific chain
-python sync_showtimes.py --verbose           # Show progress
+npm run dev          # Next.js at http://localhost:3000
+./scraper-dashboard/updatescreenings  # Scraper at http://localhost:5050
 ```
 
-### Scraper Files
-- `scrapers/alamo.py` - REST API, no auth
-- `scrapers/regal.py` - Playwright + internal API
-- `scrapers/amc.py` - Playwright
-- `scrapers/fandango.py` - Playwright
-- `config.py` - Theater IDs and configuration
+### Build
+```bash
+npm run build
+```
 
-## Adding a New Theater Chain
-
-1. **Create logo file** in `assets/images/theaters/` (SVG with `fill="white"`)
-
-2. **Add to THEATER_LOGOS** in index.html:
-   ```javascript
-   "NewChain": "assets/images/theaters/newchain.svg"
-   ```
-
-3. **Add to getTheaterBrand()** in index.html:
-   ```javascript
-   if (theaterName.toLowerCase().includes("new chain")) return "NewChain";
-   ```
-
-4. **Add theater to THEATER_CITIES**:
-   ```javascript
-   "New Chain Theater Name": "City Name"
-   ```
-
-5. **If chain has API**, add scraper to:
-   - `scraper-dashboard/index.html` (JavaScript, for direct API)
-   - `scraper-dashboard/server.py` (Python, for Playwright-based)
-
-6. **Add theater config** to `server.py`:
-   ```python
-   NEWCHAIN_CONFIG = {
-       'theaters': [
-           {'id': '123', 'name': 'New Chain Theater Name'},
-       ]
-   }
-   ```
+### Deploy
+Push to main branch - Vercel auto-deploys.
 
 ## Related Projects
 
@@ -259,77 +198,25 @@ python sync_showtimes.py --verbose           # Show progress
 Location: `/Users/rommelnunez/Desktop/wg-website`
 - Next.js app with its own `public/data/showtimes.csv`
 - Uses same CSV format as this site
-- Rebuilds on push via GitHub Actions
 
-### Sync Strategy
-Both sites use the same CSV format. The dashboard syncs automatically, or manually:
-1. Run scraper dashboard
-2. Click "Sync to Both Websites"
-3. Commit and push both repos
+## Key Files
 
-## Common Tasks
+### Giveaway
+- `src/app/freetickets/page.tsx` - Entry form
+- `src/app/admin/page.tsx` - Admin portal
+- `src/app/api/entry/route.ts` - Entry submission API
+- `src/app/api/campaigns/active/route.ts` - Get active campaign
+- `src/app/api/admin/campaigns/route.ts` - Admin CRUD for campaigns
+- `src/lib/email.ts` - Resend email sending
+- `src/lib/sheets.ts` - Google Sheets sync
+- `src/lib/supabase.ts` - Supabase client
 
-### Add new showtimes manually
-1. Edit `index.html`, find `SHOWTIMES_DATA` array
-2. Add entries in chronological order
-3. Add theater to `THEATER_CITIES` if new
-4. Update `showtimes.csv` for backup
-5. Commit and push
+### Static Site
+- `public/index.html` - Main website with SHOWTIMES_DATA
+- `public/showtimes.csv` - Showtimes backup
+- `public/assets/` - Images, fonts, logos
 
-### Mark showtime as sold out
-Change `eventType` to include "(Sold Out)":
-```javascript
-eventType: "General Admission (Sold Out)"
-```
-
-### Test locally
-```bash
-python3 -m http.server 8000
-# Open http://localhost:8000
-```
-
-### Deploy
-Just push to main branch - GitHub Pages auto-deploys.
-
-## File Reference
-
-| File | Purpose |
-|------|---------|
-| `index.html` | Main website, contains SHOWTIMES_DATA |
-| `showtimes.csv` | Backup of all showtimes |
-| `CNAME` | Custom domain config |
-| `robots.txt` | SEO config |
-| `sitemap.xml` | SEO sitemap |
-| `.nojekyll` | Disable Jekyll processing |
-| `scraper-dashboard/server.py` | Unified scraper backend |
-| `scraper-dashboard/index.html` | Unified scraper UI |
-
-## Notes
-
-- Theater logos must have `fill="white"` to be visible on dark background
-- Time format: "H:MM AM/PM" (e.g., "7:30 PM", "10:00 AM")
-- Date format: "YYYY-MM-DD" (e.g., "2026-04-17")
-- The ticket calendar filters out past dates automatically
-- The scraper dashboard requires Python 3.8+ and Node.js for Playwright
-
-## CRITICAL: Scraper Rules
-
-**ALL SCRAPERS MUST ONLY RETURN SHOWTIMES FOR "OUR HERO, BALTHAZAR"**
-
-This is the film website for "Our Hero, Balthazar" - scrapers should NEVER return showtimes for other movies. When writing or modifying scrapers:
-
-1. **Always filter by movie** - Use movie-specific URLs or filter API responses by film title/ID
-2. **Hardcoded movie identifiers per chain:**
-   - AMC: `movie_slug = "our-hero-balthazar-83057"`, `movie_id = "83057"`
-   - Regal: `ho_code = "HO00020753"`
-   - Fandango: `movie_id = "244581"`
-   - Alamo: `film_slug = "our-hero-balthazar"`
-   - Reading/Angelika: Filter by `filmName` containing "Our Hero" or "Balthazar"
-
-3. **Verify output** - After scraping, confirm results are for the correct film, not all movies at a theater
-
-4. **AMC-specific**: Use the movie-specific URL format:
-   ```
-   /movies/{movie_slug}/showtimes/{movie_slug}/{date}/{theater_slug}/all
-   ```
-   NOT the theater showtimes page (which shows all movies)
+### Scraper
+- `scraper-dashboard/server.py` - Flask backend
+- `scraper-dashboard/index.html` - Dashboard UI
+- `scraper-dashboard/scrapers/` - Python scrapers

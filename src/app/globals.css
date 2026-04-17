@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+/* OHB Design Tokens */
+:root {
+  --ohb-red: #ff3600;
+  --ohb-black: #000000;
+  --ohb-white: #ffffff;
+  --ohb-gray: #333333;
+  --ohb-success: #00c853;
+  --ohb-error: #ff1744;
+}
+
+@theme inline {
+  --color-ohb-red: var(--ohb-red);
+  --color-ohb-black: var(--ohb-black);
+  --color-ohb-white: var(--ohb-white);
+  --color-ohb-gray: var(--ohb-gray);
+  --color-ohb-success: var(--ohb-success);
+  --color-ohb-error: var(--ohb-error);
+}
+
+/* Fonts */
+@font-face {
+  font-family: 'Neue Haas Display';
+  src: url('/assets/fonts/NeueHaasDisplayBlack.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Haas Text';
+  src: url('/assets/fonts/NeueHaasTextPro75Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Base Styles */
+body {
+  background: var(--ohb-black);
+  color: var(--ohb-white);
+  font-family: 'Neue Haas Text', Arial, Helvetica, sans-serif;
+}
+
+/* Heading Style */
+.heading {
+  font-family: 'Neue Haas Display', Arial, Helvetica, sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Button Styles */
+.btn-primary {
+  background: var(--ohb-red);
+  color: var(--ohb-white);
+  padding: 12px 32px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  font-family: 'Neue Haas Display', Arial, Helvetica, sans-serif;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: var(--ohb-white);
+  color: var(--ohb-black);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Input Styles */
+.input {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--ohb-white);
+  color: var(--ohb-black);
+  border: 2px solid transparent;
+  font-family: 'Neue Haas Text', Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  transition: border-color 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--ohb-red);
+}
+
+.input::placeholder {
+  color: #999;
+}
+
+/* Select Styles */
+.select {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--ohb-white);
+  color: var(--ohb-black);
+  border: 2px solid transparent;
+  font-family: 'Neue Haas Text', Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--ohb-red);
+}
+
+/* Checkbox Styles */
+.checkbox-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.checkbox-container input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  accent-color: var(--ohb-red);
+  cursor: pointer;
+}
+
+/* Error Message */
+.error-message {
+  color: var(--ohb-error);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* Success Message */
+.success-message {
+  color: var(--ohb-success);
+  font-size: 14px;
+  margin-top: 4px;
+}
