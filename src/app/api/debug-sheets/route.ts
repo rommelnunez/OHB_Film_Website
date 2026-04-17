@@ -10,7 +10,11 @@ export async function GET() {
   let parseResult = 'not attempted';
   let clientEmail = '';
   let keyLength = 0;
+  let keyStart = '';
+  let keyEnd = '';
   let testResult = 'not attempted';
+  let jsonLength = process.env.GOOGLE_SERVICE_ACCOUNT_JSON?.length || 0;
+  let jsonStart = process.env.GOOGLE_SERVICE_ACCOUNT_JSON?.substring(0, 50) || '';
 
   if (hasJson) {
     try {
@@ -18,6 +22,8 @@ export async function GET() {
       parseResult = 'success';
       clientEmail = creds.client_email || 'missing';
       keyLength = creds.private_key?.length || 0;
+      keyStart = creds.private_key?.substring(0, 30) || '';
+      keyEnd = creds.private_key?.substring(creds.private_key.length - 30) || '';
 
       // Try to actually use the API
       const auth = new google.auth.GoogleAuth({
@@ -31,29 +37,32 @@ export async function GET() {
       const sheets = google.sheets({ version: 'v4', auth });
       const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID || '104IZsSdipQhx-ZOSj0pcHRUDZ9baNKqNb1Ap23r3akc';
 
-      // Log which ID we're using
-      console.log('Using spreadsheetId:', spreadsheetId);
-
       const spreadsheet = await sheets.spreadsheets.get({ spreadsheetId });
-      testResult = `success - found ${spreadsheet.data.sheets?.length} sheets: ${spreadsheet.data.sheets?.map(s => s.properties?.title).join(', ')} (using ID: ${spreadsheetId.substring(0, 10)}...)`;
+      testResult = `success - found ${spreadsheet.data.sheets?.length} sheets: ${spreadsheet.data.sheets?.map(s => s.properties?.title).join(', ')}`;
     } catch (e: unknown) {
       const error = e as Error;
-      parseResult = `error: ${error.message}`;
+      if (parseResult === 'not attempted') {
+        parseResult = `JSON parse error: ${error.message}`;
+      }
       testResult = `error: ${error.message}`;
     }
   }
 
-  const spreadsheetIdValue = process.env.GOOGLE_SHEETS_SPREADSHEET_ID || '(using fallback)';
+  const spreadsheetIdValue = process.env.GOOGLE_SHEETS_SPREADSHEET_ID || '(using fallback: 104IZsS...)';
 
   return NextResponse.json({
     hasJson,
+    jsonLength,
+    jsonStart,
     hasEmail,
     hasKey,
     hasSpreadsheetId,
-    spreadsheetIdPreview: spreadsheetIdValue.substring(0, 15) + '...',
+    spreadsheetIdPreview: spreadsheetIdValue.substring(0, 20),
     parseResult,
     clientEmail,
     keyLength,
+    keyStart,
+    keyEnd,
     testResult,
   });
 }
