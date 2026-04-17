@@ -16,28 +16,44 @@ export async function GET() {
   let jsonLength = process.env.GOOGLE_SERVICE_ACCOUNT_JSON?.length || 0;
   let jsonStart = process.env.GOOGLE_SERVICE_ACCOUNT_JSON?.substring(0, 50) || '';
 
-  if (hasJson) {
+  // Prefer individual env vars (more reliable with Vercel)
+  let authMethod = 'none';
+  let privateKey = '';
+
+  if (hasEmail && hasKey) {
+    authMethod = 'individual env vars';
+    clientEmail = process.env.GOOGLE_SHEETS_CLIENT_EMAIL!;
+    privateKey = process.env.GOOGLE_SHEETS_PRIVATE_KEY!;
+    keyLength = privateKey.length;
+    keyStart = privateKey.substring(0, 40);
+    keyEnd = privateKey.substring(privateKey.length - 40);
+    parseResult = 'using individual vars';
+  } else if (hasJson) {
+    authMethod = 'JSON env var';
     try {
       const creds = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON!);
-      parseResult = 'success';
+      parseResult = 'JSON parsed';
       clientEmail = creds.client_email || 'missing';
-      keyLength = creds.private_key?.length || 0;
-      keyStart = creds.private_key?.substring(0, 40) || '';
-      keyEnd = creds.private_key?.substring(creds.private_key.length - 40) || '';
-      // Check if newlines are literal or escaped
-      const hasRealNewline = creds.private_key?.includes('\n');
-      const hasEscapedNewline = creds.private_key?.includes('\\n');
+      privateKey = creds.private_key || '';
+      keyLength = privateKey.length;
+      keyStart = privateKey.substring(0, 40);
+      keyEnd = privateKey.substring(privateKey.length - 40);
+    } catch (e: unknown) {
+      const error = e as Error;
+      parseResult = `JSON parse error: ${error.message}`;
+    }
+  }
 
-      // Fix escaped newlines (common Vercel env var issue)
-      let privateKey = creds.private_key;
-      if (privateKey && privateKey.includes('\\n')) {
+  if (clientEmail && privateKey) {
+    try {
+      // Fix escaped newlines if needed
+      if (privateKey.includes('\\n')) {
         privateKey = privateKey.replace(/\\n/g, '\n');
       }
 
-      // Try to actually use the API
       const auth = new google.auth.GoogleAuth({
         credentials: {
-          client_email: creds.client_email,
+          client_email: clientEmail,
           private_key: privateKey,
         },
         scopes: ['https://www.googleapis.com/auth/spreadsheets'],
@@ -50,9 +66,6 @@ export async function GET() {
       testResult = `success - found ${spreadsheet.data.sheets?.length} sheets: ${spreadsheet.data.sheets?.map(s => s.properties?.title).join(', ')}`;
     } catch (e: unknown) {
       const error = e as Error;
-      if (parseResult === 'not attempted') {
-        parseResult = `JSON parse error: ${error.message}`;
-      }
       testResult = `error: ${error.message}`;
     }
   }
@@ -60,9 +73,8 @@ export async function GET() {
   const spreadsheetIdValue = process.env.GOOGLE_SHEETS_SPREADSHEET_ID || '(using fallback: 104IZsS...)';
 
   return NextResponse.json({
+    authMethod,
     hasJson,
-    jsonLength,
-    jsonStart,
     hasEmail,
     hasKey,
     hasSpreadsheetId,

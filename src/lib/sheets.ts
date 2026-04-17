@@ -18,8 +18,16 @@ function getGoogleSheetsClient() {
   let clientEmail: string;
   let privateKey: string;
 
-  // Prefer JSON if available (more reliable)
-  if (process.env.GOOGLE_SERVICE_ACCOUNT_JSON) {
+  // Prefer individual env vars (more reliable with Vercel's newline handling)
+  if (process.env.GOOGLE_SHEETS_CLIENT_EMAIL && process.env.GOOGLE_SHEETS_PRIVATE_KEY) {
+    clientEmail = process.env.GOOGLE_SHEETS_CLIENT_EMAIL;
+    privateKey = process.env.GOOGLE_SHEETS_PRIVATE_KEY;
+    // Only replace if escaped (key should have real newlines from Vercel CLI)
+    if (privateKey.includes('\\n') && !privateKey.includes('\n')) {
+      privateKey = privateKey.replace(/\\n/g, '\n');
+    }
+    console.log('Using individual env vars');
+  } else if (process.env.GOOGLE_SERVICE_ACCOUNT_JSON) {
     try {
       const creds = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
       clientEmail = creds.client_email;
@@ -34,10 +42,7 @@ function getGoogleSheetsClient() {
       throw new Error('Invalid GOOGLE_SERVICE_ACCOUNT_JSON');
     }
   } else {
-    clientEmail = process.env.GOOGLE_SHEETS_CLIENT_EMAIL || '';
-    privateKey = process.env.GOOGLE_SHEETS_PRIVATE_KEY || '';
-    privateKey = privateKey.replace(/\\n/g, '\n');
-    console.log('Using individual env vars');
+    throw new Error('No Google Sheets credentials configured');
   }
 
   console.log('Client email:', clientEmail);
