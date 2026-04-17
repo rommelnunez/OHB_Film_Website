@@ -109,6 +109,8 @@ export async function POST(request: NextRequest) {
         eligible_cities: body.eligible_cities || [],
         google_sheet_id: body.google_sheet_id || process.env.GOOGLE_SHEETS_SPREADSHEET_ID || null,
         google_sheet_tab: body.google_sheet_tab || body.slug,
+        fulfillment_email: body.fulfillment_email || null,
+        fulfillment_cc_emails: body.fulfillment_cc_emails || null,
         is_active: body.is_active ?? false,
       })
       .select()
