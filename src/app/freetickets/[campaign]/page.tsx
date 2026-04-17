@@ -306,7 +306,7 @@ export default function CampaignPage() {
 
             <div className="py-2">
               <HCaptcha
-                sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY || '10000000-ffff-ffff-ffff-000000000001'}
+                sitekey="c7181926-2938-473a-9b14-f66022ec6684"
                 onVerify={(token) => setCaptchaToken(token)}
                 onExpire={() => setCaptchaToken(null)}
                 ref={captchaRef}
