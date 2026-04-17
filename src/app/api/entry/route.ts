@@ -143,14 +143,14 @@ export async function POST(request: NextRequest) {
     }
 
     // Sync to Google Sheet - use env var as default, campaign can override
-    const sheetId = campaign.google_sheet_id || process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
+    const sheetId = (campaign.google_sheet_id || process.env.GOOGLE_SHEETS_SPREADSHEET_ID || '').trim();
     let syncedToSheet = false;
     let sheetError: string | undefined;
     if (sheetId) {
       try {
         const result = await appendEntryToSheet(
           sheetId,
-          campaign.google_sheet_tab || campaign.slug,
+          (campaign.google_sheet_tab || campaign.slug).trim(),
           {
             name,
             email,
