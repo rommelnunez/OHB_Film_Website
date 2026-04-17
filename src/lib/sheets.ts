@@ -2,10 +2,11 @@ import { google } from 'googleapis';
 
 // Check if Google Sheets is configured
 function isConfigured(): boolean {
-  return !!(
-    process.env.GOOGLE_SHEETS_CLIENT_EMAIL &&
-    process.env.GOOGLE_SHEETS_PRIVATE_KEY
-  );
+  const hasJson = !!process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
+  const hasEmail = !!process.env.GOOGLE_SHEETS_CLIENT_EMAIL;
+  const hasKey = !!process.env.GOOGLE_SHEETS_PRIVATE_KEY;
+  console.log('Google Sheets config check:', { hasJson, hasEmail, hasKey });
+  return hasJson || (hasEmail && hasKey);
 }
 
 // Initialize Google Sheets client
@@ -14,10 +15,34 @@ function getGoogleSheetsClient() {
     throw new Error('Google Sheets not configured');
   }
 
+  let clientEmail: string;
+  let privateKey: string;
+
+  // Prefer JSON if available (more reliable)
+  if (process.env.GOOGLE_SERVICE_ACCOUNT_JSON) {
+    try {
+      const creds = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
+      clientEmail = creds.client_email;
+      privateKey = creds.private_key;
+      console.log('Using GOOGLE_SERVICE_ACCOUNT_JSON');
+    } catch (e) {
+      console.error('Failed to parse GOOGLE_SERVICE_ACCOUNT_JSON:', e);
+      throw new Error('Invalid GOOGLE_SERVICE_ACCOUNT_JSON');
+    }
+  } else {
+    clientEmail = process.env.GOOGLE_SHEETS_CLIENT_EMAIL || '';
+    privateKey = process.env.GOOGLE_SHEETS_PRIVATE_KEY || '';
+    privateKey = privateKey.replace(/\\n/g, '\n');
+    console.log('Using individual env vars');
+  }
+
+  console.log('Client email:', clientEmail);
+  console.log('Private key length:', privateKey.length);
+
   const auth = new google.auth.GoogleAuth({
     credentials: {
-      client_email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
-      private_key: process.env.GOOGLE_SHEETS_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+      client_email: clientEmail,
+      private_key: privateKey,
     },
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   });
@@ -99,13 +124,17 @@ export async function appendEntryToSheet(
   sheetName: string,
   entry: EntryData
 ): Promise<boolean> {
+  console.log('appendEntryToSheet called:', { spreadsheetId, sheetName, entry });
+
   if (!isConfigured()) {
     console.warn('Google Sheets not configured, skipping sync');
     return true;
   }
 
   try {
+    console.log('Getting Google Sheets client...');
     const sheets = getGoogleSheetsClient();
+    console.log('Google Sheets client obtained');
 
     // Ensure the tab exists first
     await ensureSheetExists(spreadsheetId, sheetName);
@@ -137,6 +166,7 @@ export async function appendEntryToSheet(
     return true;
   } catch (error) {
     console.error('Error appending to Google Sheet:', error);
+    console.error('Full error details:', JSON.stringify(error, Object.getOwnPropertyNames(error)));
     return false;
   }
 }

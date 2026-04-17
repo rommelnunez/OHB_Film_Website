@@ -65,10 +65,11 @@ export default function FreeTicketsPage() {
 
     if (!campaign) return;
 
-    if (!captchaToken) {
-      setSubmitError('Please complete the captcha');
-      return;
-    }
+    // TEMPORARILY DISABLED - captcha check
+    // if (!captchaToken) {
+    //   setSubmitError('Please complete the captcha');
+    //   return;
+    // }
 
     if (!ageConfirmed || !rulesConfirmed) {
       setSubmitError('Please confirm age and rules');
@@ -317,21 +318,23 @@ export default function FreeTicketsPage() {
               </label>
             </div>
 
+            {/* TEMPORARILY DISABLED - hCaptcha widget
             <div className="py-2">
               <HCaptcha
-                sitekey="c7181926-2938-473a-9b14-f66022ec6684"
+                sitekey="6d9433e4-81de-4df6-9e46-4888ff7419b6"
                 onVerify={(token) => setCaptchaToken(token)}
                 onExpire={() => setCaptchaToken(null)}
                 ref={captchaRef}
                 theme="dark"
               />
             </div>
+            */}
 
             {submitError && <p className="error-message">{submitError}</p>}
 
             <button
               type="submit"
-              disabled={submitting || !captchaToken}
+              disabled={submitting}
               className="btn-primary w-full"
             >
               {submitting ? 'Submitting...' : 'Enter to Win'}

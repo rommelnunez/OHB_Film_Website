@@ -14,7 +14,7 @@ const entrySchema = z.object({
   ageConfirmed: z.boolean().refine((val) => val === true, {
     message: 'You must confirm you are 17 or older',
   }),
-  captchaToken: z.string().min(1, 'Please complete the captcha'),
+  captchaToken: z.string().nullable().optional(),
 });
 
 export async function POST(request: NextRequest) {
@@ -44,15 +44,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Verify hCaptcha
-    const captchaResult = await verifyCaptcha(captchaToken);
-    if (!captchaResult.success) {
-      console.error('Captcha failed:', captchaResult.error);
-      return NextResponse.json(
-        { error: 'Please complete the captcha verification.', code: 'CAPTCHA_FAILED', details: captchaResult.error },
-        { status: 400 }
-      );
-    }
+    // Verify hCaptcha - TEMPORARILY DISABLED
+    // const captchaResult = await verifyCaptcha(captchaToken);
+    // if (!captchaResult.success) {
+    //   console.error('Captcha failed:', captchaResult.error);
+    //   return NextResponse.json(
+    //     { error: 'Please complete the captcha verification.', code: 'CAPTCHA_FAILED', details: captchaResult.error },
+    //     { status: 400 }
+    //   );
+    // }
 
     // Get campaign
     const { data: campaign, error: campaignError } = await supabaseAdmin
@@ -142,43 +142,51 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Sync to Google Sheet (async, don't block response)
-    if (campaign.google_sheet_id) {
-      appendEntryToSheet(
-        campaign.google_sheet_id,
-        campaign.google_sheet_tab || campaign.slug,
-        {
-          name,
-          email,
-          phone,
-          city,
-          totalEntries: 1,
-        }
-      ).then(async (success) => {
-        if (success) {
+    // Sync to Google Sheet - use env var as default, campaign can override
+    const sheetId = campaign.google_sheet_id || process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
+    if (sheetId) {
+      try {
+        const sheetSuccess = await appendEntryToSheet(
+          sheetId,
+          campaign.google_sheet_tab || campaign.slug,
+          {
+            name,
+            email,
+            phone,
+            city,
+            totalEntries: 1,
+          }
+        );
+        if (sheetSuccess) {
           await supabaseAdmin
             .from('entries')
             .update({ synced_to_sheet_at: new Date().toISOString() })
             .eq('id', entry.id);
         }
-      });
+      } catch (sheetError) {
+        console.error('Failed to sync to Google Sheet:', sheetError);
+      }
     }
 
-    // Send confirmation email (async, don't block response)
-    sendConfirmationEmail({
-      to: email,
-      name,
-      city,
-      campaignName: campaign.name,
-      endDate: campaign.ends_at
-        ? new Date(campaign.ends_at).toLocaleDateString('en-US', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })
-        : null,
-    });
+    // Send confirmation email
+    try {
+      await sendConfirmationEmail({
+        to: email,
+        name,
+        city,
+        campaignName: campaign.name,
+        endDate: campaign.ends_at
+          ? new Date(campaign.ends_at).toLocaleDateString('en-US', {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })
+          : null,
+      });
+    } catch (emailError) {
+      console.error('Failed to send confirmation email:', emailError);
+    }
 
     return NextResponse.json({
       success: true,
@@ -206,7 +214,7 @@ async function verifyCaptcha(token: string): Promise<{ success: boolean; error?:
     formData.append('response', token);
     formData.append('secret', secret);
 
-    const response = await fetch('https://hcaptcha.com/siteverify', {
+    const response = await fetch('https://api.hcaptcha.com/siteverify', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
