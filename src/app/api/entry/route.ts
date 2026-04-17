@@ -45,16 +45,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify hCaptcha
-    console.log('Verifying captcha token:', captchaToken?.substring(0, 20) + '...');
     const captchaValid = await verifyCaptcha(captchaToken);
-    console.log('Captcha valid:', captchaValid);
-    // TEMPORARILY DISABLED FOR DEBUGGING - RE-ENABLE AFTER TESTING
-    // if (!captchaValid) {
-    //   return NextResponse.json(
-    //     { error: 'Please complete the captcha verification.', code: 'CAPTCHA_FAILED' },
-    //     { status: 400 }
-    //   );
-    // }
+    if (!captchaValid) {
+      return NextResponse.json(
+        { error: 'Please complete the captcha verification.', code: 'CAPTCHA_FAILED' },
+        { status: 400 }
+      );
+    }
 
     // Get campaign
     const { data: campaign, error: campaignError } = await supabaseAdmin
@@ -207,8 +204,9 @@ async function verifyCaptcha(token: string): Promise<boolean> {
     const params = new URLSearchParams();
     params.append('response', token);
     params.append('secret', secret);
+    params.append('sitekey', 'c7181926-2938-473a-9b14-f66022ec6684');
 
-    const response = await fetch('https://hcaptcha.com/siteverify', {
+    const response = await fetch('https://api.hcaptcha.com/siteverify', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: params.toString(),
