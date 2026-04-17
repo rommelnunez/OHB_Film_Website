@@ -327,8 +327,7 @@ export default function CampaignPage() {
         </div>
 
         <p className="text-center text-gray-500 text-sm mt-6">
-          {campaign.winner_count} winners will be selected.
-          <br />
+          {campaign.winner_count && <>{campaign.winner_count} winners will be selected.<br /></>}
           Winners notified by email.
         </p>
       </div>

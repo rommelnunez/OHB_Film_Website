@@ -1,0 +1,6 @@
+_archive
+.claude
+scraper-dashboard
+*.py
+.venv
+.env.local
