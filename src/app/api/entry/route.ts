@@ -22,6 +22,7 @@ const entrySchema = z.object({
   ageConfirmed: z.boolean().refine((val) => val === true, {
     message: 'You must confirm you are 17 or older',
   }),
+  instagram: z.string().optional(),
   captchaToken: z.string().nullable().optional(),
   selectedScreenings: z.array(screeningSchema).optional(),
 });
@@ -40,7 +41,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { campaignSlug, name, email, phone, city, ageConfirmed, captchaToken, selectedScreenings } =
+    const { campaignSlug, name, email, phone, city, instagram, ageConfirmed, captchaToken, selectedScreenings } =
       parsed.data;
 
     // Rate limit check
@@ -137,6 +138,7 @@ export async function POST(request: NextRequest) {
         city,
         age_confirmed: ageConfirmed,
         total_entries: 1,
+        instagram: instagram || null,
         ip_address: ip,
         user_agent: request.headers.get('user-agent'),
         selected_screenings: selectedScreenings?.length ? selectedScreenings : null,
@@ -169,6 +171,7 @@ export async function POST(request: NextRequest) {
             email,
             phone,
             city,
+            instagram: instagram || '',
             totalEntries: 1,
             selectedScreenings: screeningSummary,
           }

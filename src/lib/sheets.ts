@@ -60,6 +60,7 @@ interface EntryData {
   email: string;
   phone: string;
   city: string;
+  instagram?: string;
   zip?: string;
   tasksCompleted?: number;
   totalEntries: number;
@@ -98,7 +99,7 @@ async function ensureSheetExists(
       // Add headers
       await sheets.spreadsheets.values.update({
         spreadsheetId,
-        range: `'${sheetName}'!A1:J1`,
+        range: `'${sheetName}'!A1:K1`,
         valueInputOption: 'USER_ENTERED',
         requestBody: {
           values: [
@@ -108,6 +109,7 @@ async function ensureSheetExists(
               'Email',
               'Phone',
               'City',
+              'Instagram',
               'Zip',
               'Tasks',
               'Entries',
@@ -147,6 +149,7 @@ export async function appendEntryToSheet(
         entry.email,
         entry.phone,
         entry.city,
+        entry.instagram || '',
         entry.zip || '',
         entry.tasksCompleted || 0,
         entry.totalEntries,
@@ -163,7 +166,7 @@ export async function appendEntryToSheet(
 
     await sheets.spreadsheets.values.update({
       spreadsheetId,
-      range: `'${sheetName}'!A${nextRow}:J${nextRow}`,
+      range: `'${sheetName}'!A${nextRow}:K${nextRow}`,
       valueInputOption: 'USER_ENTERED',
       requestBody: { values },
     });
@@ -209,7 +212,7 @@ export async function createSheetWithHeaders(
       // Add headers
       await sheets.spreadsheets.values.update({
         spreadsheetId,
-        range: `${sheetName}!A1:J1`,
+        range: `${sheetName}!A1:K1`,
         valueInputOption: 'USER_ENTERED',
         requestBody: {
           values: [
@@ -219,6 +222,7 @@ export async function createSheetWithHeaders(
               'Email',
               'Phone',
               'City',
+              'Instagram',
               'Zip',
               'Tasks',
               'Entries',

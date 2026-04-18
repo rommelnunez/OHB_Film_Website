@@ -65,8 +65,6 @@ export async function PATCH(
       console.error('Error fetching campaign for select:', campaignError);
     }
 
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://ourherobalthazar.com';
-    const replyUrl = `${appUrl}/freetickets/reply/${replyToken}`;
     const replyToEmail = resolveFulfillmentTo(campaign?.fulfillment_email);
     const campaignType: 'giveaway' | 'raffle' =
       campaign?.campaign_type === 'raffle' ? 'raffle' : 'giveaway';
@@ -77,11 +75,11 @@ export async function PATCH(
       city: updated.city,
       campaignName: campaign?.name || 'Our Hero, Balthazar',
       campaignType,
-      replyUrl,
+      selectedScreenings: updated.selected_screenings || [],
       replyToEmail,
     });
 
-    return NextResponse.json({ entry: updated, emailSent, replyUrl });
+    return NextResponse.json({ entry: updated, emailSent });
   } catch (error) {
     console.error('Error selecting winner:', error);
     return NextResponse.json({ error: 'Failed to select winner' }, { status: 500 });

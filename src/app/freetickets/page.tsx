@@ -52,6 +52,7 @@ export default function FreeTicketsPage() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [city, setCity] = useState('');
+  const [instagram, setInstagram] = useState('');
   const [ageConfirmed, setAgeConfirmed] = useState(false);
   const [rulesConfirmed, setRulesConfirmed] = useState(false);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
@@ -156,6 +157,7 @@ export default function FreeTicketsPage() {
           email,
           phone,
           city,
+          instagram: instagram.trim() || undefined,
           ageConfirmed,
           captchaToken,
           selectedScreenings: picks.length ? picks : undefined,
@@ -361,6 +363,16 @@ export default function FreeTicketsPage() {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 required
+                className="input"
+              />
+            </div>
+
+            <div>
+              <input
+                type="text"
+                placeholder="Instagram username (optional)"
+                value={instagram}
+                onChange={(e) => setInstagram(e.target.value)}
                 className="input"
               />
             </div>

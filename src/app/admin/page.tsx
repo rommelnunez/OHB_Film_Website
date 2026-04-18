@@ -42,6 +42,7 @@ interface Entry {
   email: string;
   phone: string;
   city: string;
+  instagram: string | null;
   age_confirmed: boolean;
   ip_address: string | null;
   user_agent: string | null;
@@ -1078,6 +1079,11 @@ export default function AdminPage() {
                                           : 'No'}
                                       </span>
                                     </div>
+                                    {entry.instagram && (
+                                      <div>
+                                        Instagram: <span className="text-white">@{entry.instagram.replace(/^@/, '')}</span>
+                                      </div>
+                                    )}
                                     <div>IP: {entry.ip_address || '—'}</div>
                                     <div className="truncate">
                                       User agent: {entry.user_agent || '—'}

@@ -73,9 +73,13 @@ export async function sendConfirmationEmail({
       ? `<strong>Winners announced:</strong> ${endDate}`
       : `<strong>Winners:</strong> We'll notify you when winners are selected`;
 
+  const spamNote = isGiveaway
+    ? `<strong>Important:</strong> If you're selected, you'll receive a follow-up email from us. Please check your spam/junk folder so you don't miss it!`
+    : `<strong>Important:</strong> If you win, you'll receive a follow-up email from us. Please check your spam/junk folder so you don't miss it!`;
+
   const closingLine = isGiveaway
-    ? "We'll email you if your tickets are available. Thanks for your interest!"
-    : "We'll email you if you're selected. Good luck!";
+    ? "Thanks for your interest!"
+    : "Good luck!";
 
   try {
     const { error } = await resend.emails.send({
@@ -105,6 +109,12 @@ export async function sendConfirmationEmail({
               <p style="margin: 0; font-size: 14px;">
                 <strong>Campaign:</strong> ${campaignName}<br>
                 ${detailLine}
+              </p>
+            </div>
+
+            <div style="background: #1a1a1a; padding: 16px; margin: 20px 0; border-left: 4px solid #ff3600;">
+              <p style="margin: 0; font-size: 13px; color: #ccc;">
+                ${spamNote}
               </p>
             </div>
 
@@ -138,15 +148,33 @@ export async function sendConfirmationEmail({
   }
 }
 
+interface ScreeningPick {
+  theater: string;
+  date: string;
+  time: string;
+  eventType?: string;
+}
+
 interface SendSelectionEmailParams {
   to: string;
   name: string;
   city: string;
   campaignName: string;
   campaignType: 'giveaway' | 'raffle';
-  replyUrl: string;
+  selectedScreenings: ScreeningPick[];
   replyToEmail: string;
   isResend?: boolean;
+}
+
+function formatScreeningDate(date: string): string {
+  const [y, m, d] = date.split('-').map(Number);
+  const dt = new Date(Date.UTC(y, (m || 1) - 1, d || 1));
+  return dt.toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC',
+  });
 }
 
 export async function sendSelectionEmail({
@@ -155,7 +183,7 @@ export async function sendSelectionEmail({
   city,
   campaignName,
   campaignType,
-  replyUrl,
+  selectedScreenings,
   replyToEmail,
   isResend = false,
 }: SendSelectionEmailParams): Promise<boolean> {
@@ -167,19 +195,20 @@ export async function sendSelectionEmail({
   const isGiveaway = campaignType !== 'raffle';
 
   const baseSubject = isGiveaway
-    ? 'Your OHB tickets are ready to claim'
-    : "Good news — you've been selected for OHB tickets";
+    ? "You've been selected for free OHB tickets!"
+    : "Good news — you've been selected for OHB tickets!";
   const subject = isResend ? `${baseSubject} (resend)` : baseSubject;
 
-  const heading = isGiveaway ? 'Your Tickets Are Ready' : "You've Been Selected";
+  const heading = "You've Been Selected!";
 
-  const introLine = isGiveaway
-    ? `Your free tickets to <strong>Our Hero, Balthazar</strong> in ${city} are ready to claim — while supplies last.`
-    : `You've been selected to receive free tickets to <strong>Our Hero, Balthazar</strong> in ${city}.`;
-
-  const instructionLine = isGiveaway
-    ? `Reply with how many tickets you'd like and which showtimes work. Pick multiple options so we can still book you if one sells out.`
-    : `Reply with how many tickets you'd like and which showtimes work for you. The more options you pick, the more likely we can book one before it sells out.`;
+  const screeningsHtml = selectedScreenings.length
+    ? selectedScreenings
+        .map(
+          (s) =>
+            `<li style="margin-bottom: 6px;"><strong>${s.theater}</strong> — ${formatScreeningDate(s.date)} at ${s.time}</li>`
+        )
+        .join('')
+    : `<li>Screenings in ${city} (we'll confirm the details)</li>`;
 
   try {
     const { error } = await resend.emails.send({
@@ -203,22 +232,18 @@ export async function sendSelectionEmail({
             </p>
 
             <p style="font-size: 16px; line-height: 1.6;">
-              ${introLine}
+              Great news — you've been selected to receive free tickets to <strong>Our Hero, Balthazar</strong>!
             </p>
 
-            <p style="font-size: 16px; line-height: 1.6;">
-              ${instructionLine}
-            </p>
-
-            <div style="text-align: center; margin: 30px 0;">
-              <a href="${replyUrl}" style="background: #ff3600; color: #fff; padding: 14px 28px; text-decoration: none; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">
-                Claim My Tickets
-              </a>
+            <div style="background: #1a1a1a; padding: 20px; margin: 20px 0; border-left: 4px solid #ff3600;">
+              <p style="margin: 0 0 8px; font-size: 14px; color: #ccc;"><strong style="color: #fff;">Your screening${selectedScreenings.length !== 1 ? 's' : ''}:</strong></p>
+              <ul style="margin: 0; padding-left: 20px; color: #fff; font-size: 14px; line-height: 1.8;">
+                ${screeningsHtml}
+              </ul>
             </div>
 
-            <p style="font-size: 14px; color: #999; line-height: 1.6;">
-              Campaign: ${campaignName}<br>
-              Please reply within 48 hours — otherwise we may offer the tickets to someone else.
+            <p style="font-size: 16px; line-height: 1.6;">
+              A WG Pictures associate will email you shortly with your tickets. Keep an eye on your inbox (and spam folder).
             </p>
 
             <p style="font-size: 14px; color: #999; margin-top: 30px;">
@@ -228,8 +253,7 @@ export async function sendSelectionEmail({
 
           <div style="padding: 20px; text-align: center; font-size: 12px; color: #666;">
             <p>
-              If the button doesn't work, paste this link in your browser:<br>
-              <a href="${replyUrl}" style="color: #ff3600;">${replyUrl}</a>
+              <a href="https://ourherobalthazar.com" style="color: #ff3600;">ourherobalthazar.com</a>
             </p>
           </div>
         </div>

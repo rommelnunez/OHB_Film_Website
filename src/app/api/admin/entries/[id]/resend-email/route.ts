@@ -69,8 +69,6 @@ export async function POST(
       console.error('Error fetching campaign for resend:', campaignError);
     }
 
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://ourherobalthazar.com';
-    const replyUrl = `${appUrl}/freetickets/reply/${entry.reply_token}`;
     const replyToEmail = resolveFulfillmentTo(campaign?.fulfillment_email);
     const campaignType: 'giveaway' | 'raffle' =
       campaign?.campaign_type === 'raffle' ? 'raffle' : 'giveaway';
@@ -81,7 +79,7 @@ export async function POST(
       city: entry.city,
       campaignName: campaign?.name || 'Our Hero, Balthazar',
       campaignType,
-      replyUrl,
+      selectedScreenings: entry.selected_screenings || [],
       replyToEmail,
       isResend: true,
     });
@@ -91,7 +89,7 @@ export async function POST(
       .update({ selected_at: new Date().toISOString() })
       .eq('id', id);
 
-    return NextResponse.json({ emailSent, replyUrl });
+    return NextResponse.json({ emailSent });
   } catch (error) {
     console.error('Error resending selection email:', error);
     return NextResponse.json({ error: 'Failed to resend email' }, { status: 500 });
