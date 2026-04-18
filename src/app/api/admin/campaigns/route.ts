@@ -111,6 +111,8 @@ export async function POST(request: NextRequest) {
         google_sheet_tab: body.google_sheet_tab || body.slug,
         fulfillment_email: body.fulfillment_email || null,
         fulfillment_cc_emails: body.fulfillment_cc_emails || null,
+        screening_start_date: body.screening_start_date || null,
+        screening_end_date: body.screening_end_date || null,
         is_active: body.is_active ?? false,
       })
       .select()

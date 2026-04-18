@@ -63,6 +63,7 @@ interface EntryData {
   zip?: string;
   tasksCompleted?: number;
   totalEntries: number;
+  selectedScreenings?: string;
 }
 
 // Ensure sheet tab exists, create if it doesn't
@@ -97,7 +98,7 @@ async function ensureSheetExists(
       // Add headers
       await sheets.spreadsheets.values.update({
         spreadsheetId,
-        range: `'${sheetName}'!A1:I1`,
+        range: `'${sheetName}'!A1:J1`,
         valueInputOption: 'USER_ENTERED',
         requestBody: {
           values: [
@@ -111,6 +112,7 @@ async function ensureSheetExists(
               'Tasks',
               'Entries',
               'Winner?',
+              'Selected Screenings',
             ],
           ],
         },
@@ -149,6 +151,7 @@ export async function appendEntryToSheet(
         entry.tasksCompleted || 0,
         entry.totalEntries,
         '',
+        entry.selectedScreenings || '',
       ],
     ];
 
@@ -160,7 +163,7 @@ export async function appendEntryToSheet(
 
     await sheets.spreadsheets.values.update({
       spreadsheetId,
-      range: `'${sheetName}'!A${nextRow}:I${nextRow}`,
+      range: `'${sheetName}'!A${nextRow}:J${nextRow}`,
       valueInputOption: 'USER_ENTERED',
       requestBody: { values },
     });
@@ -206,7 +209,7 @@ export async function createSheetWithHeaders(
       // Add headers
       await sheets.spreadsheets.values.update({
         spreadsheetId,
-        range: `${sheetName}!A1:I1`,
+        range: `${sheetName}!A1:J1`,
         valueInputOption: 'USER_ENTERED',
         requestBody: {
           values: [
@@ -220,6 +223,7 @@ export async function createSheetWithHeaders(
               'Tasks',
               'Entries',
               'Winner?',
+              'Selected Screenings',
             ],
           ],
         },

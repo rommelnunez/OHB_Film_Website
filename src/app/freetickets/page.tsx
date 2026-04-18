@@ -14,6 +14,33 @@ interface Campaign {
   starts_at: string;
   ends_at: string | null;
   winner_count: number;
+  screening_start_date: string | null;
+  screening_end_date: string | null;
+}
+
+interface Showtime {
+  theater: string;
+  date: string;
+  time: string;
+  eventType: string;
+  ticketLink: string;
+  city: string;
+  soldOut: boolean;
+}
+
+function showtimeKey(s: { theater: string; date: string; time: string }) {
+  return `${s.theater}|${s.date}|${s.time}`;
+}
+
+function formatDate(date: string) {
+  const [y, m, d] = date.split('-').map(Number);
+  const dt = new Date(Date.UTC(y, (m || 1) - 1, d || 1));
+  return dt.toLocaleDateString('en-US', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+  });
 }
 
 export default function FreeTicketsPage() {
@@ -29,11 +56,41 @@ export default function FreeTicketsPage() {
   const [rulesConfirmed, setRulesConfirmed] = useState(false);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
 
+  const [showtimes, setShowtimes] = useState<Showtime[]>([]);
+  const [loadingShowtimes, setLoadingShowtimes] = useState(false);
+  const [selectedScreenings, setSelectedScreenings] = useState<Set<string>>(new Set());
+
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   const captchaRef = useRef<HCaptcha>(null);
+
+  // Fetch showtimes when city changes
+  useEffect(() => {
+    if (!city) {
+      setShowtimes([]);
+      setSelectedScreenings(new Set());
+      return;
+    }
+    let cancelled = false;
+    (async () => {
+      setLoadingShowtimes(true);
+      setSelectedScreenings(new Set());
+      try {
+        const res = await fetch(`/api/showtimes?city=${encodeURIComponent(city)}`);
+        if (res.ok && !cancelled) {
+          const data = await res.json();
+          setShowtimes(data);
+        }
+      } catch {
+        // silently fail — screenings are optional
+      } finally {
+        if (!cancelled) setLoadingShowtimes(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [city]);
 
   // Fetch the active campaign
   useEffect(() => {
@@ -79,6 +136,16 @@ export default function FreeTicketsPage() {
 
     setSubmitting(true);
 
+    const picks = showtimes
+      .filter((s) => selectedScreenings.has(showtimeKey(s)))
+      .map((s) => ({
+        theater: s.theater,
+        date: s.date,
+        time: s.time,
+        eventType: s.eventType,
+        ticketLink: s.ticketLink,
+      }));
+
     try {
       const res = await fetch('/api/entry', {
         method: 'POST',
@@ -91,6 +158,7 @@ export default function FreeTicketsPage() {
           city,
           ageConfirmed,
           captchaToken,
+          selectedScreenings: picks.length ? picks : undefined,
         }),
       });
 
@@ -313,6 +381,37 @@ export default function FreeTicketsPage() {
               </select>
             </div>
 
+            {city && (
+              <ScreeningSelector
+                showtimes={showtimes}
+                loading={loadingShowtimes}
+                selected={selectedScreenings}
+                onToggle={(key) => {
+                  setSelectedScreenings((prev) => {
+                    const next = new Set(prev);
+                    if (next.has(key)) next.delete(key);
+                    else next.add(key);
+                    return next;
+                  });
+                }}
+                onToggleTheater={(theater) => {
+                  const rows = showtimes.filter(
+                    (s) => s.theater === theater && !s.soldOut
+                  );
+                  setSelectedScreenings((prev) => {
+                    const next = new Set(prev);
+                    const allSelected = rows.every((s) =>
+                      next.has(showtimeKey(s))
+                    );
+                    if (allSelected)
+                      rows.forEach((s) => next.delete(showtimeKey(s)));
+                    else rows.forEach((s) => next.add(showtimeKey(s)));
+                    return next;
+                  });
+                }}
+              />
+            )}
+
             <div className="space-y-3 py-4">
               <label className="checkbox-container text-white">
                 <input
@@ -388,6 +487,115 @@ export default function FreeTicketsPage() {
           ourherobalthazar.com
         </a>
       </div>
+    </div>
+  );
+}
+
+function ScreeningSelector({
+  showtimes,
+  loading,
+  selected,
+  onToggle,
+  onToggleTheater,
+}: {
+  showtimes: Showtime[];
+  loading: boolean;
+  selected: Set<string>;
+  onToggle: (key: string) => void;
+  onToggleTheater: (theater: string) => void;
+}) {
+  if (loading) {
+    return <p className="text-gray-500 text-sm py-2">Loading screenings...</p>;
+  }
+
+  if (showtimes.length === 0) {
+    return (
+      <p className="text-gray-500 text-sm py-2">
+        No screenings available in your area right now.
+      </p>
+    );
+  }
+
+  const grouped = new Map<string, Showtime[]>();
+  for (const s of showtimes) {
+    const arr = grouped.get(s.theater) || [];
+    arr.push(s);
+    grouped.set(s.theater, arr);
+  }
+
+  const selectableCount = showtimes.filter((s) => !s.soldOut).length;
+
+  return (
+    <div className="space-y-3">
+      <label className="text-gray-400 text-sm">
+        Which screenings work for you? ({selectableCount} available)
+      </label>
+      <p className="text-gray-500 text-xs">
+        Select all that work — the more options you give us, the more likely we
+        can get you tickets.
+      </p>
+      {Array.from(grouped.entries()).map(([theater, rows]) => {
+        const selectableRows = rows.filter((s) => !s.soldOut);
+        const allSelected =
+          selectableRows.length > 0 &&
+          selectableRows.every((s) => selected.has(showtimeKey(s)));
+        return (
+        <div key={theater} className="bg-[#0a0a0a] p-3 border border-gray-800">
+          <div className="flex justify-between items-center mb-2">
+            <h4 className="text-white text-sm font-bold">{theater}</h4>
+            {selectableRows.length > 0 && (
+              <button
+                type="button"
+                onClick={() => onToggleTheater(theater)}
+                className="text-[#ff3600] text-xs underline"
+              >
+                {allSelected ? 'Deselect all' : 'Select all'}
+              </button>
+            )}
+          </div>
+          <ul className="divide-y divide-gray-800">
+            {rows.map((s) => {
+              const key = showtimeKey(s);
+              const isSelected = selected.has(key);
+              return (
+                <li key={key} className="py-1.5">
+                  <label
+                    className={`flex items-start gap-3 ${
+                      s.soldOut
+                        ? 'opacity-40 cursor-not-allowed'
+                        : 'cursor-pointer'
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      disabled={s.soldOut}
+                      checked={isSelected}
+                      onChange={() => onToggle(key)}
+                      className="mt-1"
+                    />
+                    <div className="text-sm">
+                      <span className="text-white">
+                        {formatDate(s.date)} &middot; {s.time}
+                      </span>
+                      {s.soldOut && (
+                        <span className="ml-2 text-xs uppercase text-gray-500">
+                          Sold out
+                        </span>
+                      )}
+                      {s.eventType && !s.soldOut && (
+                        <span className="block text-gray-500 text-xs">
+                          {s.eventType}
+                        </span>
+                      )}
+                    </div>
+                  </label>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        );
+      })}
     </div>
   );
 }

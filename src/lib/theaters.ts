@@ -81,11 +81,16 @@ async function readShowtimesCsv(): Promise<Showtime[]> {
   });
 }
 
-export async function getShowtimesForCity(city: string): Promise<Showtime[]> {
+export async function getShowtimesForCity(
+  city: string,
+  opts?: { startDate?: string; endDate?: string }
+): Promise<Showtime[]> {
   const all = await readShowtimesCsv();
   const today = new Date().toISOString().slice(0, 10);
+  const start = opts?.startDate && opts.startDate >= today ? opts.startDate : today;
+  const end = opts?.endDate;
   return all
-    .filter((s) => s.city === city && s.date >= today)
+    .filter((s) => s.city === city && s.date >= start && (!end || s.date <= end))
     .sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
 }
 

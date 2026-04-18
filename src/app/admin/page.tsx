@@ -29,6 +29,8 @@ interface Campaign {
   google_sheet_tab: string | null;
   fulfillment_email: string | null;
   fulfillment_cc_emails: string | null;
+  screening_start_date: string | null;
+  screening_end_date: string | null;
   is_active: boolean;
   created_at: string;
   entries?: { count: number }[];
@@ -53,6 +55,7 @@ interface Entry {
   booked_showtime: Showtime | null;
   fulfilled_at: string | null;
   notes: string | null;
+  selected_screenings: Showtime[] | null;
   created_at: string;
 }
 
@@ -113,6 +116,8 @@ export default function AdminPage() {
     eligible_cities: 'New York, Los Angeles',
     fulfillment_email: '',
     fulfillment_cc_emails: '',
+    screening_start_date: '',
+    screening_end_date: '',
     is_active: false,
   };
   const [formData, setFormData] = useState(emptyForm);
@@ -209,6 +214,8 @@ export default function AdminPage() {
       eligible_cities: campaign.eligible_cities.join(', '),
       fulfillment_email: campaign.fulfillment_email || '',
       fulfillment_cc_emails: campaign.fulfillment_cc_emails || '',
+      screening_start_date: campaign.screening_start_date || '',
+      screening_end_date: campaign.screening_end_date || '',
       is_active: campaign.is_active,
     });
     setShowForm(true);
@@ -229,6 +236,8 @@ export default function AdminPage() {
         ends_at: formData.ends_at || null,
         fulfillment_email: formData.fulfillment_email.trim() || null,
         fulfillment_cc_emails: formData.fulfillment_cc_emails.trim() || null,
+        screening_start_date: formData.screening_start_date || null,
+        screening_end_date: formData.screening_end_date || null,
         eligible_cities: formData.eligible_cities
           .split(',')
           .map((c) => c.trim())
@@ -719,6 +728,36 @@ export default function AdminPage() {
               </div>
 
               <div className="col-span-2 pt-2 border-t border-gray-800">
+                <h3 className="heading text-white text-sm mb-2">Screening date range</h3>
+                <p className="text-gray-500 text-xs mb-3">
+                  Only showtimes within this date range will appear on the entry form.
+                  Leave blank to show all upcoming showtimes.
+                </p>
+              </div>
+              <div>
+                <label className="text-gray-400 text-sm">Screening Start Date</label>
+                <input
+                  type="date"
+                  value={formData.screening_start_date}
+                  onChange={(e) =>
+                    setFormData({ ...formData, screening_start_date: e.target.value })
+                  }
+                  className="input"
+                />
+              </div>
+              <div>
+                <label className="text-gray-400 text-sm">Screening End Date</label>
+                <input
+                  type="date"
+                  value={formData.screening_end_date}
+                  onChange={(e) =>
+                    setFormData({ ...formData, screening_end_date: e.target.value })
+                  }
+                  className="input"
+                />
+              </div>
+
+              <div className="col-span-2 pt-2 border-t border-gray-800">
                 <h3 className="heading text-white text-sm mb-2">Fulfillment routing</h3>
                 <p className="text-gray-500 text-xs mb-3">
                   When a winner replies with their ticket request, a notification goes here.
@@ -1062,6 +1101,19 @@ export default function AdminPage() {
                                       </div>
                                     )}
                                   </div>
+
+                                  {entry.selected_screenings && entry.selected_screenings.length > 0 && (
+                                    <div>
+                                      <div className="text-gray-500 mb-1">Preferred screenings</div>
+                                      <ul className="list-disc pl-5">
+                                        {entry.selected_screenings.map((s, i) => (
+                                          <li key={i}>
+                                            {s.theater} — {s.date} {s.time}
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </div>
+                                  )}
 
                                   <div>
                                     <div className="text-gray-500 mb-1">Winner flow</div>

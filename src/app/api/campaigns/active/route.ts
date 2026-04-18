@@ -42,6 +42,8 @@ export async function GET() {
       starts_at: campaign.starts_at,
       ends_at: campaign.ends_at,
       winner_count: campaign.winner_count,
+      screening_start_date: campaign.screening_start_date || null,
+      screening_end_date: campaign.screening_end_date || null,
     });
   } catch (error) {
     console.error('Error fetching active campaign:', error);

@@ -5,6 +5,14 @@ import { sendConfirmationEmail } from '@/lib/email';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { z } from 'zod';
 
+const screeningSchema = z.object({
+  theater: z.string(),
+  date: z.string(),
+  time: z.string(),
+  eventType: z.string().optional(),
+  ticketLink: z.string().optional(),
+});
+
 const entrySchema = z.object({
   campaignSlug: z.string().min(1),
   name: z.string().min(1, 'Name is required'),
@@ -15,6 +23,7 @@ const entrySchema = z.object({
     message: 'You must confirm you are 17 or older',
   }),
   captchaToken: z.string().nullable().optional(),
+  selectedScreenings: z.array(screeningSchema).optional(),
 });
 
 export async function POST(request: NextRequest) {
@@ -31,7 +40,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { campaignSlug, name, email, phone, city, ageConfirmed, captchaToken } =
+    const { campaignSlug, name, email, phone, city, ageConfirmed, captchaToken, selectedScreenings } =
       parsed.data;
 
     // Rate limit check
@@ -130,6 +139,7 @@ export async function POST(request: NextRequest) {
         total_entries: 1,
         ip_address: ip,
         user_agent: request.headers.get('user-agent'),
+        selected_screenings: selectedScreenings?.length ? selectedScreenings : null,
       })
       .select()
       .single();
@@ -148,6 +158,9 @@ export async function POST(request: NextRequest) {
     let sheetError: string | undefined;
     if (sheetId) {
       try {
+        const screeningSummary = selectedScreenings?.length
+          ? selectedScreenings.map((s) => `${s.theater} ${s.date} ${s.time}`).join('; ')
+          : '';
         const result = await appendEntryToSheet(
           sheetId,
           (campaign.google_sheet_tab || campaign.slug).trim(),
@@ -157,6 +170,7 @@ export async function POST(request: NextRequest) {
             phone,
             city,
             totalEntries: 1,
+            selectedScreenings: screeningSummary,
           }
         );
         if (result.ok) {
